@@ -17,6 +17,11 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.pegjs$/,
+        exclude: /node_modules/,
+        loader: "pegjs-loader",
+      },
+      {
         test: /\.ts$/,
         exclude: /node_modules/,
         use: "ts-loader",
