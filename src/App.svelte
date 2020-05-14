@@ -5,10 +5,19 @@
   import { sum } from './sum.ts';
 
   let formulaString = "";
-  let formula = [];
+
+  let result = [];
+  let formulaError = undefined;
 
   function parse() {
-    formula = parser.parse(formulaString);
+    let formula = [];
+    try {
+      formula = parser.parse(formulaString);
+      formulaError = undefined;
+    } catch (error) {
+      formulaError = error;
+    }
+    result = roll(formula);
   }
 
 </script>
@@ -21,5 +30,13 @@
 </form>
 
 <div>
-  { sum(roll(formula)) }
+  Result: { JSON.stringify(result) }
+</div>
+
+<div>
+  Sum: { sum(result) }
+</div>
+
+<div>
+  { JSON.stringify(formulaError) }
 </div>
