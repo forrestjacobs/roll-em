@@ -23,8 +23,8 @@ Sign
   / "-" { return -1; }
 
 Value
-  = number: Integer? _ D _ sides: Integer
-    { return { type: "roll", number: number === null ? 1 : number, sides }; }
+  = count: Integer? _ D _ sides: Integer
+    { return { type: "roll", count: count === null ? 1 : count, sides }; }
   / value: Integer
     { return { type: "number", value }; }
 
