@@ -1,26 +1,28 @@
 Formula
-  = _ op: Op? _ head: Addend _ tail: AddendAndOpt*
+  = _ sign: Sign? _ head: Value _ tail: Term*
     {
       return [
         {
-          op: op || "+",
+          sign: sign || +1,
           ...head
         }
       ].concat(tail);
     }
 
-AddendAndOpt
-  = op: Op _ value: Addend _
+Term
+  = sign: Sign _ value: Value _
     {
       return {
-        op,
+        sign,
         ...value
       };
     }
 
-Op = "+" / "-"
+Sign
+  = "+" { return 1; }
+  / "-" { return -1; }
 
-Addend
+Value
   = number: Integer _ D _ sides: Integer
     { return { type: "roll", number, sides }; }
   / value: Integer
