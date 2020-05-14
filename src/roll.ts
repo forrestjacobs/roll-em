@@ -1,8 +1,11 @@
-import { dice, nativeMath } from "random-js";
 import { Formula, FormulaTerm, Result, ResultTerm, RollPlan } from "./Formula";
 
-function rollDice(term: RollPlan): number[] {
-  return dice(term.sides, term.count)(nativeMath);
+function rollDice({ count, sides }: RollPlan): number[] {
+  const value = [];
+  for (let rollIndex = 0; rollIndex < count; rollIndex++) {
+    value.push(Math.floor(Math.random() * sides) + 1);
+  }
+  return value;
 }
 
 function rollTerm(term: FormulaTerm): ResultTerm {
