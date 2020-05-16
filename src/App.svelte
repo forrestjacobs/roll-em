@@ -1,23 +1,23 @@
 <script>
 
+  import Result from './Result.svelte';
   import parser from './formula-parser.pegjs';
   import { roll } from './roll.ts';
-  import { sum } from './sum.ts';
 
   let formulaString = "";
 
-  let result = [];
+  let result = undefined;
   let formulaError = undefined;
 
   function parse() {
-    let formula = [];
     try {
-      formula = parser.parse(formulaString);
+      let formula = parser.parse(formulaString);
+      result = roll(formula);
       formulaError = undefined;
     } catch (error) {
+      result = undefined;
       formulaError = error;
     }
-    result = roll(formula);
   }
 
 </script>
@@ -27,16 +27,11 @@
 <form on:submit|preventDefault={parse}>
   <input type="text" bind:value={formulaString} id="formula-input" required placeholder="2d6 + 1d8 + 3" aria-label="Formula" />
   <button type="submit">Roll</button>
+  {#if formulaError}
+    <div>{ JSON.stringify(formulaError) }</div>
+  {/if}
 </form>
 
-<div>
-  Result: { JSON.stringify(result) }
-</div>
-
-<div>
-  Sum: { sum(result) }
-</div>
-
-<div>
-  { JSON.stringify(formulaError) }
-</div>
+{#if result}
+  <Result result={result} />
+{/if}
