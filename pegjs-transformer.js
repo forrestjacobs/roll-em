@@ -1,7 +1,8 @@
 const { generate } = require("pegjs");
+const { minify } = require("terser");
 
-const options = { format: "commonjs", output: "source" };
+const pegjsOptions = { format: "commonjs", output: "source" };
 
 module.exports = {
-  process: (source) => generate(source, options),
+  process: (source) => minify(generate(source, pegjsOptions)),
 };
