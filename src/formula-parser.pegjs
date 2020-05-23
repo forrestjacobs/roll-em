@@ -32,6 +32,6 @@ Integer "integer"
   = [0-9]+
     { return parseInt(text(), 10); }
 
-D = "d" / "D"
+D = [dD]
 
-_ "whitespace" = [ \t\n\r]*
+_ "whitespace" = [ \t]*
