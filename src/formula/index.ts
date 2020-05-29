@@ -1,8 +1,4 @@
-import parser from "./parser.pegjs";
-import { Formula } from "./types";
-
+export { parse } from "./parser.pegjs";
 export { roll } from "./roll";
 export { sum } from "./sum";
 export * from "./types";
-
-export const parse = parser.parse as (string: string) => Formula;

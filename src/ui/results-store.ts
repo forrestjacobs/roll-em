@@ -5,7 +5,7 @@ const { subscribe, update } = writable<Result[]>([]);
 
 export const resultsStore = {
   subscribe,
-  append(result: Result) {
+  append(result: Result): void {
     update((results) => [result].concat(results));
   },
 };
