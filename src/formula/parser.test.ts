@@ -1,4 +1,4 @@
-import parser from "./formula-parser.pegjs";
+import parser from "./parser.pegjs";
 
 test("It throws on an empty string", () => {
   expect(() => parser.parse("")).toThrow();

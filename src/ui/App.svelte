@@ -1,8 +1,7 @@
 <script>
 
+  import { parser, roll } from '../formula';
   import Result from './Result.svelte';
-  import parser from './formula-parser.pegjs';
-  import { roll } from './roll.ts';
 
   let formulaString = "";
 

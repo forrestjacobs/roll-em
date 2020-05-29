@@ -2,7 +2,7 @@
 
 <script>
 
-  import { sum } from './sum.ts';
+  import { sum } from '../formula';
 
   export let result = [];
 

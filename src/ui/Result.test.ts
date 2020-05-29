@@ -1,9 +1,9 @@
 import "@testing-library/jest-dom";
 import { render } from "@testing-library/svelte";
-import { NumberTerm, RollTerm } from "./Formula";
+import { NumberTerm, RollTerm } from "../formula";
 import Result from "./Result.svelte";
 
-jest.mock("./sum", () => ({
+jest.mock("../formula", () => ({
   sum: () => 999,
 }));
 

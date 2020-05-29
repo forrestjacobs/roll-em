@@ -1,4 +1,4 @@
-import { NumberTerm, RollPlan } from "./Formula";
+import { NumberTerm, RollPlan } from "./types";
 import { roll } from "./roll";
 
 jest.mock("./rng", () => ({

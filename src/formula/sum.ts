@@ -1,4 +1,4 @@
-import { Result, ResultTerm } from "./Formula";
+import { Result, ResultTerm } from "./types";
 
 function sumMap<T>(array: T[], mapper: (value: T) => number): number {
   return array.reduce((acc, value) => acc + mapper(value), 0);
