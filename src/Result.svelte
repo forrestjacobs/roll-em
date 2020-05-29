@@ -1,3 +1,5 @@
+<svelte:options immutable={true} />
+
 <script>
 
   import { sum } from './sum.ts';
@@ -14,9 +16,16 @@
 
 </style>
 
+{#if result.length === 0}
+  (empty)
+{/if}
 {#each result as term, termIndex}
+  {#if term.sign === -1}
+    {" -"}
+  {:else if termIndex !== 0}
+    {" +"}
+  {/if}
   <span class="term">
-    {term.sign === -1 ? "-" : termIndex === 0 ? "" : "+"}
     {#if term.type === "number"}
       {term.value}
     {:else}
