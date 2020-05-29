@@ -1,11 +1,17 @@
 import { writable } from "svelte/store";
 import { Result } from "../formula";
+import { id } from "../utils/id";
 
-const { subscribe, update } = writable<Result[]>([]);
+interface StoredResult {
+  id: string;
+  result: Result;
+}
+
+const { subscribe, update } = writable<StoredResult[]>([]);
 
 export const resultsStore = {
   subscribe,
   append(result: Result): void {
-    update((results) => [result].concat(results));
+    update((results) => [{ id: id(), result }].concat(results));
   },
 };

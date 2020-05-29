@@ -8,7 +8,7 @@
 
 <FormulaForm />
 
-{#each $resultsStore as result, termIndex}
+{#each $resultsStore as { result, id } (id)}
   <div>
     <Result {result} />
   </div>

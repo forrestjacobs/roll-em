@@ -1,5 +1,5 @@
 import { Formula, FormulaTerm, Result, ResultTerm, RollPlan } from "./types";
-import { randomInt } from "./rng";
+import { randomInt } from "../utils/rng";
 
 function rollDice({ count, sides }: RollPlan): number[] {
   const value = [];

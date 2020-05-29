@@ -1,7 +1,7 @@
 import { NumberTerm, RollPlan } from "./types";
 import { roll } from "./roll";
 
-jest.mock("./rng", () => ({
+jest.mock("../utils/rng", () => ({
   // Roll the highest possible number
   randomInt: (exclusiveMax: number) => exclusiveMax - 1,
 }));
