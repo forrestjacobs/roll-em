@@ -7,6 +7,7 @@
   "scripts": {
     "build": "webpack -p",
     "dev": "webpack-dev-server",
+    "format": "prettier --loglevel warn --write \"src/**/*.{ts,svelte,js,json}\"",
     "test": "jest"
   },
   "devDependencies": {
@@ -21,6 +22,8 @@
     "mini-css-extract-plugin": "^0.9.0",
     "pegjs": "^0.10.0",
     "pegjs-loader": "^0.5.6",
+    "prettier": "^2.0.5",
+    "prettier-plugin-svelte": "^1.1.0",
     "svelte": "^3.22.3",
     "svelte-jester": "^1.0.6",
     "svelte-loader": "^2.13.6",

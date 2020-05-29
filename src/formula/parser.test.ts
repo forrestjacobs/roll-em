@@ -2,7 +2,7 @@ import parser from "./parser.pegjs";
 
 test("It throws on an empty string", () => {
   expect(() => parser.parse("")).toThrow();
-})
+});
 
 test("It can parse a number", () => {
   expect(parser.parse("5")).toStrictEqual([
@@ -58,20 +58,20 @@ test("It can parse weird whitespace", () => {
 test("It throws when sides not specified", () => {
   expect(() => parser.parse("2d")).toThrow();
   expect(() => parser.parse("d")).toThrow();
-})
+});
 
 test("It throws when right hand not specified", () => {
   expect(() => parser.parse("2d4 +")).toThrow();
-})
+});
 
 test("It throws when left hand not specified", () => {
   expect(() => parser.parse("+")).toThrow();
-})
+});
 
 test("It throws when negative value not specified", () => {
   expect(() => parser.parse("-")).toThrow();
-})
+});
 
 test("It throws on junk input", () => {
   expect(() => parser.parse("lorem")).toThrow();
-})
+});
