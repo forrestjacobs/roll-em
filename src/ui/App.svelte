@@ -1,6 +1,6 @@
 <script>
 
-  import { parser, roll } from '../formula';
+  import { parse, roll } from '../formula';
   import Result from './Result.svelte';
 
   let formulaString = "";
@@ -8,9 +8,9 @@
   let result = undefined;
   let formulaError = undefined;
 
-  function parse() {
+  function submit() {
     try {
-      let formula = parser.parse(formulaString);
+      let formula = parse(formulaString);
       result = roll(formula);
       formulaError = undefined;
     } catch (error) {
@@ -23,7 +23,7 @@
 
 <h1>Dice</h1>
 
-<form on:submit|preventDefault={parse}>
+<form on:submit|preventDefault={submit}>
   <input type="text" bind:value={formulaString} id="formula-input" required placeholder="2d6 + 1d8 + 3" aria-label="Formula" />
   <button type="submit">Roll</button>
   {#if formulaError}
