@@ -1,26 +1,43 @@
 <script>
+  import { onMount } from "svelte";
+  import "codemirror/lib/codemirror.css";
+  import CodeMirror from "codemirror";
   import { parse, roll } from "../formula";
   import { resultsStore } from "./results-store";
 
-  let value = "";
+  let editorContainer = undefined;
+  let editor = undefined;
+
   let error = undefined;
 
   function submit() {
     try {
-      resultsStore.append(roll(parse(value)));
+      resultsStore.append(roll(parse(editor.getValue())));
     } catch (e) {
       error = e;
     }
   }
+
+  onMount(() => {
+    editor = CodeMirror(editorContainer, {
+      lineWrapping: true,
+      screenReaderLabel: "Formula",
+    });
+  });
 </script>
 
+<style>
+  .editor-container {
+    border: 1px solid #999;
+  }
+
+  .editor-container :global(.CodeMirror) {
+    height: auto;
+  }
+</style>
+
 <form on:submit|preventDefault={submit}>
-  <input
-    type="text"
-    bind:value
-    required
-    placeholder="2d6 + 1d8 + 3"
-    aria-label="Formula" />
+  <div class="editor-container" bind:this={editorContainer} />
   <button type="submit">Roll</button>
   {#if error}
     <div>{JSON.stringify(error)}</div>
