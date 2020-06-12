@@ -27,19 +27,33 @@
 </script>
 
 <style>
+  form {
+    display: flex;
+  }
+
   .editor-container {
+    flex-grow: 1;
     border: 1px solid #999;
   }
 
   .editor-container :global(.CodeMirror) {
     height: auto;
   }
+
+  form button[type="submit"] {
+    border: 0;
+    background-color: #94a;
+    color: white;
+    min-width: 7em;
+    flex-shrink: 0;
+  }
 </style>
 
 <form on:submit|preventDefault={submit}>
   <div class="editor-container" bind:this={editorContainer} />
   <button type="submit">Roll</button>
-  {#if error}
-    <div>{JSON.stringify(error)}</div>
-  {/if}
 </form>
+
+{#if error}
+  <div>{JSON.stringify(error)}</div>
+{/if}
