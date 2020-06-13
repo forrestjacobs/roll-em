@@ -28,10 +28,10 @@ Value
   / value: Integer
     { return { type: "number", value }; }
 
-Integer "integer"
+Integer "number"
   = [0-9]+
     { return parseInt(text(), 10); }
 
-D = [dD]
+D "\"d\"" = [dD]
 
-_ "whitespace" = [ \t]*
+_ "whitespace" = [ \t\r\n]*
