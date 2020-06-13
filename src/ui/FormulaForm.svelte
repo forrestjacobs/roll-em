@@ -7,14 +7,28 @@
 
   let editorContainer = undefined;
   let editor = undefined;
+  let errorMessage = undefined;
 
-  let error = undefined;
+  function toCodemirrorPos({ offset }) {
+    return editor.posFromIndex(offset);
+  }
 
   function submit() {
+    errorMessage = undefined;
     try {
       resultsStore.append(roll(parse(editor.getValue())));
     } catch (e) {
-      error = e;
+      if (e.message) {
+        errorMessage = e.message;
+        if (e.location) {
+          const { start, end } = e.location;
+          const m = editor.markText(toCodemirrorPos(start), toCodemirrorPos(end), {
+            className: "error-text",
+          });
+        }
+      } else {
+        throw e;
+      }
     }
   }
 
@@ -36,6 +50,12 @@
     border: 1px solid #999;
   }
 
+  .editor-container :global(.error-text) {
+    text-decoration-line: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: #900;
+  }
+
   .editor-container :global(.CodeMirror) {
     height: auto;
   }
@@ -47,6 +67,17 @@
     min-width: 7em;
     flex-shrink: 0;
   }
+
+  .error-message {
+    margin-top: 0.3125em;
+    font-size: 0.8em;
+    color: #900;
+  }
+
+  .error-message::before {
+    content: "⚠️";
+    padding-right: 0.25em;
+  }
 </style>
 
 <form on:submit|preventDefault={submit}>
@@ -54,6 +85,8 @@
   <button type="submit">Roll</button>
 </form>
 
-{#if error}
-  <div>{JSON.stringify(error)}</div>
+{#if errorMessage}
+<div class="error-message">
+  {errorMessage}
+</div>
 {/if}
