@@ -38,6 +38,9 @@
 
   onMount(() => {
     editor = CodeMirror(editorContainer, {
+      extraKeys: {
+        Enter: () => submit(),
+      },
       lineWrapping: true,
       screenReaderLabel: "Formula",
     });
