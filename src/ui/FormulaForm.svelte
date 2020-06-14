@@ -22,9 +22,13 @@
         errorMessage = e.message;
         if (e.location) {
           const { start, end } = e.location;
-          const m = editor.markText(toCodemirrorPos(start), toCodemirrorPos(end), {
-            className: "error-text",
-          });
+          const m = editor.markText(
+            toCodemirrorPos(start),
+            toCodemirrorPos(end),
+            {
+              className: "error-text",
+            }
+          );
         }
       } else {
         throw e;
@@ -86,7 +90,5 @@
 </form>
 
 {#if errorMessage}
-<div class="error-message">
-  {errorMessage}
-</div>
+  <div class="error-message">{errorMessage}</div>
 {/if}
