@@ -35,11 +35,18 @@ export function markError(
   editor: CodeMirror.Editor,
   range: LocationRange
 ): CodeMirror.TextMarker {
-  return editor.markText(
-    editor.posFromIndex(range.start.offset),
-    editor.posFromIndex(range.end.offset),
-    {
-      className: "error-text",
-    }
-  );
+  const start = range.start.offset;
+  const end = range.end.offset;
+
+  const startPos = editor.posFromIndex(start);
+  if (start === end) {
+    const widget = document.createElement("span");
+    widget.className = "error-bookmark";
+
+    return editor.setBookmark(startPos, { insertLeft: true, widget });
+  }
+
+  return editor.markText(startPos, editor.posFromIndex(end), {
+    className: "error-text",
+  });
 }

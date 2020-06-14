@@ -50,7 +50,17 @@
   }
 
   .editor-container :global(.error-text) {
-    box-shadow: inset 0 0 0 #fff, inset 0 -2px 0 #900;
+    box-shadow: inset 0 0 0 #fff, inset 0 -0.125em 0 #900;
+  }
+
+  .editor-container :global(.error-bookmark) {
+    display: inline-block;
+    position: relative;
+    left: -0.2em;
+    top: 0.375em;
+    border: 0.25em solid #fff;
+    border-top-width: 0;
+    border-bottom-color: #900;
   }
 
   .editor-container :global(.CodeMirror) {
