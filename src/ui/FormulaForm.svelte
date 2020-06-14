@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import "codemirror/lib/codemirror.css";
   import CodeMirror from "codemirror";
+  import "codemirror/addon/mode/simple.js";
   import { parse, roll } from "../formula";
   import { resultsStore } from "./results-store";
 
@@ -37,11 +38,20 @@
   }
 
   onMount(() => {
+    CodeMirror.defineSimpleMode("dice", {
+      start: [
+        {regex: /[0-9]+/, token: "number"},
+        {regex: /[+-]+/, token: "operator"},
+        {regex: /[dD]/, token: "keyword"},
+      ]
+    });
+
     editor = CodeMirror(editorContainer, {
       extraKeys: {
         Enter: () => submit(),
       },
       lineWrapping: true,
+      mode: "dice",
       screenReaderLabel: "Formula",
     });
   });
