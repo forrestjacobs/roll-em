@@ -47,10 +47,14 @@
 <style>
   form {
     display: flex;
+    padding: 1em;
+  }
+
+  .input-container {
+    flex-grow: 1;
   }
 
   .editor-container {
-    flex-grow: 1;
     border: 1px solid #999;
   }
 
@@ -67,14 +71,15 @@
   form button[type="submit"] {
     border: 0;
     background-color: #94a;
+    font-size: 1em;
     color: white;
-    min-width: 7em;
+    min-width: 8em;
     flex-shrink: 0;
   }
 
   .error-message {
-    margin-top: 0.3125em;
-    font-size: 0.8em;
+    padding: 0.3em 0;
+    font-size: 0.833em;
     color: #900;
   }
 
@@ -85,10 +90,11 @@
 </style>
 
 <form on:submit|preventDefault={submit}>
-  <div class="editor-container" bind:this={editorContainer} />
+  <div class="input-container">
+    <div class="editor-container" bind:this={editorContainer} />
+    {#if errorMessage}
+      <div class="error-message">{errorMessage}</div>
+    {/if}
+  </div>
   <button type="submit">Roll</button>
 </form>
-
-{#if errorMessage}
-  <div class="error-message">{errorMessage}</div>
-{/if}
