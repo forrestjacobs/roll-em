@@ -1,36 +1,29 @@
 <script>
   import { onMount } from "svelte";
   import "codemirror/lib/codemirror.css";
-  import CodeMirror from "codemirror";
-  import "codemirror/addon/mode/simple.js";
+  import { makeEditor, markError } from "./editor";
   import { parse, roll } from "../formula";
   import { resultsStore } from "./results-store";
 
   let editorContainer = undefined;
   let editor = undefined;
-  let errorMessage = undefined;
 
-  function toCodemirrorPos({ offset }) {
-    return editor.posFromIndex(offset);
-  }
+  let errorMessage = undefined;
+  let errorMark = undefined;
 
   function submit() {
     errorMessage = undefined;
+    if (errorMark) {
+      errorMark.clear();
+    }
+    errorMark = undefined;
+
     try {
       resultsStore.append(roll(parse(editor.getValue())));
     } catch (e) {
-      if (e.message) {
+      if (e.message && e.location) {
         errorMessage = e.message;
-        if (e.location) {
-          const { start, end } = e.location;
-          const m = editor.markText(
-            toCodemirrorPos(start),
-            toCodemirrorPos(end),
-            {
-              className: "error-text",
-            }
-          );
-        }
+        errorMark = markError(editor, e.location);
       } else {
         throw e;
       }
@@ -38,22 +31,7 @@
   }
 
   onMount(() => {
-    CodeMirror.defineSimpleMode("dice", {
-      start: [
-        {regex: /[0-9]+/, token: "number"},
-        {regex: /[+-]+/, token: "operator"},
-        {regex: /[dD]/, token: "keyword"},
-      ]
-    });
-
-    editor = CodeMirror(editorContainer, {
-      extraKeys: {
-        Enter: () => submit(),
-      },
-      lineWrapping: true,
-      mode: "dice",
-      screenReaderLabel: "Formula",
-    });
+    editor = makeEditor(editorContainer, submit);
   });
 </script>
 
