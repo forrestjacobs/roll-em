@@ -49,6 +49,10 @@
     border: 1px solid #999;
   }
 
+  .editor-container :global(.CodeMirror) {
+    font-family: inherit;
+  }
+
   .editor-container :global(.error-text) {
     box-shadow: inset 0 0 0 #fff, inset 0 -0.125em 0 #900;
   }
