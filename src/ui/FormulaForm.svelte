@@ -50,9 +50,7 @@
   }
 
   .editor-container :global(.error-text) {
-    text-decoration-line: underline;
-    text-decoration-style: wavy;
-    text-decoration-color: #900;
+    box-shadow: inset 0 0 0 #fff, inset 0 -2px 0 #900;
   }
 
   .editor-container :global(.CodeMirror) {
