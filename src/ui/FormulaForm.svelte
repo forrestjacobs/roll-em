@@ -49,15 +49,15 @@
 
 <style>
   form {
-    display: flex;
     padding: 1em;
   }
 
-  .input-container {
-    flex-grow: 1;
+  .row {
+    display: flex;
   }
 
   .editor-container {
+    flex-grow: 1;
     border: 1px solid #999;
   }
 
@@ -93,11 +93,11 @@
 </style>
 
 <form on:submit|preventDefault={submit}>
-  <div class="input-container">
+  <div class="row">
     <div class="editor-container" bind:this={editorContainer} />
-    {#if errorMessage}
-      <div class="error-message">{errorMessage}</div>
-    {/if}
+    <button type="submit">Roll</button>
   </div>
-  <button type="submit">Roll</button>
+  {#if errorMessage}
+    <div class="error-message">{errorMessage}</div>
+  {/if}
 </form>
