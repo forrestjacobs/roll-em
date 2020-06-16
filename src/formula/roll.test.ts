@@ -7,20 +7,17 @@ jest.mock("../utils/rng", () => ({
 }));
 
 const term2: NumberTerm = {
-  sign: 1,
   type: "number",
   value: 2,
 };
 
 const term2d4: RollPlan = {
-  sign: 1,
   type: "roll",
   count: 2,
   sides: 4,
 };
 
 const term3d6: RollPlan = {
-  sign: 1,
   type: "roll",
   count: 3,
   sides: 6,

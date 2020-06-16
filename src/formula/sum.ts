@@ -9,8 +9,7 @@ function id<T>(arg: T): T {
 }
 
 function sumTerm(term: ResultTerm): number {
-  const sum = term.type === "number" ? term.value : sumMap(term.value, id);
-  return term.sign * sum;
+  return term.type === "number" ? term.value : sumMap(term.value, id);
 }
 
 export function sum(result: Result): number {

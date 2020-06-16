@@ -1,37 +1,44 @@
 Formula
-  = _ sign: Sign? _ head: Value _ tail: Term*
+  = _ head: HeadTerm tail: TailTerm*
     {
-      return [
-        {
-          sign: sign || +1,
-          ...head
-        }
-      ].concat(tail);
+      tail.unshift(head);
+      return tail;
     }
 
-Term
-  = sign: Sign _ value: Value _
-    {
-      return {
-        sign,
-        ...value
-      };
-    }
+HeadTerm
+  = ("+" _)? value: DiceValue
+    { return value; }
+  / value: NegativeValue
+    { return value; }
+  / ("+" _)? value: PositiveValue
+    { return value; }
 
-Sign
-  = "+" { return 1; }
-  / "-" { return -1; }
+TailTerm
+  = "+" _ value: DiceValue
+    { return value; }
+  / value: NegativeValue
+    { return value; }
+  / "+" _ value: PositiveValue
+    { return value; }
 
-Value
-  = count: Integer? _ D _ sides: Integer
-    { return { type: "roll", count: count === null ? 1 : count, sides }; }
-  / value: Integer
+PositiveValue
+  = value: Integer _
     { return { type: "number", value }; }
+
+NegativeValue
+  = "-" _ value: Integer _
+    { return { type: "number", value: -value }; }
+
+DiceValue
+  = count: Integer? _ D _ sides: Integer _
+    { return { type: "roll", count: count === null ? 1 : count, sides }; }
 
 Integer "number"
   = [0-9]+
     { return parseInt(text(), 10); }
 
-D "\"d\"" = [dD]
+D "\"d\""
+  = [Dd]
 
-_ "whitespace" = [ \t\r\n]*
+_ "whitespace"
+  = [\t\n\r ]*

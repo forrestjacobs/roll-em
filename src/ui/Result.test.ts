@@ -9,13 +9,16 @@ jest.mock("../formula", () => ({
 }));
 
 const term2: NumberTerm = {
-  sign: 1,
   type: "number",
   value: 2,
 };
 
+const termNegative2: NumberTerm = {
+  type: "number",
+  value: -2,
+};
+
 const term2d4rolled1and4: RollTerm = {
-  sign: 1,
   type: "roll",
   count: 2,
   sides: 4,
@@ -42,19 +45,19 @@ test("It renders a dice formula", () => {
   const { container } = render(Result, {
     result: [term2d4rolled1and4],
   });
-  expect(container).toHaveTextContent(matchExactly("(2d4: 1 + 4) = 999"));
+  expect(container).toHaveTextContent(matchExactly("1 + 4 = 999"));
 });
 
 test("It renders multiple terms", () => {
   const { container } = render(Result, {
     result: [term2d4rolled1and4, term2],
   });
-  expect(container).toHaveTextContent(matchExactly("(2d4: 1 + 4) + 2 = 999"));
+  expect(container).toHaveTextContent(matchExactly("1 + 4 + 2 = 999"));
 });
 
 test("It renders subtracted terms", () => {
   const { container } = render(Result, {
-    result: [term2d4rolled1and4, { ...term2, sign: -1 }],
+    result: [term2d4rolled1and4, termNegative2],
   });
-  expect(container).toHaveTextContent(matchExactly("(2d4: 1 + 4) - 2 = 999"));
+  expect(container).toHaveTextContent(matchExactly("1 + 4 - 2 = 999"));
 });

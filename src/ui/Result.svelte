@@ -30,14 +30,32 @@
 
 <div class="result">
   <span class="components">
-    {#if result.length === 0}(empty){/if}
+    {#if result.length === 0}
+      <span class="empty">(empty)</span>
+    {/if}
+
     {#each result as term, termIndex}
-      {#if term.sign === -1}{' -'}{:else if termIndex !== 0}{' +'}{/if}
-      <span class="term">
-        {#if term.type === 'number'}
-          {term.value}
-        {:else}({term.count}d{term.sides}: {term.value.join(' + ')}){/if}
-      </span>
+      {#if termIndex != 0}{' '}{/if}
+
+      {#if term.type === 'number' && term.value < 0}
+        <span class="operator term-operator">-</span>
+      {:else if termIndex !== 0}
+        <span class="operator term-operator">+</span>
+      {/if}
+
+      {#if term.type === 'number'}
+        <span class="term number">{Math.abs(term.value)}</span>
+      {:else}
+        {#each term.value as value, valueIndex}
+          {#if valueIndex != 0}{' '}{/if}
+          {#if valueIndex !== 0}
+            <span class="operator dice-operator">+</span>
+          {/if}
+          <span class="term dice d{term.sides}" title="d{term.sides}">
+            {value}
+          </span>
+        {/each}
+      {/if}
     {/each}
   </span>
   <span class="equals">=</span>
