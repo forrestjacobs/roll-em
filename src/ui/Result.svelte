@@ -1,5 +1,6 @@
 <script>
   import { sum } from "../formula";
+  import DieRoll from "./DieRoll.svelte";
 
   export let result = [];
 </script>
@@ -17,16 +18,10 @@
     margin: -0.375em;
   }
 
-  .operator, .term {
+  .operator,
+  .term {
     line-height: 2em;
-    text-align: center;
     margin: 0.375em;
-  }
-
-  .term.dice {
-    width: 2em;
-    border-radius: 50%;
-    background: #FFF;
   }
 
   .dice-operator {
@@ -74,8 +69,8 @@
             {' '}
             <span class="operator dice-operator">+</span>
           {/if}
-          <span class="term dice d{term.sides}" title="d{term.sides}">
-            {value}
+          <span class="term dice" title="d{term.sides}">
+            <DieRoll sides={term.sides} {value} />
           </span>
         {/each}
       {/if}
