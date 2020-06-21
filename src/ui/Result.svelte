@@ -37,12 +37,14 @@
     flex-shrink: 0;
     line-height: 2em;
     padding: 0 0.5em;
+    width: 1em;
+    text-align: center;
   }
 
   .sum {
     flex-shrink: 0;
     line-height: 2em;
-    min-width: 8em;
+    min-width: 7em;
     font-weight: bold;
   }
 </style>

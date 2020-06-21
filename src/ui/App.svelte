@@ -15,7 +15,7 @@
   .container {
     padding: 3em 0;
     margin: 0 auto;
-    max-width: 42em;
+    max-width: 43.25em;
   }
 
   h1 {
