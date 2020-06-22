@@ -1,8 +1,10 @@
 import { Illustration } from "zdog";
 import { makeModel } from "./models";
 import { RADIUS } from "./models/consts";
+import { random } from "../utils/rng";
 
 const ANIMATION_LENGTH_MS = 1_000;
+const RAND_ROTATE_RANGE = Math.PI / 32;
 
 function makeIllustration(
   sides: number,
@@ -11,7 +13,13 @@ function makeIllustration(
   const illustration = new Illustration({
     element: canvas,
   });
-  illustration.addChild(makeModel(sides));
+
+  const model = makeModel(sides);
+  model.rotate.x = (random() - 0.5) * RAND_ROTATE_RANGE;
+  model.rotate.y = (random() - 0.5) * RAND_ROTATE_RANGE;
+  model.rotate.z = (random() - 0.5) * RAND_ROTATE_RANGE;
+
+  illustration.addChild(model);
   return illustration;
 }
 
