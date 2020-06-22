@@ -14,12 +14,13 @@
   export let value;
 
   let canvas = undefined;
+  let valueEl = undefined;
 
   onMount(() => {
     if (animated) {
-      animate(sides, canvas);
+      animate(sides, canvas, valueEl);
     } else {
-      render(sides, canvas);
+      render(sides, canvas, valueEl);
     }
   });
 </script>
@@ -30,6 +31,7 @@
     display: block;
     width: 44px;
     height: 44px;
+    overflow: hidden;
   }
 
   canvas,
@@ -47,5 +49,5 @@
 
 <span class="container">
   <canvas bind:this={canvas} width="44" height="44" />
-  <span class="value">{value}</span>
+  <span class="value" bind:this={valueEl}>{value}</span>
 </span>

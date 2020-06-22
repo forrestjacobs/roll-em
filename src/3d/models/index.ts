@@ -1,6 +1,8 @@
 import { Anchor } from "zdog";
 import { makeCube } from "./cube";
 
+export { LEN } from "./consts";
+
 const factories: { [sides: number]: () => Anchor } = {
   6: makeCube,
 };

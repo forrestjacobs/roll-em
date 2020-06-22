@@ -1,4 +1,5 @@
 export const RADIUS = 22;
+export const LEN = RADIUS * Math.SQRT2;
 
 const colors = ["#636", "#C25", "#E62", "#EA0", "#ED0"];
 

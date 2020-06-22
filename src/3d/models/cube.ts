@@ -1,7 +1,5 @@
 import { Anchor, Box } from "zdog";
-import { getColor, RADIUS } from "./consts";
-
-const LEN = RADIUS * Math.SQRT2;
+import { getColor, LEN } from "./consts";
 
 export function makeCube(): Anchor {
   return new Box({
