@@ -19,9 +19,14 @@
   }
 
   .operator,
-  .term {
-    line-height: 2em;
-    margin: 0.375em;
+  .number,
+  .dice {
+    line-height: 2.75em;
+  }
+
+  .operator,
+  .number {
+    margin: 0 0.375em;
   }
 
   .dice-operator {
@@ -62,14 +67,14 @@
       {/if}
 
       {#if term.type === 'number'}
-        <span class="term number">{Math.abs(term.value)}</span>
+        <span class="number">{Math.abs(term.value)}</span>
       {:else}
         {#each term.value as value, valueIndex}
           {#if valueIndex !== 0}
             {' '}
             <span class="operator dice-operator">+</span>
           {/if}
-          <span class="term dice" title="d{term.sides}">
+          <span class="dice" title="d{term.sides}">
             <DieRoll sides={term.sides} {value} />
           </span>
         {/each}
