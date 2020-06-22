@@ -58,13 +58,16 @@ export function animate(
 ): void {
   const illustration = makeIllustration(sides, canvas);
 
-  const start = Date.now();
-  function iter() {
-    const progress = Math.min(1, (Date.now() - start) / ANIMATION_LENGTH_MS);
+  let start: number | undefined;
+  function iter(now: number) {
+    if (start === undefined) {
+      start = now;
+    }
+    const progress = Math.min(1, (now - start) / ANIMATION_LENGTH_MS);
     renderIllustration(illustration, valueEl, progress);
     if (progress != 1) {
       requestAnimationFrame(iter);
     }
   }
-  iter();
+  requestAnimationFrame(iter);
 }
