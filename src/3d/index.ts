@@ -5,6 +5,7 @@ import { random } from "../utils/rng";
 
 const ANIMATION_LENGTH_MS = 1_000;
 const RAND_ROTATE_RANGE = Math.PI / 32;
+const HALF_PI = Math.PI;
 
 function makeIllustration(
   sides: number,
@@ -38,9 +39,13 @@ function renderIllustration(
   illustration.rotate.x = rotation;
   illustration.updateRenderGraph();
 
-  const valueYScale = Math.cos(rotation);
-  const valueTranslation = translation - LEN * Math.sin(rotation);
-  valueEl.style.transform = `matrix(1, 0, 0, ${valueYScale}, 0, ${valueTranslation})`;
+  if (rotation > HALF_PI) {
+    valueEl.style.transform = `matrix(1, 0, 0, 0, 0, 0)`;
+  } else {
+    const valueYScale = Math.cos(rotation);
+    const valueTranslation = translation - LEN * Math.sin(rotation);
+    valueEl.style.transform = `matrix(1, 0, 0, ${valueYScale}, 0, ${valueTranslation})`;
+  }
 }
 
 export function render(

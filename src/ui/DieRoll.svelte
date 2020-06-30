@@ -41,9 +41,13 @@
 
   .value {
     display: block;
+    left: 6px;
+    top: 6px;
     text-align: center;
-    width: 100%;
-    height: 100%;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    overflow: hidden;
   }
 </style>
 
