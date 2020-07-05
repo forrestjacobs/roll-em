@@ -1,11 +1,12 @@
-import { Illustration } from "zdog";
-import { makeModel } from "./models";
-import { RADIUS, LEN } from "./models/consts";
+import { Anchor, Illustration } from "zdog";
 import { random } from "../utils/rng";
+import { makeModel } from "./models";
+import { LEN, RADIUS } from "./models/consts";
 
 const ANIMATION_LENGTH_MS = 1_000;
-const RAND_ROTATE_RANGE = Math.PI / 32;
-const HALF_PI = Math.PI;
+const { PI } = Math;
+const RAND_ROTATE_RANGE = PI / 32;
+const HIDDEN_TRANSFORMATION = "matrix(1, 0, 0, 0, 0, 0)";
 
 function makeIllustration(
   sides: number,
@@ -15,12 +16,15 @@ function makeIllustration(
     element: canvas,
   });
 
-  const model = makeModel(sides);
-  model.rotate.x = (random() - 0.5) * RAND_ROTATE_RANGE;
-  model.rotate.y = (random() - 0.5) * RAND_ROTATE_RANGE;
-  model.rotate.z = (random() - 0.5) * RAND_ROTATE_RANGE;
+  const anchor = new Anchor();
+  anchor.rotate.x = (random() - 0.5) * RAND_ROTATE_RANGE;
+  anchor.rotate.y = (random() - 0.5) * RAND_ROTATE_RANGE;
+  anchor.rotate.z = (random() - 0.5) * RAND_ROTATE_RANGE;
 
-  illustration.addChild(model);
+  const model = makeModel(sides);
+  anchor.addChild(model);
+
+  illustration.addChild(anchor);
   return illustration;
 }
 
@@ -30,17 +34,15 @@ function renderIllustration(
   progress: number
 ): void {
   // ease out cubic -- see https://easings.net/#easeOutCubic
-  const y = Math.pow(1 - progress, 3);
-
-  const translation = -2 * RADIUS * y;
-  const rotation = 2 * y;
+  const rotation = 2 * Math.pow(1 - progress, 3);
+  const translation = RADIUS * -rotation;
 
   illustration.translate.y = translation;
   illustration.rotate.x = rotation;
   illustration.updateRenderGraph();
 
-  if (rotation > HALF_PI) {
-    valueEl.style.transform = `matrix(1, 0, 0, 0, 0, 0)`;
+  if (rotation > PI) {
+    valueEl.style.transform = HIDDEN_TRANSFORMATION;
   } else {
     const valueYScale = Math.cos(rotation);
     const valueTranslation = translation - LEN * Math.sin(rotation);
