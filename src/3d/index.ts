@@ -1,7 +1,7 @@
 import { Anchor, Illustration } from "zdog";
 import { random } from "../utils/rng";
-import { makeModel } from "./models";
-import { LEN, RADIUS } from "./models/consts";
+import { getLenth, makeModel } from "./models";
+import { RADIUS } from "./models/consts";
 
 const ANIMATION_LENGTH_MS = 1_000;
 const { PI } = Math;
@@ -29,6 +29,7 @@ function makeIllustration(
 }
 
 function renderIllustration(
+  sides: number,
   illustration: Illustration,
   valueEl: HTMLElement,
   progress: number
@@ -45,7 +46,7 @@ function renderIllustration(
     valueEl.style.transform = HIDDEN_TRANSFORMATION;
   } else {
     const valueYScale = Math.cos(rotation);
-    const valueTranslation = translation - LEN * Math.sin(rotation);
+    const valueTranslation = translation - getLenth(sides) * Math.sin(rotation);
     valueEl.style.transform = `matrix(1, 0, 0, ${valueYScale}, 0, ${valueTranslation})`;
   }
 }
@@ -55,7 +56,7 @@ export function render(
   canvas: HTMLCanvasElement,
   valueEl: HTMLElement
 ): void {
-  renderIllustration(makeIllustration(sides, canvas), valueEl, 1);
+  renderIllustration(sides, makeIllustration(sides, canvas), valueEl, 1);
 }
 
 export function animate(
@@ -71,7 +72,7 @@ export function animate(
       start = now;
     }
     const progress = Math.min(1, (now - start) / ANIMATION_LENGTH_MS);
-    renderIllustration(illustration, valueEl, progress);
+    renderIllustration(sides, illustration, valueEl, progress);
     if (progress != 1) {
       requestAnimationFrame(iter);
     }

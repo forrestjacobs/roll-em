@@ -1,15 +1,25 @@
 import { Anchor } from "zdog";
+import { LEN } from "./consts";
 import { makeCube } from "./cube";
+import { makeCylinder } from "./cylinder";
 import { makeSphere } from "./sphere";
 
-export { LEN } from "./consts";
-
 const factories: { [sides: number]: () => Anchor } = {
+  2: makeCylinder,
+  // 4: makeTetrahedron,
   6: makeCube,
+  // 8: makeOctahedron,
+  // 10: makeDecahedron,
+  // 12: makeDodecahedron,
+  // 20: makeIcosahedron,
   100: makeSphere,
 };
 
 export function makeModel(sides: number): Anchor {
   const factory = factories[sides];
   return factory ? factory() : new Anchor();
+}
+
+export function getLenth(sides: number): number {
+  return sides === 2 ? LEN / 4 : LEN;
 }
