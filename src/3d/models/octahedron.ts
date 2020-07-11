@@ -18,8 +18,8 @@ const faces = [
   makeFace(-2, v0, v5, v2),
   makeFace(-2, v1, v4, v2),
   makeFace(-1, v0, v2, v4),
-  makeFace(0, v1, v3, v4),
-  makeFace(1, v0, v4, v3),
+  makeFace(0, v0, v4, v3),
+  makeFace(1, v1, v3, v4),
   makeFace(2, v0, v3, v5),
 ];
 

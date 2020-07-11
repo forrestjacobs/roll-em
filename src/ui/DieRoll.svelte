@@ -46,8 +46,11 @@
     text-align: center;
     width: 32px;
     height: 32px;
-    line-height: 32px;
+    line-height: 28px;
     overflow: hidden;
+    color: #FFF;
+    font-weight: 600;
+    text-shadow: 0 -1px 2px #C25;
   }
 </style>
 
