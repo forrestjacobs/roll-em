@@ -15,12 +15,11 @@ const factories: { [sides: number]: () => Anchor } = {
   // 10: makeDecahedron,
   12: makeDodecahedron,
   // 20: makeIcosahedron,
-  100: makeSphere,
 };
 
 export function makeModel(sides: number): Anchor {
   const factory = factories[sides];
-  return factory ? factory() : new Anchor();
+  return factory ? factory() : makeSphere();
 }
 
 export function getLenth(sides: number): number {
