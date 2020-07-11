@@ -2,6 +2,7 @@ import { Anchor } from "zdog";
 import { LEN } from "./consts";
 import { makeCube } from "./cube";
 import { makeCylinder } from "./cylinder";
+import { makeDodecahedron } from "./dodecahedron";
 import { makeOctahedron } from "./octahedron";
 import { makeSphere } from "./sphere";
 import { makeTetrahedron } from "./tetrahedron";
@@ -12,7 +13,7 @@ const factories: { [sides: number]: () => Anchor } = {
   6: makeCube,
   8: makeOctahedron,
   // 10: makeDecahedron,
-  // 12: makeDodecahedron,
+  12: makeDodecahedron,
   // 20: makeIcosahedron,
   100: makeSphere,
 };

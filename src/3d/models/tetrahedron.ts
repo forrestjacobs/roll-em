@@ -15,9 +15,9 @@ const v2 = makeVert(-l, l, -l);
 const v3 = makeVert(l, -l, -l);
 
 const faces = [
-  makeFace(v0, v3, v2, -1),
-  makeFace(v0, v2, v1, 0),
-  makeFace(v0, v1, v3, 1),
+  makeFace(-1, v0, v3, v2),
+  makeFace(0, v0, v2, v1),
+  makeFace(1, v0, v1, v3),
 ];
 
 export function makeTetrahedron(): Anchor {

@@ -1,17 +1,12 @@
-import { Anchor, Shape, ShapeOptions, VectorOptions } from "zdog";
+import { Anchor, PathCommand, Shape, ShapeOptions, VectorOptions } from "zdog";
 import { getColor } from "./consts";
 
 export function makeVert(x: number, y: number, z: number): VectorOptions {
   return { x, y, z };
 }
 
-export function makeFace(
-  v1: VectorOptions,
-  v2: VectorOptions,
-  v3: VectorOptions,
-  relativeColorValue: number
-): ShapeOptions {
-  return { path: [v1, v2, v3], color: getColor(relativeColorValue) };
+export function makeFace(relColor: number, ...p: PathCommand[]): ShapeOptions {
+  return { path: p, color: getColor(relColor) };
 }
 
 export function makePolyhedron(faces: ShapeOptions[]): Anchor {

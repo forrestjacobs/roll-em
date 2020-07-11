@@ -15,12 +15,12 @@ const v4 = makeVert(0, 0, RADIUS);
 const v5 = makeVert(0, 0, -RADIUS);
 
 const faces = [
-  makeFace(v0, v5, v2, -2),
-  makeFace(v1, v4, v2, -2),
-  makeFace(v0, v2, v4, -1),
-  makeFace(v1, v3, v4, 0),
-  makeFace(v0, v4, v3, 1),
-  makeFace(v0, v3, v5, 2),
+  makeFace(-2, v0, v5, v2),
+  makeFace(-2, v1, v4, v2),
+  makeFace(-1, v0, v2, v4),
+  makeFace(0, v1, v3, v4),
+  makeFace(1, v0, v4, v3),
+  makeFace(2, v0, v3, v5),
 ];
 
 export function makeOctahedron(): Anchor {
