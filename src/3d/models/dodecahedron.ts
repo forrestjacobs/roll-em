@@ -2,6 +2,11 @@ import { Anchor } from "zdog";
 import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
 import { RADIUS } from "./consts";
 
+/**
+ * Based off of https://github.com/mrdoob/three.js/blob/master/src/geometries/DodecahedronGeometry.js
+ * which is licensed under the MIT License.
+ */
+
 const l = RADIUS / Math.sqrt(3);
 const t = (l * (1 + Math.sqrt(5))) / 2;
 const r = (l * l) / t;
