@@ -2,10 +2,15 @@ import "@testing-library/jest-dom";
 import { render } from "@testing-library/svelte";
 import escapeStringRegexp from "escape-string-regexp";
 import { NumberTerm, RollTerm } from "../formula";
+import MockDieRoll from "./MockDieRoll.svelte";
 import Result from "./Result.svelte";
 
 jest.mock("../formula", () => ({
   sum: () => 999,
+}));
+
+jest.mock("./DieRoll.svelte", () => ({
+  default: MockDieRoll
 }));
 
 const term2: NumberTerm = {
@@ -45,19 +50,23 @@ test("It renders a dice formula", () => {
   const { container } = render(Result, {
     result: [term2d4rolled1and4],
   });
-  expect(container).toHaveTextContent(matchExactly("1 + 4 = 999"));
+  expect(container).toHaveTextContent(matchExactly("[d4: 1] + [d4: 4] = 999"));
 });
 
 test("It renders multiple terms", () => {
   const { container } = render(Result, {
     result: [term2d4rolled1and4, term2],
   });
-  expect(container).toHaveTextContent(matchExactly("1 + 4 + 2 = 999"));
+  expect(container).toHaveTextContent(
+    matchExactly("[d4: 1] + [d4: 4] + 2 = 999")
+  );
 });
 
 test("It renders subtracted terms", () => {
   const { container } = render(Result, {
     result: [term2d4rolled1and4, termNegative2],
   });
-  expect(container).toHaveTextContent(matchExactly("1 + 4 - 2 = 999"));
+  expect(container).toHaveTextContent(
+    matchExactly("[d4: 1] + [d4: 4] - 2 = 999")
+  );
 });
