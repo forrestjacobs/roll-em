@@ -4,7 +4,7 @@ import { RADIUS } from "./consts";
 
 /**
  * Based off of http://www.georgehart.com/virtual-polyhedra/vrml/pentagonal_trapezohedron.wrl
- * which includes this copyright statement:
+ * which includes this statement:
  * (c) George W. Hart, 1997.  george@li.net
  * Dept. Computer Science, Hofstra University.
  * Freely distributable for noncommercial purposes.

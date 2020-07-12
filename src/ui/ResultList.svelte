@@ -35,6 +35,8 @@
   </ol>
 
   <div class="clear-row">
-    <button class="show-as-link" on:click={resultsStore.clear}>Clear History</button>
+    <button class="show-as-link" on:click={resultsStore.clear}>
+      Clear History
+    </button>
   </div>
 {/if}

@@ -102,7 +102,6 @@
   .examples {
     padding-top: 1em;
   }
-
 </style>
 
 <form on:submit|preventDefault={submit}>
@@ -116,16 +115,40 @@
 
   <div class="examples">
     {#if showExamples || $resultsStore.length === 0}
-      <h2>Examples
+      <h2>
+        Examples
         {#if $resultsStore.length !== 0}
-          <button class="show-as-link" on:click|preventDefault={() => showExamples = false}>(Hide)</button>
+          <button
+            class="show-as-link"
+            on:click|preventDefault={() => (showExamples = false)}>
+            (Hide)
+          </button>
         {/if}
       </h2>
-      <p><button class="show-as-link" on:click={() => tryExample("2d6")}>2d6</button>: roll two six-sided dice.</p>
-      <p><button class="show-as-link" on:click={() => tryExample("d8 + d6")}>d8 + d6</button>: roll an eight-sided die and a six-sided die.</p>
-      <p><button class="show-as-link" on:click={() => tryExample("d20 + 2")}>d20 + 2</button>: roll one twenty-sided die and add two to the result.</p>
+      <p>
+        <button class="show-as-link" on:click={() => tryExample('2d6')}>
+          2d6
+        </button>
+        : roll two six-sided dice.
+      </p>
+      <p>
+        <button class="show-as-link" on:click={() => tryExample('d8 + d6')}>
+          d8 + d6
+        </button>
+        : roll an eight-sided die and a six-sided die.
+      </p>
+      <p>
+        <button class="show-as-link" on:click={() => tryExample('d20 + 2')}>
+          d20 + 2
+        </button>
+        : roll one twenty-sided die and add two to the result.
+      </p>
     {:else}
-      <button class="show-as-link" on:click|preventDefault={() => showExamples = true}>Show examples</button>
+      <button
+        class="show-as-link"
+        on:click|preventDefault={() => (showExamples = true)}>
+        Show examples
+      </button>
     {/if}
   </div>
 </form>
