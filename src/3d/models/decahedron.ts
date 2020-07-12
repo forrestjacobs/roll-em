@@ -47,8 +47,8 @@ export function makeDecahedron(): Anchor {
   container.scale.multiply({
     x: RADIUS,
     y: RADIUS * 0.6,
-    z: RADIUS
-  })
+    z: RADIUS,
+  });
   container.rotate.x = -Math.PI / 10;
   return container;
 }

@@ -10,7 +10,7 @@ jest.mock("../formula", () => ({
 }));
 
 jest.mock("./DieRoll.svelte", () => ({
-  default: MockDieRoll
+  default: MockDieRoll,
 }));
 
 const term2: NumberTerm = {

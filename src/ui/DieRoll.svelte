@@ -48,9 +48,9 @@
     height: 32px;
     line-height: 30px;
     overflow: hidden;
-    color: #FFF;
+    color: #fff;
     font-weight: 600;
-    text-shadow: 0 -1px 1px #C25;
+    text-shadow: 0 -1px 1px #c25;
   }
 </style>
 
