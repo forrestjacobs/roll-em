@@ -1,16 +1,27 @@
 const path = require("path");
 
+const TerserPlugin = require("terser-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: "./src/index.ts",
+  optimization: {
+    minimizer: [
+      new TerserPlugin(),
+      new OptimizeCSSAssetsPlugin({})
+    ]
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: "Dice",
+      inlineSource: ".(js|css)$",
     }),
+    new HtmlWebpackInlineSourcePlugin(HtmlWebpackPlugin),
     new MiniCssExtractPlugin(),
   ],
   devtool: "source-map",
@@ -50,7 +61,6 @@ module.exports = {
     mainFields: ["svelte", "browser", "module", "main"],
   },
   output: {
-    filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
 };
