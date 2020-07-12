@@ -30,6 +30,10 @@
     }
   }
 
+  function fill(value) {
+    editor.setValue(value);
+  }
+
   onMount(() => {
     editor = makeEditor(editorContainer, submit);
   });
@@ -90,6 +94,17 @@
     content: "⚠️";
     padding-right: 0.25em;
   }
+
+  h2 {
+    font-size: 1em;
+    margin-bottom: 0.25em;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.833em;
+  }
+
 </style>
 
 <form on:submit|preventDefault={submit}>
@@ -99,5 +114,9 @@
   </div>
   {#if errorMessage}
     <div class="error-message">{errorMessage}</div>
+  {:else if $resultsStore.length === 0}
+    <h2>Examples</h2>
+    <p><button on:click={() => fill("2d6")}>2d6</button>: roll two six-sided dice.</p>
+    <p><button on:click={() => fill("d20 + 2")}>d20 + 2</button>: roll one twenty-sided die and add two to the result.</p>
   {/if}
 </form>
