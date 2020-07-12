@@ -45,7 +45,7 @@ export function makeDecahedron(): Anchor {
   const container = new Anchor();
   container.addChild(poly);
   container.scale.multiply({
-    x: RADIUS,
+    x: RADIUS * 0.9,
     y: RADIUS * 0.6,
     z: RADIUS,
   });
