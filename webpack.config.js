@@ -7,6 +7,8 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const isProd = process.env.NODE_ENV === "production";
+
 module.exports = {
   entry: "./src/index.ts",
   optimization: {
@@ -21,9 +23,9 @@ module.exports = {
       title: "Dice",
       inlineSource: ".(js|css)$",
     }),
-    new HtmlWebpackInlineSourcePlugin(HtmlWebpackPlugin),
+    isProd && new HtmlWebpackInlineSourcePlugin(HtmlWebpackPlugin),
     new MiniCssExtractPlugin(),
-  ],
+  ].filter(p => p),
   devtool: "source-map",
   module: {
     rules: [
