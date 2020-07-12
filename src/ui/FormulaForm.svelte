@@ -8,6 +8,7 @@
   let editorContainer = undefined;
   let editor = undefined;
 
+  let showExamples = false;
   let errorMessage = undefined;
   let errorMark = undefined;
 
@@ -20,6 +21,7 @@
 
     try {
       resultsStore.append(roll(parse(editor.getValue())));
+      editor.execCommand("selectAll");
     } catch (e) {
       if (e.message && e.location) {
         errorMessage = e.message;
@@ -30,8 +32,10 @@
     }
   }
 
-  function fill(value) {
+  function tryExample(value) {
+    showExamples = true;
     editor.setValue(value);
+    editor.focus();
   }
 
   onMount(() => {
@@ -95,14 +99,8 @@
     padding-right: 0.25em;
   }
 
-  h2 {
-    font-size: 1em;
-    margin-bottom: 0.25em;
-  }
-
-  p {
-    margin: 0;
-    font-size: 0.833em;
+  .examples {
+    padding-top: 1em;
   }
 
 </style>
@@ -114,9 +112,20 @@
   </div>
   {#if errorMessage}
     <div class="error-message">{errorMessage}</div>
-  {:else if $resultsStore.length === 0}
-    <h2>Examples</h2>
-    <p><button on:click={() => fill("2d6")}>2d6</button>: roll two six-sided dice.</p>
-    <p><button on:click={() => fill("d20 + 2")}>d20 + 2</button>: roll one twenty-sided die and add two to the result.</p>
   {/if}
+
+  <div class="examples">
+    {#if showExamples || $resultsStore.length === 0}
+      <h2>Examples
+        {#if $resultsStore.length !== 0}
+          <button class="show-as-link" on:click|preventDefault={() => showExamples = false}>(Hide)</button>
+        {/if}
+      </h2>
+      <p><button class="show-as-link" on:click={() => tryExample("2d6")}>2d6</button>: roll two six-sided dice.</p>
+      <p><button class="show-as-link" on:click={() => tryExample("d8 + d6")}>d8 + d6</button>: roll an eight-sided die and a six-sided die.</p>
+      <p><button class="show-as-link" on:click={() => tryExample("d20 + 2")}>d20 + 2</button>: roll one twenty-sided die and add two to the result.</p>
+    {:else}
+      <button class="show-as-link" on:click|preventDefault={() => showExamples = true}>Show examples</button>
+    {/if}
+  </div>
 </form>

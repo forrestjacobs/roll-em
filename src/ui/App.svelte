@@ -12,6 +12,27 @@
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
 
+  :global(button.show-as-link) {
+    background: none !important;
+    border: none;
+    border-bottom: 2px solid #999;
+    padding: 0! important;
+    font-size: 1em;
+    font-family: unset;
+    color: #94a;
+    cursor: pointer;
+  }
+
+  :global(h2) {
+    font-size: 1em;
+    margin: 0;
+  }
+
+  :global(p) {
+    margin: 0;
+    font-size: 0.833em;
+  }
+
   .container {
     padding: 3em 0;
     margin: 0 auto;

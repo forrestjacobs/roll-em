@@ -22,6 +22,7 @@ export function makeEditor(
   submit: () => void
 ): CodeMirror.Editor {
   return CodeMirror(container, {
+    autofocus: true,
     extraKeys: {
       Enter: (): void => submit(),
     },
