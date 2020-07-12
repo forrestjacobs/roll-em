@@ -11,7 +11,7 @@ export function makeSphere(): Anchor {
     diameter: DIAMETER,
     stroke: false,
     color: getColor(0),
-    backface: getColor(-2),
+    backface: getColor(-1),
   });
 
   new Hemisphere({
@@ -21,11 +21,11 @@ export function makeSphere(): Anchor {
     },
     diameter: DIAMETER,
     stroke: false,
-    color: getColor(-2),
+    color: getColor(-1),
     backface: getColor(0),
   });
 
-  addTo.rotate.x = Math.PI / 8;
+  addTo.rotate.x = Math.PI / 4;
 
   return addTo;
 }
