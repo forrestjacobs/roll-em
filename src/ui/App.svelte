@@ -99,12 +99,15 @@
       <a href="https://creativecommons.org/licenses/by-nc/4.0" class="img-link">
         <img
           class="cc-img"
+          alt=""
           src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" />
         <img
           class="cc-img"
+          alt=""
           src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" />
         <img
           class="cc-img"
+          alt=""
           src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" />
       </a>
     </p>
