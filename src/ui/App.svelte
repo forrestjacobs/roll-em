@@ -12,6 +12,12 @@
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
 
+  :global(a) {
+    color: #94a;
+    text-decoration: none;
+    border-bottom: 2px solid #999;
+  }
+
   :global(button.show-as-link) {
     background: none !important;
     border: none;
@@ -34,14 +40,17 @@
   }
 
   .container {
-    padding: 3em 0;
+    padding: 2em 0;
     margin: 0 auto;
     max-width: 43.25em;
   }
 
+  .row {
+    padding: 1em 1em 0 1em;
+  }
+
   h1 {
     margin: 0;
-    padding: 0 0.667em;
     font-weight: normal;
     font-size: 1.5em;
   }
@@ -49,7 +58,10 @@
 
 <div class="container">
 
-  <h1>Dice</h1>
+  <div class="row">
+    <h1>Roll 'Em</h1>
+    <p>Enter the dice you want to roll using <a href="https://en.wikipedia.org/wiki/Dice_notation">dice notation</a> and press <em>Roll</em>:</p>
+  </div>
 
   <FormulaForm />
 

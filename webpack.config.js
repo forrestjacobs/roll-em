@@ -20,7 +20,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: "Dice",
+      title: "Roll 'Em",
       inlineSource: ".(js|css)$",
     }),
     isProd && new HtmlWebpackInlineSourcePlugin(HtmlWebpackPlugin),
