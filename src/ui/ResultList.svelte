@@ -4,6 +4,10 @@
 </script>
 
 <style>
+  h2 {
+    display: none;
+  }
+
   ol {
     margin: 0;
     padding: 1em 0;
@@ -18,6 +22,8 @@
     padding: 1em;
   }
 </style>
+
+<h2>Results</h2>
 
 {#if $resultsStore.length !== 0}
   <ol>
