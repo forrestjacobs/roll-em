@@ -1,9 +1,10 @@
 import { Anchor, Illustration } from "zdog";
-import { random } from "../utils/rng";
+import { random, randomInt } from "../utils/rng";
 import { getLenth, makeModel } from "./models";
 import { RADIUS } from "./models/consts";
 
-const ANIMATION_LENGTH_MS = 1_000;
+const MAX_INITIAL_PAUSE = 125;
+const ANIMATION_LENGTH_MS = 500;
 const { PI } = Math;
 const RAND_ROTATE_RANGE = PI / 32;
 const HIDDEN_TRANSFORMATION = "matrix(1, 0, 0, 0, 0, 0)";
@@ -65,6 +66,7 @@ export function animate(
   valueEl: HTMLElement
 ): void {
   const illustration = makeIllustration(sides, canvas);
+  valueEl.style.transform = HIDDEN_TRANSFORMATION;
 
   let start: number | undefined;
   function iter(now: number) {
@@ -77,5 +79,6 @@ export function animate(
       requestAnimationFrame(iter);
     }
   }
-  requestAnimationFrame(iter);
+
+  setTimeout(() => requestAnimationFrame(iter), randomInt(MAX_INITIAL_PAUSE));
 }
