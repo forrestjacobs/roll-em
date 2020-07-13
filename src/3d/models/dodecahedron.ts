@@ -1,6 +1,6 @@
 import { Anchor } from "zdog";
+import { BLUE, RADIUS } from "./consts";
 import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
-import { RADIUS } from "./consts";
 
 /**
  * Based off of https://github.com/mrdoob/three.js/blob/master/src/geometries/DodecahedronGeometry.js
@@ -42,20 +42,20 @@ const v18 = makeVert(-t, 0, r);
 const v19 = makeVert(t, 0, r);
 
 const faces = [
-  makeFace(2, v11, v09, v05, v19, v07),
-  makeFace(1, v18, v01, v09, v11, v03),
-  makeFace(0, v03, v11, v07, v15, v13),
-  makeFace(0, v07, v19, v17, v06, v15),
-  makeFace(-1, v02, v16, v18, v03, v13),
-  makeFace(-1, v06, v10, v02, v13, v15),
+  makeFace(BLUE, 2, v11, v09, v05, v19, v07),
+  makeFace(BLUE, 1, v18, v01, v09, v11, v03),
+  makeFace(BLUE, 0, v03, v11, v07, v15, v13),
+  makeFace(BLUE, 0, v07, v19, v17, v06, v15),
+  makeFace(BLUE, -1, v02, v16, v18, v03, v13),
+  makeFace(BLUE, -1, v06, v10, v02, v13, v15),
 
-  makeFace(-2, v17, v04, v08, v10, v06),
-  makeFace(-2, v08, v00, v16, v02, v10),
+  makeFace(BLUE, -2, v17, v04, v08, v10, v06),
+  makeFace(BLUE, -2, v08, v00, v16, v02, v10),
   // Not visible:
-  // makeFace(-2, v00, v12, v01, v18, v16),
-  // makeFace(-2, v04, v14, v12, v00, v08),
-  // makeFace(-2, v19, v05, v14, v04, v17),
-  // makeFace(-2, v01, v12, v14, v05, v09),
+  // makeFace(BLUE, -2, v00, v12, v01, v18, v16),
+  // makeFace(BLUE, -2, v04, v14, v12, v00, v08),
+  // makeFace(BLUE, -2, v19, v05, v14, v04, v17),
+  // makeFace(BLUE, -2, v01, v12, v14, v05, v09),
 ];
 
 export function makeDodecahedron(): Anchor {

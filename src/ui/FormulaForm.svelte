@@ -81,7 +81,7 @@
 
   form button[type="submit"] {
     border: 0;
-    background-color: #94a;
+    background-color: #636;
     font-size: 1em;
     color: white;
     min-width: 8em;

@@ -13,7 +13,7 @@
   }
 
   :global(a) {
-    color: #94a;
+    color: #636;
     text-decoration: none;
     border-bottom: 2px solid #999;
   }
@@ -25,7 +25,7 @@
     padding: 0 !important;
     font-size: 1em;
     font-family: unset;
-    color: #94a;
+    color: #636;
     cursor: pointer;
   }
 

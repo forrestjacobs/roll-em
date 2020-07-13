@@ -1,5 +1,5 @@
 import { Anchor } from "zdog";
-import { RADIUS } from "./consts";
+import { MAGENTA, RADIUS } from "./consts";
 import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
 
 /**
@@ -15,12 +15,12 @@ const v4 = makeVert(0, 0, RADIUS);
 const v5 = makeVert(0, 0, -RADIUS);
 
 const faces = [
-  makeFace(-2, v0, v5, v2),
-  makeFace(-2, v1, v4, v2),
-  makeFace(-1, v0, v2, v4),
-  makeFace(0, v0, v4, v3),
-  makeFace(1, v1, v3, v4),
-  makeFace(2, v0, v3, v5),
+  makeFace(MAGENTA, -2, v0, v5, v2),
+  makeFace(MAGENTA, -2, v1, v4, v2),
+  makeFace(MAGENTA, -1, v0, v2, v4),
+  makeFace(MAGENTA, 0, v0, v4, v3),
+  makeFace(MAGENTA, 1, v1, v3, v4),
+  makeFace(MAGENTA, 2, v0, v3, v5),
 ];
 
 export function makeOctahedron(): Anchor {

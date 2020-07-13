@@ -1,5 +1,5 @@
 import { Anchor } from "zdog";
-import { RADIUS } from "./consts";
+import { ORANGE, RADIUS } from "./consts";
 import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
 
 /**
@@ -15,9 +15,9 @@ const v2 = makeVert(-l, l, -l);
 const v3 = makeVert(l, -l, -l);
 
 const faces = [
-  makeFace(-1, v0, v3, v2),
-  makeFace(0, v0, v2, v1),
-  makeFace(1, v0, v1, v3),
+  makeFace(ORANGE, -1, v0, v3, v2),
+  makeFace(ORANGE, 0, v0, v2, v1),
+  makeFace(ORANGE, 1, v0, v1, v3),
 ];
 
 export function makeTetrahedron(): Anchor {

@@ -1,5 +1,5 @@
 import { Anchor, Cylinder } from "zdog";
-import { getColor, LEN, RADIUS } from "./consts";
+import { getColor, LEN, RADIUS, YELLOW } from "./consts";
 
 const DIAMETER = 1.8 * RADIUS;
 
@@ -8,7 +8,7 @@ export function makeCylinder(): Anchor {
     diameter: DIAMETER,
     length: LEN / 4,
     stroke: false,
-    color: getColor(-1),
-    backface: getColor(0),
+    color: getColor(YELLOW, -1),
+    backface: getColor(YELLOW, 0),
   });
 }

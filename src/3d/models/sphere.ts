@@ -1,5 +1,5 @@
 import { Anchor, Hemisphere } from "zdog";
-import { getColor, RADIUS } from "./consts";
+import { getColor, RADIUS, GREEN } from "./consts";
 
 const DIAMETER = 1.8 * RADIUS;
 
@@ -10,8 +10,8 @@ export function makeSphere(): Anchor {
     addTo,
     diameter: DIAMETER,
     stroke: false,
-    color: getColor(0),
-    backface: getColor(-1),
+    color: getColor(GREEN, 0),
+    backface: getColor(GREEN, -1),
   });
 
   new Hemisphere({
@@ -21,8 +21,8 @@ export function makeSphere(): Anchor {
     },
     diameter: DIAMETER,
     stroke: false,
-    color: getColor(-1),
-    backface: getColor(0),
+    color: getColor(GREEN, -1),
+    backface: getColor(GREEN, 0),
   });
 
   addTo.rotate.x = Math.PI / 4;
