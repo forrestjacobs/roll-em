@@ -34,6 +34,11 @@
     margin: 0 0.375em;
   }
 
+  .overflow {
+    font-style: italic;
+    margin-right: 0.375em;
+  }
+
   .dice-operator {
     display: none;
   }
