@@ -23,9 +23,11 @@
       resultsStore.append(roll(parse(editor.getValue())));
       editor.execCommand("selectAll");
     } catch (e) {
-      if (e.message && e.location) {
+      if (e.message) {
         errorMessage = e.message;
-        errorMark = markError(editor, e.location);
+        if (e.location) {
+          errorMark = markError(editor, e.location);
+        }
       } else {
         throw e;
       }
