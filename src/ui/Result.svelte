@@ -1,3 +1,7 @@
+<script context="module">
+  const MAX_DICE_TO_SHOW_PER_TERM = 15;
+</script>
+
 <script>
   import { sum } from "../formula";
   import DieRoll from "./DieRoll.svelte";
@@ -20,6 +24,7 @@
 
   .operator,
   .number,
+  .overflow,
   .dice {
     line-height: 2.75em;
   }
@@ -70,13 +75,21 @@
         <span class="number">{Math.abs(term.value)}</span>
       {:else}
         {#each term.value as value, valueIndex}
-          {#if valueIndex !== 0}
+          {#if valueIndex < MAX_DICE_TO_SHOW_PER_TERM}
+            {#if valueIndex !== 0}
+              {' '}
+              <span class="operator dice-operator">+</span>
+            {/if}
+            <span class="dice" title="d{term.sides}">
+              <DieRoll sides={term.sides} {value} />
+            </span>
+          {:else if valueIndex === MAX_DICE_TO_SHOW_PER_TERM}
             {' '}
-            <span class="operator dice-operator">+</span>
+            <span class="operator overflow-operator">+</span>
+            <span class="overflow">
+              {term.value.length - MAX_DICE_TO_SHOW_PER_TERM} more
+            </span>
           {/if}
-          <span class="dice" title="d{term.sides}">
-            <DieRoll sides={term.sides} {value} />
-          </span>
         {/each}
       {/if}
     {/each}
