@@ -30,6 +30,13 @@ const term2d4rolled1and4: RollTerm = {
   value: [1, 4],
 };
 
+const overflowTerm: RollTerm = {
+  type: "roll",
+  count: 20,
+  sides: 4,
+  value: [1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4],
+};
+
 function matchExactly(string: string) {
   return new RegExp(`^${escapeStringRegexp(string)}$`);
 }
@@ -51,6 +58,13 @@ test("It renders a dice formula", () => {
     result: [term2d4rolled1and4],
   });
   expect(container).toHaveTextContent(matchExactly("[d4: 1] + [d4: 4] = 999"));
+});
+
+test("It only renders the first 15 dice in a term", () => {
+  const { container } = render(Result, {
+    result: [overflowTerm],
+  });
+  expect(container).toHaveTextContent(matchExactly("[d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + 5 more = 999"));
 });
 
 test("It renders multiple terms", () => {
