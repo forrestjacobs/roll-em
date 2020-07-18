@@ -3,7 +3,7 @@
   import "codemirror/lib/codemirror.css";
   import { makeEditor, markError } from "./editor";
   import { parse, roll } from "../formula";
-  import { resultsStore } from "./results-store";
+  import { resultsStore } from "../stores";
 
   let editorContainer = undefined;
   let editor = undefined;

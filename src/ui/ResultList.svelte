@@ -1,6 +1,6 @@
 <script>
   import Result from "./Result.svelte";
-  import { resultsStore } from "./results-store";
+  import { resultsStore } from "../stores";
 </script>
 
 <style>
