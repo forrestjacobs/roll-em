@@ -9,7 +9,6 @@
   let editorContainer: HTMLElement | undefined = undefined;
   let editor: Editor | undefined = undefined;
 
-  let showExamples = false;
   let errorMessage: string | undefined = undefined;
   let errorMark: TextMarker | undefined = undefined;
 
@@ -36,7 +35,6 @@
   }
 
   function tryExample(value: string) {
-    showExamples = true;
     editor!.setValue(value);
     editor!.focus();
   }
@@ -114,44 +112,20 @@
   </div>
   {#if errorMessage}
     <div class="error-message">{errorMessage}</div>
+  {:else if $resultsStore.length === 0}
+    <div class="examples">
+      Examples:
+      <button class="show-as-link" on:click={() => tryExample('2d6')}>
+        2d6
+      </button>,
+      <button class="show-as-link" on:click={() => tryExample('d8 + d6')}>
+        d8 + d6
+      </button>,
+      or
+      <button class="show-as-link" on:click={() => tryExample('d20 + 2')}>
+        d20 + 2
+      </button>
+    </div>
   {/if}
 
-  <div class="examples">
-    {#if showExamples || $resultsStore.length === 0}
-      <h2>
-        Examples
-        {#if $resultsStore.length !== 0}
-          <button
-            class="show-as-link"
-            on:click|preventDefault={() => (showExamples = false)}>
-            (Hide)
-          </button>
-        {/if}
-      </h2>
-      <p>
-        <button class="show-as-link" on:click={() => tryExample('2d6')}>
-          2d6
-        </button>
-        : roll two six-sided dice.
-      </p>
-      <p>
-        <button class="show-as-link" on:click={() => tryExample('d8 + d6')}>
-          d8 + d6
-        </button>
-        : roll an eight-sided die and a six-sided die.
-      </p>
-      <p>
-        <button class="show-as-link" on:click={() => tryExample('d20 + 2')}>
-          d20 + 2
-        </button>
-        : roll one twenty-sided die and add two to the result.
-      </p>
-    {:else}
-      <button
-        class="show-as-link"
-        on:click|preventDefault={() => (showExamples = true)}>
-        Show examples
-      </button>
-    {/if}
-  </div>
 </form>
