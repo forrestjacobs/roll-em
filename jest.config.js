@@ -5,6 +5,7 @@ module.exports = {
     "**/src/**/*.svelte",
     "**/src/**/*.ts",
     "!**/src/**/*.d.ts",
+    "!**/src/**/Mock*.svelte",
   ],
   coverageDirectory: "coverage",
   moduleFileExtensions: ["ts", "svelte", "pegjs", "js", "json"],
