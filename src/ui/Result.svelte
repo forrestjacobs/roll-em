@@ -1,12 +1,12 @@
-<script context="module">
+<script lang="ts" context="module">
   const MAX_DICE_TO_SHOW_PER_TERM = 15;
 </script>
 
-<script>
-  import { sum } from "../formula";
+<script lang="ts">
+  import { sum, Result } from "../formula";
   import DieRoll from "./DieRoll.svelte";
 
-  export let result = [];
+  export let result: Result = [];
 </script>
 
 <style>

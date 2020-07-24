@@ -1,9 +1,10 @@
 {
+  "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
     "sourceMap": true,
     "module": "es6",
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es6",
     "esModuleInterop": true,
     "downlevelIteration": true,
 

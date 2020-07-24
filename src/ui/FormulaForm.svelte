@@ -1,16 +1,17 @@
-<script>
-  import { onMount } from "svelte";
+<script lang="ts">
+  import type { TextMarker, Editor } from "codemirror";
   import "codemirror/lib/codemirror.css";
-  import { makeEditor, markError } from "./editor";
+  import { onMount } from "svelte";
   import { parse, roll } from "../formula";
   import { resultsStore } from "../stores";
+  import { makeEditor, markError } from "./editor";
 
-  let editorContainer = undefined;
-  let editor = undefined;
+  let editorContainer: HTMLElement | undefined = undefined;
+  let editor: Editor | undefined = undefined;
 
   let showExamples = false;
-  let errorMessage = undefined;
-  let errorMark = undefined;
+  let errorMessage: string | undefined = undefined;
+  let errorMark: TextMarker | undefined = undefined;
 
   function submit() {
     errorMessage = undefined;
@@ -20,13 +21,13 @@
     errorMark = undefined;
 
     try {
-      resultsStore.append(roll(parse(editor.getValue())));
-      editor.execCommand("selectAll");
+      resultsStore.append(roll(parse(editor!.getValue())));
+      editor!.execCommand("selectAll");
     } catch (e) {
       if (e.message) {
         errorMessage = e.message;
         if (e.location) {
-          errorMark = markError(editor, e.location);
+          errorMark = markError(editor!, e.location);
         }
       } else {
         throw e;
@@ -34,14 +35,14 @@
     }
   }
 
-  function tryExample(value) {
+  function tryExample(value: string) {
     showExamples = true;
-    editor.setValue(value);
-    editor.focus();
+    editor!.setValue(value);
+    editor!.focus();
   }
 
   onMount(() => {
-    editor = makeEditor(editorContainer, submit);
+    editor = makeEditor(editorContainer!, submit);
   });
 </script>
 

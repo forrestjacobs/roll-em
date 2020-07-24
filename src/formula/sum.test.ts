@@ -1,4 +1,4 @@
-import { NumberTerm, RollTerm } from "./types";
+import type { NumberTerm, RollTerm } from "./types";
 import { sum } from "./sum";
 
 const term2: NumberTerm = {

@@ -1,4 +1,4 @@
-<script context="module">
+<script lang="ts" context="module">
   let animated = false;
 
   setTimeout(() => {
@@ -6,21 +6,21 @@
   }, 0);
 </script>
 
-<script>
+<script lang="ts">
   import { onMount } from "svelte";
-  import { animate, render } from "../3d";
+  import { animate, render as renderDie } from "../3d";
 
-  export let sides;
-  export let value;
+  export let sides: number;
+  export let value: number;
 
-  let canvas = undefined;
-  let valueEl = undefined;
+  let canvas: HTMLCanvasElement | undefined = undefined;
+  let valueEl: HTMLElement | undefined = undefined;
 
   onMount(() => {
     if (animated) {
-      animate(sides, canvas, valueEl);
+      animate(sides, canvas!, valueEl!);
     } else {
-      render(sides, canvas, valueEl);
+      renderDie(sides, canvas!, valueEl!);
     }
   });
 </script>

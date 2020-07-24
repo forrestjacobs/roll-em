@@ -1,5 +1,5 @@
 import { writable, Readable } from "svelte/store";
-import { Result } from "../formula";
+import type { Result } from "../formula";
 import { id } from "../utils/id";
 
 const LOCAL_STORAGE_KEY = "results";

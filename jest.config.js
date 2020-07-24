@@ -11,7 +11,7 @@ module.exports = {
   setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
   transform: {
     "^.+\\.pegjs$": "./pegjs-transformer.js",
-    "^.+\\.svelte$": "svelte-jester",
+    "^.+\\.svelte$": ["svelte-jester", { "preprocess": true }],
     "^.+\\.ts$": "ts-jest",
   },
 };

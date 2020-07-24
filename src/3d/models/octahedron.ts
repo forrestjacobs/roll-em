@@ -1,4 +1,4 @@
-import { Anchor } from "zdog";
+import type { Anchor } from "zdog";
 import { MAGENTA, RADIUS } from "./consts";
 import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
 

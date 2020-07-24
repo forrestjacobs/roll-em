@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { render } from "@testing-library/svelte";
 import escapeStringRegexp from "escape-string-regexp";
-import { NumberTerm, RollTerm } from "../formula";
+import type { NumberTerm, RollTerm } from "../formula";
 import MockDieRoll from "./MockDieRoll.svelte";
 import Result from "./Result.svelte";
 

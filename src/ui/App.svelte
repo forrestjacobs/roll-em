@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import FormulaForm from "./FormulaForm.svelte";
   import ResultList from "./ResultList.svelte";
 </script>
@@ -87,13 +87,9 @@
   <ResultList />
 
   <div class="footer">
-    <p
-      xmlns:dct="http://purl.org/dc/terms/"
-      xmlns:cc="http://creativecommons.org/ns#">
+    <p>
       This work by
-      <a rel="cc:attributionURL" href="https://github.com/forrestjacobs">
-        Forrest Jacobs
-      </a>
+      <a href="https://github.com/forrestjacobs">Forrest Jacobs</a>
       is licensed under
       <a href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>
       <a href="https://creativecommons.org/licenses/by-nc/4.0" class="img-link">
@@ -119,7 +115,7 @@
         this VRML model
       </a>
       by
-      <a href="https://www.georgehart.com/">George W. Hart</a>,
+      <a href="https://www.georgehart.com/">George W. Hart,</a>
       which includes this license: (c) George W. Hart, 1997. george@li.net.
       Dept. Computer Science, Hofstra University. Freely distributable for
       noncommercial purposes.

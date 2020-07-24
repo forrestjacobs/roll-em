@@ -1,4 +1,4 @@
-import { Formula } from "./types";
+import type { Formula } from "./types";
 
 const MAX_TERMS = 5000;
 const MAX_SIDES = 1000;

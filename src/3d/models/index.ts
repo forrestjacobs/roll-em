@@ -1,4 +1,4 @@
-import { Anchor } from "zdog";
+import type { Anchor } from "zdog";
 import { LEN } from "./consts";
 import { makeCube } from "./cube";
 import { makeCylinder } from "./cylinder";

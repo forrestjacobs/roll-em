@@ -6,8 +6,9 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const sveltePreprocess = require("svelte-preprocess");
 
-module.exports = function (eng, argv) {
+module.exports = function (env, argv) {
   const plugins = [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -23,10 +24,7 @@ module.exports = function (eng, argv) {
   return {
     entry: "./src/index.ts",
     optimization: {
-      minimizer: [
-        new TerserPlugin(),
-        new OptimizeCSSAssetsPlugin({})
-      ]
+      minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})],
     },
     plugins,
     devtool: "source-map",
@@ -49,6 +47,7 @@ module.exports = function (eng, argv) {
             loader: "svelte-loader",
             options: {
               emitCss: true,
+              preprocess: sveltePreprocess({}),
             },
           },
         },

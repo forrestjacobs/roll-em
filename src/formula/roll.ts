@@ -1,4 +1,10 @@
-import { Formula, FormulaTerm, Result, ResultTerm, RollPlan } from "./types";
+import type {
+  Formula,
+  FormulaTerm,
+  Result,
+  ResultTerm,
+  RollPlan,
+} from "./types";
 import { randomInt } from "../utils/rng";
 
 function rollDice({ count, sides }: RollPlan): number[] {

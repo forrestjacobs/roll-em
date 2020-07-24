@@ -1,5 +1,5 @@
 import { parse as pegParse } from "./parser.pegjs";
-import { Formula } from "./types";
+import type { Formula } from "./types";
 import { validate } from "./validate";
 
 export { roll } from "./roll";

@@ -1,6 +1,6 @@
 import CodeMirror from "codemirror";
 import "codemirror/addon/mode/simple.js";
-import { LocationRange } from "pegjs";
+import type { LocationRange } from "pegjs";
 
 declare module "codemirror" {
   function defineSimpleMode(
