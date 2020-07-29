@@ -20,31 +20,19 @@ export interface Color {
 const dark = { r: 0, g: 0, b: 0x33 };
 const bright = { r: 0xff, g: 0xff, b: 0xcc };
 
-function mixChannel(
-  lhs: Color,
-  rhs: Color,
-  channel: keyof Color,
-  mix: number
-): number {
-  return Math.floor(lhs[channel] * mix + rhs[channel] * (1 - mix));
+function mixChannel(lhs: number, rhs: number, mix: number): number {
+  return Math.floor(lhs * mix + rhs * (1 - mix));
 }
 
-function mixColors(
-  lhs: Color,
-  rhs: Color,
-  mix: number,
-  rPower: number,
-  gPower: number,
-  bPower: number
-): string {
-  const r = mixChannel(lhs, rhs, "r", 0.75 - Math.pow(1 - mix, rPower) * 0.75);
-  const g = mixChannel(lhs, rhs, "g", 0.75 - Math.pow(1 - mix, gPower) * 0.75);
-  const b = mixChannel(lhs, rhs, "b", 0.75 - Math.pow(1 - mix, bPower) * 0.75);
+function mixColors(lhs: Color, rhs: Color, mix: number): string {
+  const r = mixChannel(lhs.r, rhs.r, 0.75 * mix);
+  const g = mixChannel(lhs.g, rhs.g, 0.75 * mix);
+  const b = mixChannel(lhs.b, rhs.b, 0.75 * (1 - Math.pow(1 - mix, 0.5)));
   return `rgb(${r} ${g} ${b})`;
 }
 
 export function getColor(base: Color, relativeValue = 0): string {
   return relativeValue > 0
-    ? mixColors(bright, base, relativeValue / 2, 1, 1, 0.5)
-    : mixColors(dark, base, relativeValue / -2, 1, 1, 0.5);
+    ? mixColors(bright, base, relativeValue / 2)
+    : mixColors(dark, base, relativeValue / -2);
 }
