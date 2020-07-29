@@ -1,4 +1,3 @@
-import type { Anchor } from "zdog";
 import { BLUE, RADIUS } from "./consts";
 import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
 
@@ -58,8 +57,7 @@ const faces = [
   // makeFace(BLUE, -2, v01, v12, v14, v05, v09),
 ];
 
-export function makeDodecahedron(): Anchor {
-  const poly = makePolyhedron(faces);
-  poly.rotate.x = Math.PI / 3;
-  return poly;
-}
+const poly = makePolyhedron(faces);
+poly.rotate.x = Math.PI / 3;
+
+export const dodecahedron = poly;

@@ -1,4 +1,4 @@
-import { makeVert, makeFace, makePolyhedron } from "./polyhedron";
+import { makeVert, makeFace } from "./polyhedron";
 import { getColor } from "./consts";
 
 jest.mock("./consts");

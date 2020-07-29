@@ -37,18 +37,17 @@ const faces = [
   makeFace(VIOLET, -2, v10, v9, v11, v6),
 ];
 
-export function makeDecahedron(): Anchor {
-  const poly = makePolyhedron(faces);
-  poly.rotate.x = Math.PI / 10;
-  poly.rotate.z = -Math.PI / 10;
+const poly = makePolyhedron(faces);
+poly.rotate.x = Math.PI / 10;
+poly.rotate.z = -Math.PI / 10;
 
-  const container = new Anchor();
-  container.addChild(poly);
-  container.scale.multiply({
-    x: RADIUS * 0.9,
-    y: RADIUS * 0.6,
-    z: RADIUS,
-  });
-  container.rotate.x = -Math.PI / 10;
-  return container;
-}
+const container = new Anchor();
+container.addChild(poly);
+container.scale.multiply({
+  x: RADIUS * 0.9,
+  y: RADIUS * 0.6,
+  z: RADIUS,
+});
+container.rotate.x = -Math.PI / 10;
+
+export const decahedron = container;

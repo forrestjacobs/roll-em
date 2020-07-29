@@ -1,25 +1,22 @@
 import { makeModel, getLength } from ".";
-import { makeCube } from "./cube";
-import { makeSphere } from "./sphere";
-import { Anchor } from "zdog";
 
-jest.mock("./cube");
-jest.mock("./sphere");
+jest.mock("./cube", () => ({
+  cube: {
+    copyGraph: () => "cube",
+  },
+}));
+jest.mock("./sphere", () => ({
+  sphere: {
+    copyGraph: () => "sphere",
+  },
+}));
 
 it("can make a model", () => {
-  const anchor = new Anchor();
-  ((makeCube as unknown) as jest.MockedFunction<
-    typeof makeCube
-  >).mockReturnValue(anchor);
-  expect(makeModel(6)).toBe(anchor);
+  expect(makeModel(6)).toBe("cube");
 });
 
 it("creates a sphere if the model isn't available", () => {
-  const anchor = new Anchor();
-  ((makeSphere as unknown) as jest.MockedFunction<
-    typeof makeSphere
-  >).mockReturnValue(anchor);
-  expect(makeModel(30)).toBe(anchor);
+  expect(makeModel(30)).toBe("sphere");
 });
 
 it("can get the basic model length", () => {

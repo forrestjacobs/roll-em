@@ -1,4 +1,3 @@
-import type { Anchor } from "zdog";
 import { MAGENTA, RADIUS } from "./consts";
 import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
 
@@ -23,9 +22,8 @@ const faces = [
   makeFace(MAGENTA, 2, v0, v3, v5),
 ];
 
-export function makeOctahedron(): Anchor {
-  const poly = makePolyhedron(faces);
-  poly.rotate.x = -Math.PI / 6;
-  poly.rotate.y = Math.PI / 4;
-  return poly;
-}
+const poly = makePolyhedron(faces);
+poly.rotate.x = -Math.PI / 6;
+poly.rotate.y = Math.PI / 4;
+
+export const octahedron = poly;
