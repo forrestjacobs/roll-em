@@ -1,6 +1,6 @@
 import { Anchor, Illustration } from "zdog";
 import { random, randomInt } from "../utils/rng";
-import { getLenth, makeModel } from "./models";
+import { getLength, makeModel } from "./models";
 import { RADIUS } from "./models/consts";
 
 const MAX_INITIAL_PAUSE = 125;
@@ -47,7 +47,8 @@ function renderIllustration(
     valueEl.style.transform = HIDDEN_TRANSFORMATION;
   } else {
     const valueYScale = Math.cos(rotation);
-    const valueTranslation = translation - getLenth(sides) * Math.sin(rotation);
+    const valueTranslation =
+      translation - getLength(sides) * Math.sin(rotation);
     valueEl.style.transform = `matrix(1, 0, 0, ${valueYScale}, 0, ${valueTranslation})`;
   }
 }

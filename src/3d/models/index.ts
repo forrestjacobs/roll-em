@@ -24,6 +24,6 @@ export function makeModel(sides: number): Anchor {
   return factory ? factory() : makeSphere();
 }
 
-export function getLenth(sides: number): number {
+export function getLength(sides: number): number {
   return sides === 2 ? LEN / 4 : LEN;
 }
