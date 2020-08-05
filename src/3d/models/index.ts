@@ -9,6 +9,8 @@ import { octahedron } from "./octahedron";
 import { sphere } from "./sphere";
 import { tetrahedron } from "./tetrahedron";
 
+export { RADIUS } from "./consts";
+
 const shapes: { [sides: number]: Anchor } = {
   2: cylinder,
   4: tetrahedron,
