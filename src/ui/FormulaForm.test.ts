@@ -127,9 +127,9 @@ test("It clears errors on the next roll", async () => {
   const clear = jest.fn();
   ((markError as unknown) as jest.MockedFunction<
     typeof markError
-  >).mockReturnValue({
+  >).mockReturnValue(({
     clear,
-  } as unknown as TextMarker);
+  } as unknown) as TextMarker);
 
   const result = render(FormulaForm);
   editor.setValue("loc");
