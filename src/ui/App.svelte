@@ -55,15 +55,6 @@
     font-size: 1.5em;
   }
 
-  .img-link {
-    border-bottom: 0;
-  }
-
-  .cc-img {
-    height: 22px;
-    vertical-align: text-bottom;
-  }
-
   .footer {
     padding: 6em 1em 1em 1em;
     color: #666;
@@ -88,37 +79,9 @@
 
   <div class="footer">
     <p>
-      This work by
-      <a href="https://github.com/forrestjacobs">Forrest Jacobs</a>
-      is licensed under
-      <a href="https://creativecommons.org/licenses/by-nc/4.0">CC BY-NC 4.0</a>
-      <a href="https://creativecommons.org/licenses/by-nc/4.0" class="img-link">
-        <img
-          class="cc-img"
-          alt=""
-          src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" />
-        <img
-          class="cc-img"
-          alt=""
-          src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" />
-        <img
-          class="cc-img"
-          alt=""
-          src="https://mirrors.creativecommons.org/presskit/icons/nc.svg?ref=chooser-v1" />
+      <a href="https://github.com/forrestjacobs/roll-em/blob/prod/LICENSE.txt">
+        Copyright 2020 Forrest Jacobs
       </a>
-    </p>
-
-    <p>
-      The 10-sided die is based off
-      <a
-        href="http://www.georgehart.com/virtual-polyhedra/vrml/pentagonal_trapezohedron.wrl">
-        this VRML model
-      </a>
-      by
-      <a href="https://www.georgehart.com/">George W. Hart,</a>
-      which includes this license: (c) George W. Hart, 1997. george@li.net.
-      Dept. Computer Science, Hofstra University. Freely distributable for
-      noncommercial purposes.
     </p>
   </div>
 

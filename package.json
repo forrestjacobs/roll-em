@@ -4,6 +4,7 @@
   "description": "Site for rolling dice",
   "author": "Forrest Jacobs <forrestjacobs@gmail.com>",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "build": "webpack -p",
     "dev": "webpack-dev-server",

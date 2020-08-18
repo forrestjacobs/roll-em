@@ -1,53 +1,55 @@
-import { Anchor } from "zdog";
+import { Anchor, VectorOptions } from "zdog";
 import { RADIUS, VIOLET } from "./consts";
 import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
 
-/**
- * Based off of http://www.georgehart.com/virtual-polyhedra/vrml/pentagonal_trapezohedron.wrl
- * which includes this statement:
- * (c) George W. Hart, 1997.  george@li.net
- * Dept. Computer Science, Hofstra University.
- * Freely distributable for noncommercial purposes.
- */
+const y0 = makeVert(0, -1, 0);
+const y1 = makeVert(0, 1, 0);
 
-const v0 = makeVert(0.5257311, 0.381966, 0.8506508);
-const v1 = makeVert(-0.2008114, 0.618034, 0.8506508);
-const v2 = makeVert(-0.6498394, 0, 0.8506508);
-const v3 = makeVert(0.5257311, -1.618034, 0.8506508);
-const v4 = makeVert(1.051462, 0, -0.2008114);
-const v5 = makeVert(0.8506508, 0.618034, 0.2008114);
-const v6 = makeVert(-0.5257311, 1.618034, -0.8506508);
-const v7 = makeVert(-1.051462, 0, 0.2008114);
-const v8 = makeVert(-0.8506508, -0.618034, -0.2008114);
-const v9 = makeVert(0.2008114, -0.618034, -0.8506508);
-const v10 = makeVert(0.6498394, 0, -0.8506508);
-const v11 = makeVert(-0.5257311, -0.381966, -0.8506508);
+const ANTIPRISM_HEIGHT = 4 / Math.sqrt(5) - 2;
+
+function makeAntiprismVert(i: number): VectorOptions {
+  const rad = (i * Math.PI) / 5;
+  return makeVert(
+    Math.sin(rad),
+    ((i % 2) - 0.5) * ANTIPRISM_HEIGHT,
+    Math.cos(rad)
+  );
+}
+
+const v0 = makeAntiprismVert(0);
+const v1 = makeAntiprismVert(1);
+const v2 = makeAntiprismVert(2);
+const v3 = makeAntiprismVert(3);
+const v4 = makeAntiprismVert(4);
+const v5 = makeAntiprismVert(5);
+const v6 = makeAntiprismVert(6);
+const v7 = makeAntiprismVert(7);
+const v8 = makeAntiprismVert(8);
+const v9 = makeAntiprismVert(9);
 
 const faces = [
-  makeFace(VIOLET, 0, v3, v0, v1, v2),
-  makeFace(VIOLET, 2, v0, v3, v4, v5),
-  makeFace(VIOLET, -1, v1, v0, v5, v6),
-  makeFace(VIOLET, -2, v2, v1, v6, v7),
-  makeFace(VIOLET, 1, v3, v2, v7, v8),
+  makeFace(VIOLET, -1, y0, v7, v8, v9),
+  makeFace(VIOLET, -2, y1, v8, v9, v0),
+  makeFace(VIOLET, 0, y0, v9, v0, v1),
+  makeFace(VIOLET, -1, y1, v0, v1, v2),
+  makeFace(VIOLET, 1, y0, v1, v2, v3),
 
-  makeFace(VIOLET, -2, v4, v3, v9, v10),
-  makeFace(VIOLET, -2, v5, v4, v10, v6),
-  makeFace(VIOLET, -2, v7, v6, v11, v8),
-  makeFace(VIOLET, -2, v3, v8, v11, v9),
-  makeFace(VIOLET, -2, v10, v9, v11, v6),
+  makeFace(VIOLET, -2, y1, v2, v3, v4),
+  // makeFace(VIOLET, -2, y0, v3, v4, v5),
+  makeFace(VIOLET, -2, y1, v4, v5, v6),
+  // makeFace(VIOLET, -2, y0, v5, v6, v7),
+  makeFace(VIOLET, -2, y1, v6, v7, v8),
 ];
 
 const poly = makePolyhedron(faces);
-poly.rotate.x = Math.PI / 10;
-poly.rotate.z = -Math.PI / 10;
+poly.rotate.x = (Math.PI * -2) / 15;
 
 const container = new Anchor();
 container.addChild(poly);
 container.scale.multiply({
   x: RADIUS * 0.9,
-  y: RADIUS * 0.6,
+  y: RADIUS,
   z: RADIUS,
 });
-container.rotate.x = -Math.PI / 10;
 
 export const decahedron = container;
