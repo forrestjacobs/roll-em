@@ -2,11 +2,11 @@ import type { Illustration } from "zdog";
 import { render } from "./render";
 
 function makeMockIllustration(): Illustration {
-  return {
+  return ({
     translate: {},
     rotate: {},
     updateRenderGraph: jest.fn(),
-  } as unknown as Illustration;
+  } as unknown) as Illustration;
 }
 
 it("rotates the die", () => {
