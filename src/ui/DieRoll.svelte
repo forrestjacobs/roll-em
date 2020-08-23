@@ -13,14 +13,14 @@
   export let sides: number;
   export let value: number;
 
-  let canvas: HTMLCanvasElement | undefined = undefined;
+  let illustrationEl: HTMLCanvasElement | SVGSVGElement | undefined = undefined;
   let valueEl: HTMLElement | undefined = undefined;
 
   onMount(() => {
     if (animated) {
-      animate(sides, canvas!, valueEl!);
+      animate(sides, illustrationEl!, valueEl!);
     } else {
-      renderDie(sides, canvas!, valueEl!);
+      renderDie(sides, illustrationEl!, valueEl!);
     }
   });
 </script>
@@ -34,7 +34,7 @@
     overflow: hidden;
   }
 
-  canvas,
+  .illustration,
   .value {
     position: absolute;
   }
@@ -55,6 +55,6 @@
 </style>
 
 <span class="container">
-  <canvas bind:this={canvas} width="44" height="44" />
+  <canvas class="illustration" bind:this={illustrationEl} width="44" height="44" />
   <span class="value" bind:this={valueEl}>{value}</span>
 </span>

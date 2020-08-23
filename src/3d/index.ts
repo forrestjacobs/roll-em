@@ -7,18 +7,18 @@ const ANIMATION_LENGTH_MS = 500;
 
 export function render(
   sides: number,
-  canvas: HTMLCanvasElement,
+  illustrationEl: HTMLCanvasElement | SVGSVGElement,
   valueEl: HTMLElement
 ): void {
-  innerRender(sides, makeIllustration(sides, canvas), valueEl, 1);
+  innerRender(sides, makeIllustration(sides, illustrationEl), valueEl, 1);
 }
 
 export function animate(
   sides: number,
-  canvas: HTMLCanvasElement,
+  illustrationEl: HTMLCanvasElement | SVGSVGElement,
   valueEl: HTMLElement
 ): void {
-  const illustration = makeIllustration(sides, canvas);
+  const illustration = makeIllustration(sides, illustrationEl);
   innerRender(sides, illustration, valueEl, 0);
 
   let start: number | undefined;

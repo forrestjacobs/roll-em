@@ -7,7 +7,7 @@ export const RAND_ROTATE_RANGE = PI / 32;
 
 export function makeIllustration(
   sides: number,
-  canvas: HTMLCanvasElement
+  element: HTMLCanvasElement | SVGSVGElement
 ): Illustration {
   const model = makeModel(sides);
 
@@ -18,7 +18,7 @@ export function makeIllustration(
   anchor.addChild(model);
 
   const illustration = new Illustration({
-    element: canvas,
+    element,
   });
   illustration.addChild(anchor);
 
