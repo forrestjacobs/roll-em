@@ -55,6 +55,10 @@
 </style>
 
 <span class="container">
-  <canvas class="illustration" bind:this={illustrationEl} width="44" height="44" />
+  <canvas
+    class="illustration"
+    bind:this={illustrationEl}
+    width="44"
+    height="44" />
   <span class="value" bind:this={valueEl}>{value}</span>
 </span>

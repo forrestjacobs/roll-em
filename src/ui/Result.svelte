@@ -61,7 +61,6 @@
   .dice-operator {
     display: none;
   }
-
 </style>
 
 <svelte:options immutable={true} />
