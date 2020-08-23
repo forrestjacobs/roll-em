@@ -26,6 +26,12 @@ test("It can parse a formula with count omitted", () => {
   ]);
 });
 
+test("It interprets percent sign as 100-sided", () => {
+  expect(parser.parse("d%")).toStrictEqual([
+    { type: "roll", count: 1, sides: 100 },
+  ]);
+});
+
 test("It can parse multiple terms", () => {
   expect(parser.parse("2d4 + 5")).toStrictEqual([
     { type: "roll", count: 2, sides: 4 },

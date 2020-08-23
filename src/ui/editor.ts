@@ -11,7 +11,7 @@ declare module "codemirror" {
 
 CodeMirror.defineSimpleMode("dice", {
   start: [
-    { regex: /[0-9]+/, token: "number" },
+    { regex: /[0-9%]+/, token: "number" },
     { regex: /[+-]+/, token: "operator" },
     { regex: /[dD]/, token: "keyword" },
   ],
