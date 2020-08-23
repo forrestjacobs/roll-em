@@ -39,50 +39,28 @@
     font-size: 0.833em;
   }
 
-  .container {
+  :global(.body-container) {
     padding: 2em 0;
     margin: 0 auto;
     max-width: 43.25em;
   }
 
-  .row {
+  :global(.header) {
     padding: 1em 1em 0 1em;
   }
 
-  h1 {
+  :global(h1) {
     margin: 0;
     font-weight: normal;
     font-size: 1.5em;
   }
 
-  .footer {
+  :global(.footer) {
     padding: 6em 1em 1em 1em;
     color: #666;
   }
 </style>
 
-<div class="container">
+<FormulaForm />
 
-  <div class="row">
-    <h1>Roll 'Em</h1>
-    <p>
-      Enter the dice you want to roll using
-      <a href="https://en.wikipedia.org/wiki/Dice_notation">dice notation</a>
-      and press
-      <em>Roll</em>
-    </p>
-  </div>
-
-  <FormulaForm />
-
-  <ResultList />
-
-  <div class="footer">
-    <p>
-      <a href="https://github.com/forrestjacobs/roll-em/blob/prod/LICENSE.txt">
-        Copyright 2020 Forrest Jacobs
-      </a>
-    </p>
-  </div>
-
-</div>
+<ResultList />

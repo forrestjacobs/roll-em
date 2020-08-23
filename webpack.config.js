@@ -13,29 +13,31 @@ module.exports = function (env, argv) {
   const plugins = [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: "Roll 'Em",
+      template: "index.html",
       inlineSource: ".(js|css)$",
     }),
     new MiniCssExtractPlugin(),
   ];
   if (argv.mode === "production") {
-    plugins.push(new FaviconsWebpackPlugin({
-      logo: path.resolve(__dirname, "logo.svg"),
-      prefix: "",
-      favicons: {
-        icons: {
-          favicons: true,
+    plugins.push(
+      new FaviconsWebpackPlugin({
+        logo: path.resolve(__dirname, "logo.svg"),
+        prefix: "",
+        favicons: {
+          icons: {
+            favicons: true,
 
-          android: false,
-          appleIcon: false,
-          appleStartup: false,
-          coast: false,
-          firefox: false,
-          windows: false,
-          yandex: false
-        }
-      }
-    }));
+            android: false,
+            appleIcon: false,
+            appleStartup: false,
+            coast: false,
+            firefox: false,
+            windows: false,
+            yandex: false,
+          },
+        },
+      })
+    );
     plugins.push(new HtmlWebpackInlineSourcePlugin(HtmlWebpackPlugin));
   }
 
