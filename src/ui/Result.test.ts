@@ -43,21 +43,21 @@ function matchExactly(string: string) {
 
 test("It defaults to blank", () => {
   const { container } = render(Result);
-  expect(container).toHaveTextContent(matchExactly("(empty) = 999"));
+  expect(container).toHaveTextContent(matchExactly("999 = (empty)"));
 });
 
 test("It renders a number", () => {
   const { container } = render(Result, {
     result: [term2],
   });
-  expect(container).toHaveTextContent(matchExactly("2 = 999"));
+  expect(container).toHaveTextContent(matchExactly("999 = 2"));
 });
 
 test("It renders a dice formula", () => {
   const { container } = render(Result, {
     result: [term2d4rolled1and4],
   });
-  expect(container).toHaveTextContent(matchExactly("[d4: 1] + [d4: 4] = 999"));
+  expect(container).toHaveTextContent(matchExactly("999 = [d4: 1] + [d4: 4]"));
 });
 
 test("It only renders the first 15 dice in a term", () => {
@@ -66,7 +66,7 @@ test("It only renders the first 15 dice in a term", () => {
   });
   expect(container).toHaveTextContent(
     matchExactly(
-      "[d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + 5 more = 999"
+      "999 = [d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + 5 more"
     )
   );
 });
@@ -76,7 +76,7 @@ test("It renders multiple terms", () => {
     result: [term2d4rolled1and4, term2],
   });
   expect(container).toHaveTextContent(
-    matchExactly("[d4: 1] + [d4: 4] + 2 = 999")
+    matchExactly("999 = [d4: 1] + [d4: 4] + 2")
   );
 });
 
@@ -85,6 +85,6 @@ test("It renders subtracted terms", () => {
     result: [term2d4rolled1and4, termNegative2],
   });
   expect(container).toHaveTextContent(
-    matchExactly("[d4: 1] + [d4: 4] - 2 = 999")
+    matchExactly("999 = [d4: 1] + [d4: 4] - 2")
   );
 });

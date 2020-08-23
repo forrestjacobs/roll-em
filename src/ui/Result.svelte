@@ -12,7 +12,26 @@
 <style>
   .result {
     display: flex;
+    align-items: flex-start;
     padding: 1em;
+  }
+
+  .sum {
+    flex-shrink: 0;
+    line-height: 2em;
+    font-weight: bold;
+    background: #fff;
+    padding: 0 0.5em;
+    border-radius: 0.125em;
+  }
+
+  .equals {
+    flex-shrink: 0;
+    line-height: 2em;
+    padding: 0 0.5em;
+    width: 1em;
+    text-align: center;
+    color: #ccc;
   }
 
   .components {
@@ -43,25 +62,13 @@
     display: none;
   }
 
-  .equals {
-    flex-shrink: 0;
-    line-height: 2em;
-    padding: 0 0.5em;
-    width: 1em;
-    text-align: center;
-  }
-
-  .sum {
-    flex-shrink: 0;
-    line-height: 2em;
-    min-width: 7em;
-    font-weight: bold;
-  }
 </style>
 
 <svelte:options immutable={true} />
 
 <div class="result">
+  <span class="sum">{sum(result)}</span>
+  <span class="equals">=</span>
   <span class="components">
     {#if result.length === 0}
       <span class="empty">(empty)</span>
@@ -99,6 +106,4 @@
       {/if}
     {/each}
   </span>
-  <span class="equals">=</span>
-  <span class="sum">{sum(result)}</span>
 </div>
