@@ -13,7 +13,7 @@ module.exports = function (env, argv) {
   const plugins = [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: "index.html",
+      template: "index.ejs",
       inlineSource: ".(js|css)$",
     }),
     new MiniCssExtractPlugin(),
