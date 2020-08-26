@@ -13,7 +13,7 @@ module.exports = function (env, argv) {
   const plugins = [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: "index.ejs",
+      template: "./src/index.ejs",
       inlineSource: ".(js|css)$",
     }),
     new MiniCssExtractPlugin(),
@@ -21,7 +21,7 @@ module.exports = function (env, argv) {
   if (argv.mode === "production") {
     plugins.push(
       new FaviconsWebpackPlugin({
-        logo: path.resolve(__dirname, "logo.svg"),
+        logo: path.resolve(__dirname, "src/logo.svg"),
         prefix: "",
         favicons: {
           icons: {
