@@ -1,5 +1,5 @@
-import type { Result } from "../formula";
-import { makeResultsStore, ResultsStore, StoredResult } from "./results";
+import type { Result } from "../../formula";
+import { makeResultsStore, ResultsStore, StoredResult } from ".";
 
 jest.mock("../utils/id", () => ({
   id: () => "a",
