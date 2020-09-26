@@ -1,11 +1,11 @@
 <script lang="ts">
-  import type { Editor,TextMarker } from "codemirror";
+  import type { Editor, TextMarker } from "codemirror";
   import "codemirror/lib/codemirror.css";
   import { onMount } from "svelte";
-  import { parse,roll } from "../formula";
+  import { parse, roll } from "../formula";
   import { resultsStore } from "../stores";
   import { ResultsStoreState } from "../stores/results-store";
-  import { makeEditor,markError } from "./editor";
+  import { makeEditor, markError } from "./editor";
 
   let editorContainer: HTMLElement | undefined = undefined;
   let editor: Editor | undefined = undefined;

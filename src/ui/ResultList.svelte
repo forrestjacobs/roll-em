@@ -1,7 +1,7 @@
 <script lang="ts">
   import Result from "./Result.svelte";
   import { resultsStore } from "../stores";
-import { ResultSource, ResultsStoreState } from "../stores/results-store";
+  import { ResultSource, ResultsStoreState } from "../stores/results-store";
 </script>
 
 <style>
@@ -34,9 +34,7 @@ import { ResultSource, ResultsStoreState } from "../stores/results-store";
 {#if $resultsStore.results.length !== 0 || $resultsStore.state !== ResultsStoreState.HAS_NO_MORE}
   <div class="results-header">
     <h2>Results</h2>
-    <button class="show-as-link" on:click={resultsStore.clear}>
-      Clear
-    </button>
+    <button class="show-as-link" on:click={resultsStore.clear}>Clear</button>
   </div>
 {/if}
 
@@ -59,7 +57,5 @@ import { ResultSource, ResultsStoreState } from "../stores/results-store";
 {/if}
 
 {#if $resultsStore.state === ResultsStoreState.LOADING}
-  <div class="row">
-    Loading...
-  </div>
+  <div class="row">Loading...</div>
 {/if}
