@@ -7,6 +7,7 @@
   import DieRoll from "./DieRoll.svelte";
 
   export let result: Result = [];
+  export let animated: boolean;
 </script>
 
 <style>
@@ -92,7 +93,7 @@
               <span class="operator dice-operator">+</span>
             {/if}
             <span class="dice" title="d{term.sides}">
-              <DieRoll sides={term.sides} {value} />
+              <DieRoll sides={term.sides} {value} {animated} />
             </span>
           {:else if valueIndex === MAX_DICE_TO_SHOW_PER_TERM}
             {' '}

@@ -1,17 +1,10 @@
-<script lang="ts" context="module">
-  let animated = false;
-
-  setTimeout(() => {
-    animated = true;
-  }, 0);
-</script>
-
 <script lang="ts">
   import { onMount } from "svelte";
   import { animate, render as renderDie } from "../3d";
 
   export let sides: number;
   export let value: number;
+  export let animated: boolean;
 
   let illustrationEl: HTMLCanvasElement | SVGSVGElement | undefined = undefined;
   let valueEl: HTMLElement | undefined = undefined;

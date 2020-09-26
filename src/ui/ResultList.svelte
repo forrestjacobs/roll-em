@@ -1,11 +1,19 @@
 <script lang="ts">
   import Result from "./Result.svelte";
   import { resultsStore } from "../stores";
+import { ResultSource, ResultsStoreState } from "../stores/results-store";
 </script>
 
 <style>
-  h2 {
-    display: none;
+  .results-header {
+    padding: 1em 1em 0 1em;
+  }
+
+  .results-header h2 {
+    margin: 0 1em 0 0;
+    font-weight: normal;
+    font-size: 1.5em;
+    display: inline;
   }
 
   ol {
@@ -18,25 +26,40 @@
     list-style: none;
   }
 
-  .clear-row {
+  .row {
     padding: 1em;
   }
 </style>
 
-<h2>Results</h2>
+{#if $resultsStore.results.length !== 0 || $resultsStore.state !== ResultsStoreState.HAS_NO_MORE}
+  <div class="results-header">
+    <h2>Results</h2>
+    <button class="show-as-link" on:click={resultsStore.clear}>
+      Clear
+    </button>
+  </div>
+{/if}
 
-{#if $resultsStore.length !== 0}
+{#if $resultsStore.results.length !== 0}
   <ol>
-    {#each $resultsStore as { result, id } (id)}
+    {#each $resultsStore.results as { index, source, result } (index)}
       <li>
-        <Result {result} />
+        <Result {result} animated={source === ResultSource.USER} />
       </li>
     {/each}
   </ol>
+{/if}
 
-  <div class="clear-row">
-    <button class="show-as-link" on:click={resultsStore.clear}>
-      Clear History
+{#if $resultsStore.state === ResultsStoreState.HAS_MORE}
+  <div class="row">
+    <button class="show-as-link" on:click={resultsStore.loadMore}>
+      Load More
     </button>
+  </div>
+{/if}
+
+{#if $resultsStore.state === ResultsStoreState.LOADING}
+  <div class="row">
+    Loading...
   </div>
 {/if}

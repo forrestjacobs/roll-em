@@ -1,3 +1,5 @@
-import { makeResultsStore } from "./results";
+import { connect } from "./db";
+import { makeResultsStore } from "./results-store";
 
-export const resultsStore = makeResultsStore();
+const db = connect();
+export const resultsStore = makeResultsStore(db);

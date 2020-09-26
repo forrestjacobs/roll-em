@@ -3,7 +3,11 @@ import { fireEvent, render } from "@testing-library/svelte";
 import type { Editor, TextMarker } from "codemirror";
 import type { Formula } from "../formula";
 import { resultsStore } from "../stores";
-import type { StoredResult } from "../stores/results";
+import {
+  ResultSource,
+  ResultsStoreState,
+  StoredResult,
+} from "../stores/results-store";
 import { makeEditor, markError } from "./editor";
 import FormulaForm from "./FormulaForm.svelte";
 
@@ -44,7 +48,7 @@ function mockResults(value: StoredResult[]) {
     typeof resultsStore.subscribe
   >;
   mockedSubscribe.mockImplementation((run) => {
-    run(value);
+    run({ results: value, state: ResultsStoreState.HAS_NO_MORE });
     return () => void {};
   });
 }
@@ -151,7 +155,9 @@ test("It shows examples when there are no results", async () => {
 });
 
 test("It hides examples when there are results", async () => {
-  mockResults([{ id: "test", result: [] }]);
+  mockResults([
+    { index: 0, date: undefined, source: ResultSource.DB, result: [] },
+  ]);
   mockEditor();
 
   const result = render(FormulaForm);
