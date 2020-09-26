@@ -29,14 +29,8 @@
     cursor: pointer;
   }
 
-  :global(h2) {
-    font-size: 1em;
-    margin: 0;
-  }
-
   :global(p) {
     margin: 0;
-    font-size: 0.833em;
   }
 
   :global(.body-container) {
@@ -49,7 +43,7 @@
     padding: 1em 1em 0 1em;
   }
 
-  :global(h1) {
+  :global(h1), :global(h2) {
     margin: 0;
     font-weight: normal;
     font-size: 1.5em;

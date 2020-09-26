@@ -10,9 +10,7 @@
   }
 
   .results-header h2 {
-    margin: 0 1em 0 0;
-    font-weight: normal;
-    font-size: 1.5em;
+    margin-right: 1em;
     display: inline;
   }
 
