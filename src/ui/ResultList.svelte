@@ -1,7 +1,6 @@
 <script lang="ts">
+  import { ResultSource, resultsStore, ResultsStoreState } from "../stores";
   import Result from "./Result.svelte";
-  import { resultsStore } from "../stores";
-  import { ResultSource, ResultsStoreState } from "../stores/results-store";
 </script>
 
 <style>

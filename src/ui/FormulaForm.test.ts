@@ -2,12 +2,12 @@ import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/svelte";
 import type { Editor, TextMarker } from "codemirror";
 import type { Formula } from "../formula";
-import { resultsStore } from "../stores";
 import {
   ResultSource,
+  resultsStore,
   ResultsStoreState,
   StoredResult,
-} from "../stores/results-store";
+} from "../stores";
 import { makeEditor, markError } from "./editor";
 import FormulaForm from "./FormulaForm.svelte";
 
