@@ -29,7 +29,7 @@ function migrateLocalStorageResults(store: ResultsDBStoreV1): void {
   }
 
   const results = JSON.parse(resultsItem) as StoredResultV0[];
-  for (let i = results.length - 1; i > 0; i--) {
+  for (let i = results.length - 1; i >= 0; i--) {
     store.add({
       date: 0,
       result: results[i].result,

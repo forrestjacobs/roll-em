@@ -51,15 +51,16 @@ test("it migrates v0's values from local storage", () => {
   const db = createMockDb(store);
   migrate(db);
 
-  expect(store.add).toHaveBeenNthCalledWith(0, {
+  expect(store.add).toHaveBeenCalledTimes(3);
+  expect(store.add).toHaveBeenNthCalledWith(1, {
     date: 0,
     result: c.result,
   });
-  expect(store.add).toHaveBeenNthCalledWith(1, {
+  expect(store.add).toHaveBeenNthCalledWith(2, {
     date: 0,
     result: b.result,
   });
-  expect(store.add).toHaveBeenNthCalledWith(2, {
+  expect(store.add).toHaveBeenNthCalledWith(3, {
     date: 0,
     result: a.result,
   });
