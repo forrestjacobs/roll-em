@@ -42,12 +42,15 @@ function matchExactly(string: string) {
 }
 
 test("It defaults to blank", () => {
-  const { container } = render(Result);
+  const { container } = render(Result, {
+    animated: false,
+  });
   expect(container).toHaveTextContent(matchExactly("999 = (empty)"));
 });
 
 test("It renders a number", () => {
   const { container } = render(Result, {
+    animated: false,
     result: [term2],
   });
   expect(container).toHaveTextContent(matchExactly("999 = 2"));
@@ -55,6 +58,7 @@ test("It renders a number", () => {
 
 test("It renders a dice formula", () => {
   const { container } = render(Result, {
+    animated: false,
     result: [term2d4rolled1and4],
   });
   expect(container).toHaveTextContent(matchExactly("999 = [d4: 1] + [d4: 4]"));
@@ -62,6 +66,7 @@ test("It renders a dice formula", () => {
 
 test("It only renders the first 15 dice in a term", () => {
   const { container } = render(Result, {
+    animated: false,
     result: [overflowTerm],
   });
   expect(container).toHaveTextContent(
@@ -73,6 +78,7 @@ test("It only renders the first 15 dice in a term", () => {
 
 test("It renders multiple terms", () => {
   const { container } = render(Result, {
+    animated: false,
     result: [term2d4rolled1and4, term2],
   });
   expect(container).toHaveTextContent(
@@ -82,6 +88,7 @@ test("It renders multiple terms", () => {
 
 test("It renders subtracted terms", () => {
   const { container } = render(Result, {
+    animated: false,
     result: [term2d4rolled1and4, termNegative2],
   });
   expect(container).toHaveTextContent(
