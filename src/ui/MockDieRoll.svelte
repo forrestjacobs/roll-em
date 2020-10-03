@@ -3,4 +3,5 @@
   export let value: number;
 </script>
 
-[d{sides}: {value}]
+[d{sides}:
+{value}]

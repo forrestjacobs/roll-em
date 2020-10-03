@@ -70,9 +70,7 @@
   <span class="sum">{sum(result)}</span>
   <span class="equals">=</span>
   <span class="components">
-    {#if result.length === 0}
-      <span class="empty">(empty)</span>
-    {/if}
+    {#if result.length === 0}<span class="empty">(empty)</span>{/if}
 
     {#each result as term, termIndex}
       {#if termIndex != 0}{' '}{/if}
@@ -99,7 +97,8 @@
             {' '}
             <span class="operator overflow-operator">+</span>
             <span class="overflow">
-              {term.value.length - MAX_DICE_TO_SHOW_PER_TERM} more
+              {term.value.length - MAX_DICE_TO_SHOW_PER_TERM}
+              more
             </span>
           {/if}
         {/each}

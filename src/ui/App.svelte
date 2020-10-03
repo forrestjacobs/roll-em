@@ -43,7 +43,8 @@
     padding: 1em 1em 0 1em;
   }
 
-  :global(h1), :global(h2) {
+  :global(h1),
+  :global(h2) {
     margin: 0;
     font-weight: normal;
     font-size: 1.5em;
