@@ -3,8 +3,9 @@ import { fireEvent, render } from "@testing-library/svelte";
 import type { Editor, TextMarker } from "codemirror";
 import type { Formula } from "../formula";
 import {
+  getResultsStore,
   ResultSource,
-  resultsStore,
+  ResultsStore,
   ResultsStoreState,
   StoredResult,
 } from "../stores";
@@ -43,14 +44,20 @@ jest.mock("../formula", () => ({
 
 jest.mock("../stores");
 
-function mockResults(value: StoredResult[]) {
-  const mockedSubscribe = (resultsStore.subscribe as unknown) as jest.MockedFunction<
-    typeof resultsStore.subscribe
-  >;
-  mockedSubscribe.mockImplementation((run) => {
-    run({ results: value, state: ResultsStoreState.HAS_NO_MORE });
-    return () => void {};
-  });
+function mockResults(value: StoredResult[]): ResultsStore {
+  const implementation = ({
+    subscribe: jest.fn((run) => {
+      run({ results: value, state: ResultsStoreState.HAS_NO_MORE });
+      return () => void {};
+    }),
+    append: jest.fn(),
+  } as unknown) as ResultsStore;
+
+  ((getResultsStore as unknown) as jest.MockedFunction<
+    typeof getResultsStore
+  >).mockImplementation(() => implementation);
+
+  return implementation;
 }
 
 jest.mock("./editor");
@@ -78,7 +85,7 @@ function mockEditor() {
 }
 
 test("It can roll", async () => {
-  mockResults([]);
+  const resultsStore = mockResults([]);
   const editor = mockEditor();
 
   const result = render(FormulaForm);
@@ -92,7 +99,7 @@ test("It can roll", async () => {
 });
 
 test("It can roll by pressing enter", () => {
-  mockResults([]);
+  const resultsStore = mockResults([]);
   const editor = mockEditor();
 
   render(FormulaForm);
@@ -177,7 +184,7 @@ test("It hides examples when there are errors", async () => {
 });
 
 test("It rolls an example when you click it", async () => {
-  mockResults([]);
+  const resultsStore = mockResults([]);
   const editor = mockEditor();
 
   const result = render(FormulaForm);

@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { ResultSource, resultsStore, ResultsStoreState } from "../stores";
+  import { ResultSource, getResultsStore, ResultsStoreState } from "../stores";
   import Result from "./Result.svelte";
+
+  const resultsStore = getResultsStore();
 </script>
 
 <style>

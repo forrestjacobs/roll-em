@@ -3,8 +3,6 @@ import { Readable, writable } from "svelte/store";
 import type { Result } from "../formula";
 import type { DbV1, SchemaV1 } from "./db";
 
-const BATCH_SIZE = 50;
-
 export enum ResultSource {
   USER,
   DB,
@@ -46,7 +44,8 @@ type Cursor = IDBPCursorWithValue<
 > | null;
 
 async function fetchNextBatch(
-  startingCursor: Cursor
+  startingCursor: Cursor,
+  batchSize: number
 ): Promise<{
   results: StoredResult[];
   hasMore: boolean;
@@ -54,7 +53,7 @@ async function fetchNextBatch(
   let cursor = startingCursor;
   const results: StoredResult[] = [];
 
-  for (let i = 0; i < BATCH_SIZE; i++) {
+  for (let i = 0; i < batchSize; i++) {
     if (cursor === null) {
       return { results, hasMore: false };
     }
@@ -72,7 +71,10 @@ async function fetchNextBatch(
   return { results, hasMore: cursor !== null };
 }
 
-export function makeResultsStore(db: Promise<DbV1>): ResultsStore {
+export function makeResultsStore(
+  db: Promise<DbV1>,
+  batchSize: number
+): ResultsStore {
   let value: ResultsStoreValue = {
     results: [],
     state: ResultsStoreState.LOADING,
@@ -111,7 +113,7 @@ export function makeResultsStore(db: Promise<DbV1>): ResultsStore {
       const cursor = await (await db)
         .transaction("results", "readonly")
         .store.openCursor(query, "prev");
-      const { results, hasMore } = await fetchNextBatch(cursor);
+      const { results, hasMore } = await fetchNextBatch(cursor, batchSize);
       return {
         state: hasMore
           ? ResultsStoreState.HAS_MORE

@@ -3,8 +3,10 @@
   import "codemirror/lib/codemirror.css";
   import { onMount } from "svelte";
   import { parse, roll } from "../formula";
-  import { resultsStore, ResultsStoreState } from "../stores";
+  import { getResultsStore, ResultsStoreState } from "../stores";
   import { makeEditor, markError } from "./editor";
+
+  const resultsStore = getResultsStore();
 
   let editorContainer: HTMLElement | undefined = undefined;
   let editor: Editor | undefined = undefined;

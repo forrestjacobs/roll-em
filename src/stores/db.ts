@@ -25,7 +25,7 @@ export type ResultsDBStoreV1 = IDBPObjectStore<
 
 const DB_NAME = "DiceDB";
 
-export function connect(): Promise<DbV1> {
+export function makeDb(): Promise<DbV1> {
   return openDB<SchemaV1>(DB_NAME, 1, {
     upgrade(db, oldVersion) {
       if (oldVersion <= 0) {
