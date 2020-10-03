@@ -23,6 +23,8 @@
   li {
     border-bottom: 1px solid #ccc;
     list-style: none;
+    display: flex;
+    align-items: flex-start;
   }
 
   .row {
@@ -39,9 +41,9 @@
 
 {#if $resultsStore.results.length !== 0}
   <ol>
-    {#each $resultsStore.results as { index, source, result } (index)}
+    {#each $resultsStore.results as { index, date, source, result } (index)}
       <li>
-        <Result {result} animated={source === ResultSource.USER} />
+        <Result {result} {date} animated={source === ResultSource.USER} />
       </li>
     {/each}
   </ol>
