@@ -114,7 +114,7 @@
   </div>
   {#if errorMessage}
     <div class="error-message">{errorMessage}</div>
-  {:else if $resultsStore.state === ResultsStoreState.HAS_NO_MORE && $resultsStore.results.length === 0}
+  {:else if $resultsStore.state === ResultsStoreState.HAS_NO_MORE && $resultsStore.groups.length === 0}
     <div class="examples">
       Examples:
       <button class="show-as-link" on:click={() => tryExample('2d6')}>

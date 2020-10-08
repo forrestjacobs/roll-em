@@ -7,7 +7,7 @@
   import DieRoll from "./DieRoll.svelte";
 
   export let result: Result = [];
-  export let date: Date;
+  export let date: Date | undefined;
   export let animated: boolean;
 </script>
 
@@ -114,9 +114,5 @@
       {/if}
     {/each}
   </span>
-  {#if date}
-    <span class="time">
-      {date.toLocaleTimeString()}
-    </span>
-  {/if}
+  {#if date}<span class="time"> {date.toLocaleTimeString()} </span>{/if}
 </div>

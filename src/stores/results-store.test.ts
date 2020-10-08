@@ -12,32 +12,37 @@ import {
 
 const RESULTS: Array<{ date: Date; result: Result }> = [
   {
-    date: new Date("2020-09-01"),
+    date: new Date(2020, 9, 1),
     result: [{ type: "number", value: 1 }],
   },
   {
-    date: new Date("2020-09-02"),
+    date: new Date(2020, 9, 2),
     result: [{ type: "number", value: 2 }],
   },
   {
-    date: new Date("2020-09-03"),
+    date: new Date(2020, 9, 3),
     result: [{ type: "number", value: 3 }],
   },
 ];
 
-function getStoredResults(index: number, source: ResultSource) {
+function getGroup(index: number, source: ResultSource) {
   const { date, result } = RESULTS[index - 1];
   return {
-    index,
-    date,
-    source,
-    result,
+    day: date,
+    results: [
+      {
+        index,
+        date,
+        source,
+        result,
+      },
+    ],
   };
 }
 
 const FIRST_BATCH = [
-  getStoredResults(3, ResultSource.DB),
-  getStoredResults(2, ResultSource.DB),
+  getGroup(3, ResultSource.DB),
+  getGroup(2, ResultSource.DB),
 ];
 
 function makeStore(): ResultsStore {
@@ -52,9 +57,9 @@ async function appendResults(store: ResultsStore) {
   }
 }
 
-type NextValueExpector = (expected: ResultsStoreValue) => Promise<void>;
+type NextValueAccessor = () => Promise<ResultsStoreValue>;
 
-function makeNextValueExpector(store: ResultsStore): NextValueExpector {
+function makeNextValueAccessor(store: ResultsStore): NextValueAccessor {
   let callback: ((actual: ResultsStoreValue) => void) | undefined = undefined;
   const queuedResults: ResultsStoreValue[] = [];
   const mockSubscriber = jest.fn<void, [ResultsStoreValue]>((v) => {
@@ -68,37 +73,32 @@ function makeNextValueExpector(store: ResultsStore): NextValueExpector {
   });
   store.subscribe(mockSubscriber);
 
-  return (expected: ResultsStoreValue): Promise<void> => {
-    return new Promise<void>((resolvePromise) => {
-      function check(actual: ResultsStoreValue) {
-        expect(actual).toStrictEqual(expected);
-        resolvePromise();
-      }
-
+  return (): Promise<ResultsStoreValue> => {
+    return new Promise<ResultsStoreValue>((resolve) => {
       if (queuedResults.length === 0) {
-        callback = check;
+        callback = resolve;
       } else {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        check(queuedResults.shift()!);
+        resolve(queuedResults.shift()!);
       }
     });
   };
 }
 
-async function expectFirstBatch(expectNextValue: NextValueExpector) {
-  await expectNextValue({
-    results: [],
+async function expectFirstBatch(getNextValue: NextValueAccessor) {
+  expect(await getNextValue()).toStrictEqual({
+    groups: [],
     state: ResultsStoreState.LOADING,
   });
-  await expectNextValue({
-    results: FIRST_BATCH,
+  expect(await getNextValue()).toStrictEqual({
+    groups: FIRST_BATCH,
     state: ResultsStoreState.HAS_MORE,
   });
 }
 
-async function expectLoadingAfterFirst(expectNextValue: NextValueExpector) {
-  await expectNextValue({
-    results: FIRST_BATCH,
+async function expectLoadingAfterFirst(getNextValue: NextValueAccessor) {
+  expect(await getNextValue()).toStrictEqual({
+    groups: FIRST_BATCH,
     state: ResultsStoreState.LOADING,
   });
 }
@@ -108,13 +108,13 @@ beforeEach(() => {
 });
 
 test("store initializes from scratch", async () => {
-  const expectNextValue = makeNextValueExpector(makeStore());
-  await expectNextValue({
-    results: [],
+  const getNextValue = makeNextValueAccessor(makeStore());
+  expect(await getNextValue()).toStrictEqual({
+    groups: [],
     state: ResultsStoreState.LOADING,
   });
-  await expectNextValue({
-    results: [],
+  expect(await getNextValue()).toStrictEqual({
+    groups: [],
     state: ResultsStoreState.HAS_NO_MORE,
   });
 });
@@ -123,12 +123,12 @@ test("it can append results", async () => {
   const store = makeStore();
 
   await appendResults(store);
-  const expectNextValue = makeNextValueExpector(store);
-  await expectNextValue({
-    results: [
-      getStoredResults(3, ResultSource.USER),
-      getStoredResults(2, ResultSource.USER),
-      getStoredResults(1, ResultSource.USER),
+  const getNextValue = makeNextValueAccessor(store);
+  expect(await getNextValue()).toStrictEqual({
+    groups: [
+      getGroup(3, ResultSource.USER),
+      getGroup(2, ResultSource.USER),
+      getGroup(1, ResultSource.USER),
     ],
     state: ResultsStoreState.HAS_NO_MORE,
   });
@@ -137,24 +137,24 @@ test("it can append results", async () => {
 test("it loads the first batch on init", async () => {
   await appendResults(makeStore());
 
-  const expectNextValue = makeNextValueExpector(makeStore());
-  await expectFirstBatch(expectNextValue);
+  const getNextValue = makeNextValueAccessor(makeStore());
+  await expectFirstBatch(getNextValue);
 });
 
 test("it can load more", async () => {
   await appendResults(makeStore());
 
   const store = makeStore();
-  const expectNextValue = makeNextValueExpector(store);
-  await expectFirstBatch(expectNextValue);
+  const getNextValue = makeNextValueAccessor(store);
+  await expectFirstBatch(getNextValue);
 
   store.loadMore();
-  await expectLoadingAfterFirst(expectNextValue);
-  await expectNextValue({
-    results: [
-      getStoredResults(3, ResultSource.DB),
-      getStoredResults(2, ResultSource.DB),
-      getStoredResults(1, ResultSource.DB),
+  await expectLoadingAfterFirst(getNextValue);
+  expect(await getNextValue()).toStrictEqual({
+    groups: [
+      getGroup(3, ResultSource.DB),
+      getGroup(2, ResultSource.DB),
+      getGroup(1, ResultSource.DB),
     ],
     state: ResultsStoreState.HAS_NO_MORE,
   });
@@ -164,13 +164,13 @@ test("it can clear results", async () => {
   await appendResults(makeStore());
 
   const store = makeStore();
-  const expectNextValue = makeNextValueExpector(store);
-  await expectFirstBatch(expectNextValue);
+  const getNextValue = makeNextValueAccessor(store);
+  await expectFirstBatch(getNextValue);
 
-  store.clear();
-  await expectLoadingAfterFirst(expectNextValue);
-  await expectNextValue({
-    results: [],
+  await store.clear();
+  await expectLoadingAfterFirst(getNextValue);
+  expect(await getNextValue()).toStrictEqual({
+    groups: [],
     state: ResultsStoreState.HAS_NO_MORE,
   });
 });

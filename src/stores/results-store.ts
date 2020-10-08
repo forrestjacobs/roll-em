@@ -15,8 +15,23 @@ export interface StoredResult {
   result: Result;
 }
 
+export interface GroupedResults {
+  day: Date | undefined;
+  results: StoredResult[];
+}
+
 function toDate(num: number): Date | undefined {
   return num === 0 ? undefined : new Date(num);
+}
+
+function toDay(date: Date | undefined): Date | undefined {
+  if (date === undefined) {
+    return undefined;
+  }
+
+  const day = new Date(date);
+  day.setHours(0, 0, 0, 0);
+  return day;
 }
 
 export enum ResultsStoreState {
@@ -26,7 +41,7 @@ export enum ResultsStoreState {
 }
 
 export interface ResultsStoreValue {
-  results: StoredResult[];
+  groups: GroupedResults[];
   state: ResultsStoreState;
 }
 
@@ -43,32 +58,66 @@ type Cursor = IDBPCursorWithValue<
   unknown
 > | null;
 
+function combineGroups(
+  lhs: GroupedResults[],
+  rhs: GroupedResults[]
+): GroupedResults[] {
+  if (lhs.length === 0) {
+    return rhs;
+  } else if (rhs.length === 0) {
+    return lhs;
+  }
+
+  const justLeft = lhs[lhs.length - 1];
+  const justRight = rhs[0];
+  if (justLeft.day?.getTime() === justRight.day?.getTime()) {
+    const result = lhs.slice(0, -1);
+    result.push({
+      day: justLeft.day,
+      results: justLeft.results.concat(justRight.results),
+    });
+    for (let i = 1; i < rhs.length; i++) {
+      result.push(rhs[i]);
+    }
+    return result;
+  } else {
+    return lhs.concat(rhs);
+  }
+}
+
+function toGroup(result: StoredResult): GroupedResults {
+  const day = toDay(result.date);
+  return { day, results: [result] };
+}
+
 async function fetchNextBatch(
   startingCursor: Cursor,
   batchSize: number
 ): Promise<{
-  results: StoredResult[];
+  groups: GroupedResults[];
   hasMore: boolean;
 }> {
   let cursor = startingCursor;
-  const results: StoredResult[] = [];
+  let groups: GroupedResults[] = [];
 
   for (let i = 0; i < batchSize; i++) {
     if (cursor === null) {
-      return { results, hasMore: false };
+      return { groups, hasMore: false };
     }
 
     const value = cursor.value;
-    results.push({
-      index: cursor.key,
-      date: toDate(value.date),
-      source: ResultSource.DB,
-      result: value.result,
-    });
+    groups = combineGroups(groups, [
+      toGroup({
+        index: cursor.key,
+        date: toDate(value.date),
+        source: ResultSource.DB,
+        result: value.result,
+      }),
+    ]);
 
     cursor = await cursor.continue();
   }
-  return { results, hasMore: cursor !== null };
+  return { groups, hasMore: cursor !== null };
 }
 
 export function makeResultsStore(
@@ -76,7 +125,7 @@ export function makeResultsStore(
   batchSize: number
 ): ResultsStore {
   let value: ResultsStoreValue = {
-    results: [],
+    groups: [],
     state: ResultsStoreState.LOADING,
   };
 
@@ -101,10 +150,15 @@ export function makeResultsStore(
   }
 
   function getQuery(): IDBKeyRange | undefined {
-    const results = value.results;
-    return results.length === 0
-      ? undefined
-      : IDBKeyRange.upperBound(results[results.length - 1].index, true);
+    const groups = value.groups;
+    if (groups.length === 0) {
+      return;
+    }
+    const lastResults = groups[groups.length - 1].results;
+    return IDBKeyRange.upperBound(
+      lastResults[lastResults.length - 1].index,
+      true
+    );
   }
 
   async function loadMore() {
@@ -113,12 +167,12 @@ export function makeResultsStore(
       const cursor = await (await db)
         .transaction("results", "readonly")
         .store.openCursor(query, "prev");
-      const { results, hasMore } = await fetchNextBatch(cursor, batchSize);
+      const { groups, hasMore } = await fetchNextBatch(cursor, batchSize);
       return {
         state: hasMore
           ? ResultsStoreState.HAS_MORE
           : ResultsStoreState.HAS_NO_MORE,
-        results: value.results.concat(results),
+        groups: combineGroups(value.groups, groups),
       };
     });
   }
@@ -130,13 +184,13 @@ export function makeResultsStore(
     async append(result: Result): Promise<void> {
       const date = Date.now();
       const index = await (await db).add("results", { date, result });
-      const storedResult: StoredResult = {
+      const storedResult = toGroup({
         index,
         date: toDate(date),
         source: ResultSource.USER,
         result,
-      };
-      setValue({ results: [storedResult].concat(value.results) });
+      });
+      setValue({ groups: combineGroups([storedResult], value.groups) });
     },
     async loadMore(): Promise<void> {
       if (value.state === ResultsStoreState.HAS_MORE) {
@@ -150,7 +204,7 @@ export function makeResultsStore(
 
       await wrappedLoadingUpdate(async () => {
         await (await db).clear("results");
-        return { state: ResultsStoreState.HAS_NO_MORE, results: [] };
+        return { state: ResultsStoreState.HAS_NO_MORE, groups: [] };
       });
     },
   };

@@ -7,8 +7,8 @@ import {
   ResultSource,
   ResultsStore,
   ResultsStoreState,
-  StoredResult,
 } from "../stores";
+import type { GroupedResults } from "../stores/results-store";
 import { makeEditor, markError } from "./editor";
 import FormulaForm from "./FormulaForm.svelte";
 
@@ -44,10 +44,10 @@ jest.mock("../formula", () => ({
 
 jest.mock("../stores");
 
-function mockResults(value: StoredResult[]): ResultsStore {
+function mockResults(groups: GroupedResults[]): ResultsStore {
   const implementation = ({
     subscribe: jest.fn((run) => {
-      run({ results: value, state: ResultsStoreState.HAS_NO_MORE });
+      run({ groups, state: ResultsStoreState.HAS_NO_MORE });
       return () => void {};
     }),
     append: jest.fn(),
@@ -163,7 +163,12 @@ test("It shows examples when there are no results", async () => {
 
 test("It hides examples when there are results", async () => {
   mockResults([
-    { index: 0, date: undefined, source: ResultSource.DB, result: [] },
+    {
+      day: undefined,
+      results: [
+        { index: 0, date: undefined, source: ResultSource.DB, result: [] },
+      ],
+    },
   ]);
   mockEditor();
 
