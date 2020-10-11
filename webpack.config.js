@@ -6,8 +6,8 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const sveltePreprocess = require("svelte-preprocess");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = function (env, argv) {
   const plugins = [
@@ -20,22 +20,13 @@ module.exports = function (env, argv) {
   ];
   if (argv.mode === "production") {
     plugins.push(
-      new FaviconsWebpackPlugin({
-        logo: path.resolve(__dirname, "src/logo.svg"),
-        prefix: "",
-        favicons: {
-          icons: {
-            favicons: true,
-
-            android: false,
-            appleIcon: false,
-            appleStartup: false,
-            coast: false,
-            firefox: false,
-            windows: false,
-            yandex: false,
+      new CopyPlugin({
+        patterns: [
+          {
+            context: "static",
+            from: "**/*.{ico,png}",
           },
-        },
+        ],
       })
     );
     plugins.push(new HtmlWebpackInlineSourcePlugin(HtmlWebpackPlugin));
