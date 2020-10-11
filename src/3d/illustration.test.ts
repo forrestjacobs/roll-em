@@ -28,16 +28,16 @@ function mockRandom(...values: number[]) {
 
 it("make an illustration containing the die's model", () => {
   const model = new Anchor();
-  const canvas = document.createElement("canvas");
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 
   mockModel(model);
   mockRandom(0, 0, 0);
 
-  const illustration = makeIllustration(6, canvas);
+  const illustration = makeIllustration(6, svg);
 
   expect(makeModel).toBeCalledWith(6);
 
-  expect(illustration.element).toBe(canvas);
+  expect(illustration.element).toBe(svg);
   expect(illustration.children.length).toBe(1);
   expect(illustration.children[0].children).toStrictEqual([model]);
 });
@@ -46,7 +46,8 @@ it("renders the die a little ajar", () => {
   mockModel(new Anchor());
   mockRandom(0.3, 0.6, 0.9);
 
-  const illustration = makeIllustration(6, document.createElement("canvas"));
+  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  const illustration = makeIllustration(6, svg);
 
   const anchor = illustration.children[0];
 
