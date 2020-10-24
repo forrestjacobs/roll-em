@@ -11,7 +11,10 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = function (env, argv) {
   const plugins = [
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin({
+      protectWebpackAssets: false,
+      cleanAfterEveryBuildPatterns: ["main.css", "main.js"],
+    }),
     new HtmlWebpackPlugin({
       template: "./src/index.ejs",
       inlineSource: ".(js|css)$",
@@ -64,7 +67,15 @@ module.exports = function (env, argv) {
         },
         {
           test: /\.css$/,
-          use: [MiniCssExtractPlugin.loader, "css-loader"],
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: "css-loader",
+              options: {
+                sourceMap: false,
+              },
+            },
+          ],
         },
       ],
     },

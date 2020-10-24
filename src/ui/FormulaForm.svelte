@@ -1,49 +1,59 @@
 <script lang="ts">
-  import type { Editor, TextMarker } from "codemirror";
-  import "codemirror/lib/codemirror.css";
-  import { onMount } from "svelte";
+  import { tick } from "svelte";
   import { parse, roll } from "../formula";
   import { getResultsStore, ResultsStoreState } from "../stores";
-  import { makeEditor, markError } from "./editor";
 
   const resultsStore = getResultsStore();
 
-  let editorContainer: HTMLElement | undefined = undefined;
-  let editor: Editor | undefined = undefined;
+  let input: HTMLTextAreaElement;
+  let textValue = "";
 
   let errorMessage: string | undefined = undefined;
-  let errorMark: TextMarker | undefined = undefined;
+  let errorIndex: number | undefined = undefined;
 
-  function submit() {
+  function onInputKeydown() {
     errorMessage = undefined;
-    if (errorMark) {
-      errorMark.clear();
-    }
-    errorMark = undefined;
+    errorIndex = undefined;
+  }
 
+  function onInputKeypress(event: KeyboardEvent) {
+    if (event.code === "Enter" && !event.shiftKey) {
+      submit();
+      event.preventDefault();
+    }
+  }
+
+  async function submit() {
+    errorMessage = undefined;
+    errorIndex = undefined;
     try {
-      resultsStore.append(roll(parse(editor!.getValue())));
-      editor!.execCommand("selectAll");
+      resultsStore.append(roll(parse(textValue)));
     } catch (e) {
       if (e.message) {
         errorMessage = e.message;
-        if (e.location) {
-          errorMark = markError(editor!, e.location);
-        }
+        errorIndex = e.location?.start?.offset;
       } else {
         throw e;
       }
     }
+
+    await tick();
+    input.focus();
+    input.select();
   }
 
   function tryExample(value: string) {
-    editor!.setValue(value);
-    editor!.focus();
+    textValue = value;
   }
 
-  onMount(() => {
-    editor = makeEditor(editorContainer!, submit);
-  });
+  let classByCharacter: { [char: string]: string } = {};
+  function registerClass(name: string, charset: string) {
+    for (const c of charset) {
+      classByCharacter[c] = name;
+    }
+  }
+  registerClass("num", "0123456789%");
+  registerClass("d", "dD");
 </script>
 
 <style>
@@ -58,28 +68,54 @@
   .editor-container {
     flex-grow: 1;
     border: 1px solid #999;
+    background: #fff;
+    padding: 4px;
+    overflow: auto;
   }
 
-  .editor-container :global(.CodeMirror) {
-    font-family: inherit;
+  .editor {
+    position: relative;
   }
 
-  .editor-container :global(.error-text) {
+  .formatted-value {
+    white-space: pre-wrap;
+    font: inherit;
+  }
+
+  .formatted-value :global(.num) {
+    color: #164;
+  }
+
+  .formatted-value :global(.d) {
+    color: #708;
+  }
+
+  .formatted-value :global(.error-text) {
     box-shadow: inset 0 0 0 #fff, inset 0 -0.125em 0 #900;
   }
 
-  .editor-container :global(.error-bookmark) {
-    display: inline-block;
+  .formatted-value :global(.error-bookmark) {
     position: relative;
     left: -0.2em;
-    top: 0.375em;
-    border: 0.25em solid #fff;
+    border: 0.2em solid transparent;
     border-top-width: 0;
     border-bottom-color: #900;
   }
 
-  .editor-container :global(.CodeMirror) {
-    height: auto;
+  .editor textarea {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font: inherit;
+    border: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    resize: none;
+    width: 100%;
+    height: 100%;
+    color: transparent;
+    caret-color: #000;
   }
 
   form button[type="submit"] {
@@ -109,7 +145,22 @@
 
 <form on:submit|preventDefault={submit}>
   <div class="row">
-    <div class="editor-container" bind:this={editorContainer} />
+    <div class="editor-container">
+      <div class="editor">
+        <div class="formatted-value">
+          {#each textValue as char, i}<span class={`${classByCharacter[char]} ${i === errorIndex ? 'error-text' : ''}`}>{char}</span>{/each}{#if errorIndex === [...textValue].length}<span class="error-bookmark" />{/if}{' '}
+        </div>
+        <textarea
+          bind:this={input}
+          bind:value={textValue}
+          on:keydown={onInputKeydown}
+          on:keypress={onInputKeypress}
+          autocorrect="off"
+          autocapitalize="no"
+          aria-label="Formula"
+          spellcheck={false} />
+      </div>
+    </div>
     <button type="submit">Roll</button>
   </div>
   {#if errorMessage}
@@ -122,12 +173,10 @@
       </button>,
       <button class="show-as-link" on:click={() => tryExample('d8 + d6')}>
         d8 + d6
-      </button>,
-      or
+      </button>, or
       <button class="show-as-link" on:click={() => tryExample('d20 + 2')}>
         d20 + 2
       </button>
     </div>
   {/if}
-
 </form>
