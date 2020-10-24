@@ -28,6 +28,10 @@
     errorIndex = undefined;
     try {
       resultsStore.append(roll(parse(textValue)));
+
+      await tick();
+      input.focus();
+      input.select();
     } catch (e) {
       if (e.message) {
         errorMessage = e.message;
@@ -36,10 +40,6 @@
         throw e;
       }
     }
-
-    await tick();
-    input.focus();
-    input.select();
   }
 
   function tryExample(value: string) {
