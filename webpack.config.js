@@ -6,8 +6,9 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const sveltePreprocess = require("svelte-preprocess");
 const CopyPlugin = require("copy-webpack-plugin");
+
+const svelteConfig = require("./svelte.config");
 
 module.exports = function (env, argv) {
   const plugins = [
@@ -61,7 +62,7 @@ module.exports = function (env, argv) {
             loader: "svelte-loader",
             options: {
               emitCss: true,
-              preprocess: sveltePreprocess({}),
+              ...svelteConfig,
             },
           },
         },

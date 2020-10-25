@@ -143,22 +143,29 @@
   }
 </style>
 
-<form on:submit|preventDefault={submit}>
+<form on:submit|preventDefault="{submit}">
   <div class="row">
     <div class="editor-container">
       <div class="editor">
         <div class="formatted-value">
-          {#each textValue as char, i}<span class={`${classByCharacter[char]} ${i === errorIndex ? 'error-text' : ''}`}>{char}</span>{/each}{#if errorIndex === [...textValue].length}<span class="error-bookmark" />{/if}{' '}
+          {#each textValue as char, i}
+            <span
+              class="{`${classByCharacter[char]} ${i === errorIndex ? 'error-text' : ''}`}">{char}</span>
+          {/each}
+          {#if errorIndex === [...textValue].length}
+            <span class="error-bookmark"></span>
+          {/if}
+          {' '}
         </div>
         <textarea
-          bind:this={input}
-          bind:value={textValue}
-          on:keydown={onInputKeydown}
-          on:keypress={onInputKeypress}
+          bind:this="{input}"
+          bind:value="{textValue}"
+          on:keydown="{onInputKeydown}"
+          on:keypress="{onInputKeypress}"
           autocorrect="off"
           autocapitalize="no"
           aria-label="Formula"
-          spellcheck={false} />
+          spellcheck="{false}"></textarea>
       </div>
     </div>
     <button type="submit">Roll</button>
@@ -167,14 +174,16 @@
     <div class="error-message">{errorMessage}</div>
   {:else if $resultsStore.state === ResultsStoreState.HAS_NO_MORE && $resultsStore.groups.length === 0}
     <div class="examples">
-      Examples:
-      <button class="show-as-link" on:click={() => tryExample('2d6')}>
+      {'Examples: '}
+      <button class="show-as-link" on:click="{() => tryExample('2d6')}">
         2d6
-      </button>,
-      <button class="show-as-link" on:click={() => tryExample('d8 + d6')}>
+      </button>
+      {', '}
+      <button class="show-as-link" on:click="{() => tryExample('d8 + d6')}">
         d8 + d6
-      </button>, or
-      <button class="show-as-link" on:click={() => tryExample('d20 + 2')}>
+      </button>
+      {', or '}
+      <button class="show-as-link" on:click="{() => tryExample('d20 + 2')}">
         d20 + 2
       </button>
     </div>

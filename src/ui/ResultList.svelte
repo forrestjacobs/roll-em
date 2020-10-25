@@ -63,7 +63,7 @@
 {#if $resultsStore.groups.length !== 0 || $resultsStore.state !== ResultsStoreState.HAS_NO_MORE}
   <div class="results-header">
     <h2>Results</h2>
-    <button class="show-as-link" on:click={resultsStore.clear}>Clear</button>
+    <button class="show-as-link" on:click="{resultsStore.clear}">Clear</button>
   </div>
 {/if}
 
@@ -75,7 +75,10 @@
         <ol class="group-results">
           {#each group.results as { index, date, source, result } (index)}
             <li>
-              <Result {result} {date} animated={source === ResultSource.USER} />
+              <Result
+                result="{result}"
+                date="{date}"
+                animated="{source === ResultSource.USER}" />
             </li>
           {/each}
         </ol>
@@ -86,7 +89,7 @@
 
 {#if $resultsStore.state === ResultsStoreState.HAS_MORE}
   <div class="row">
-    <button class="show-as-link" on:click={resultsStore.loadMore}>
+    <button class="show-as-link" on:click="{resultsStore.loadMore}">
       Load More
     </button>
   </div>

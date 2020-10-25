@@ -50,8 +50,8 @@
 <span class="container">
   <canvas
     class="illustration"
-    bind:this={illustrationEl}
+    bind:this="{illustrationEl}"
     width="44"
-    height="44" />
-  <span class="value" bind:this={valueEl}>{value}</span>
+    height="44"></canvas>
+  <span class="value" bind:this="{valueEl}">{value}</span>
 </span>

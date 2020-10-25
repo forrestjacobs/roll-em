@@ -73,13 +73,14 @@
   }
 </style>
 
-<svelte:options immutable={true} />
+<svelte:options immutable="{true}" />
 
 <div class="result">
   <span class="sum">{sum(result)}</span>
+  {' '}
   <span class="equals">=</span>
   <span class="components">
-    {#if result.length === 0}<span class="empty">(empty)</span>{/if}
+    {#if result.length === 0}{' '}<span class="empty">(empty)</span>{/if}
 
     {#each result as term, termIndex}
       {#if termIndex != 0}{' '}{/if}
@@ -100,11 +101,15 @@
               <span class="operator dice-operator">+</span>
             {/if}
             <span class="dice" title="d{term.sides}">
-              <DieRoll sides={term.sides} {value} {animated} />
+              <DieRoll
+                sides="{term.sides}"
+                value="{value}"
+                animated="{animated}" />
             </span>
           {:else if valueIndex === MAX_DICE_TO_SHOW_PER_TERM}
             {' '}
             <span class="operator overflow-operator">+</span>
+            {' '}
             <span class="overflow">
               {term.value.length - MAX_DICE_TO_SHOW_PER_TERM}
               more
