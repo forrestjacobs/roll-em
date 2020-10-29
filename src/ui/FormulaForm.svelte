@@ -42,10 +42,6 @@
     }
   }
 
-  function tryExample(value: string) {
-    textValue = value;
-  }
-
   let classByCharacter: { [char: string]: string } = {};
   function registerClass(name: string, charset: string) {
     for (const c of charset) {
@@ -172,19 +168,15 @@
   </div>
   {#if errorMessage}
     <div class="error-message">{errorMessage}</div>
-  {:else if $resultsStore.state === ResultsStoreState.HAS_NO_MORE && $resultsStore.groups.length === 0}
+  {:else if $resultsStore.groups.length === 0}
     <div class="examples">
       {'Examples: '}
-      <button class="show-as-link" on:click="{() => tryExample('2d6')}">
-        2d6
-      </button>
-      {', '}
-      <button class="show-as-link" on:click="{() => tryExample('d8 + d6')}">
-        d8 + d6
-      </button>
-      {', or '}
-      <button class="show-as-link" on:click="{() => tryExample('d20 + 2')}">
+      <button class="show-as-link" on:click="{() => textValue = 'd20 + 2'}">
         d20 + 2
+      </button>
+      {' or '}
+      <button class="show-as-link" on:click="{() => textValue = 'd8 + d6'}">
+        d8 + d6
       </button>
     </div>
   {/if}

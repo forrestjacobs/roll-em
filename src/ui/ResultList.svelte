@@ -24,77 +24,59 @@
     display: inline;
   }
 
-  ol.results {
-    margin: 0;
-    padding: 0;
-  }
-
-  ol.results > li {
-    list-style: none;
-  }
-
-  .day {
+  h3 {
     background: #eee;
     color: #000;
     padding: 1em 1em 0.25em 1em;
+    margin: 0;
+    font-weight: normal;
+    font-size: 1em;
     position: sticky;
     top: 0;
     z-index: 1;
     border-bottom: 1px solid #ccc;
   }
 
-  ol.group-results {
+  ol {
     margin: 0;
     padding: 0;
   }
 
-  ol.group-results > li {
+  ol > li {
     border-bottom: 1px solid #ccc;
     list-style: none;
     display: flex;
     align-items: flex-start;
   }
 
-  .row {
-    padding: 1em;
+  .load-more {
+    margin: 1em;
   }
 </style>
 
-{#if $resultsStore.groups.length !== 0 || $resultsStore.state !== ResultsStoreState.HAS_NO_MORE}
+{#if $resultsStore.groups.length !== 0}
   <div class="results-header">
     <h2>Results</h2>
     <button class="show-as-link" on:click="{resultsStore.clear}">Clear</button>
   </div>
-{/if}
 
-{#if $resultsStore.groups.length !== 0}
-  <ol class="results">
-    {#each $resultsStore.groups as group (getIndex(group))}
-      <li>
-        <div class="day">{getDayString(group.day)}</div>
-        <ol class="group-results">
-          {#each group.results as { index, date, source, result } (index)}
-            <li>
-              <Result
-                result="{result}"
-                date="{date}"
-                animated="{source === ResultSource.USER}" />
-            </li>
-          {/each}
-        </ol>
-      </li>
-    {/each}
-  </ol>
+  {#each $resultsStore.groups as group (getIndex(group))}
+    <h3>{getDayString(group.day)}</h3>
+    <ol>
+      {#each group.results as { index, date, source, result } (index)}
+        <li>
+          <Result
+            result="{result}"
+            date="{date}"
+            animated="{source === ResultSource.USER}" />
+        </li>
+      {/each}
+    </ol>
+  {/each}
 {/if}
 
 {#if $resultsStore.state === ResultsStoreState.HAS_MORE}
-  <div class="row">
-    <button class="show-as-link" on:click="{resultsStore.loadMore}">
-      Load More
-    </button>
-  </div>
-{/if}
-
-{#if $resultsStore.state === ResultsStoreState.LOADING}
-  <div class="row">Loading...</div>
+  <button class="show-as-link load-more" on:click="{resultsStore.loadMore}">
+    Load More
+  </button>
 {/if}

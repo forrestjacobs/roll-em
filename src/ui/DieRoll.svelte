@@ -47,7 +47,7 @@
   }
 </style>
 
-<span class="container">
+<span class="container" title="d{sides}">
   <canvas
     class="illustration"
     bind:this="{illustrationEl}"

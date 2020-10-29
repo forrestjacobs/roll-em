@@ -3,12 +3,16 @@
 </script>
 
 <script lang="ts">
-  import { sum, Result } from "../formula";
+  import { sum, Result, ResultTerm } from "../formula";
   import DieRoll from "./DieRoll.svelte";
 
   export let result: Result = [];
   export let date: Date | undefined;
   export let animated: boolean;
+
+  function getTermOp(term: ResultTerm, termIndex: number) {
+    return term.type === 'number' && term.value < 0 ? "-" : termIndex === 0 ? undefined : "+";
+  }
 </script>
 
 <style>
@@ -42,6 +46,7 @@
     display: flex;
     flex-wrap: wrap;
     margin: -0.375em;
+    line-height: 2.75em;
   }
 
   .time {
@@ -52,20 +57,12 @@
   }
 
   .operator,
-  .number,
-  .overflow,
-  .dice {
-    line-height: 2.75em;
-  }
-
-  .operator,
   .number {
     margin: 0 0.375em;
   }
 
   .overflow {
     font-style: italic;
-    margin-right: 0.375em;
   }
 
   .dice-operator {
@@ -77,47 +74,34 @@
 
 <div class="result">
   <span class="sum">{sum(result)}</span>
-  {' '}
-  <span class="equals">=</span>
+  <span class="equals">{' = '}</span>
   <span class="components">
-    {#if result.length === 0}{' '}<span class="empty">(empty)</span>{/if}
-
     {#each result as term, termIndex}
-      {#if termIndex != 0}{' '}{/if}
-
-      {#if term.type === 'number' && term.value < 0}
-        <span class="operator term-operator">-</span>
-      {:else if termIndex !== 0}
-        <span class="operator term-operator">+</span>
+      {#if getTermOp(term, termIndex) !== undefined}
+        <span class="operator">{` ${getTermOp(term, termIndex)} `}</span>
       {/if}
 
       {#if term.type === 'number'}
         <span class="number">{Math.abs(term.value)}</span>
       {:else}
-        {#each term.value as value, valueIndex}
-          {#if valueIndex < MAX_DICE_TO_SHOW_PER_TERM}
-            {#if valueIndex !== 0}
-              {' '}
-              <span class="operator dice-operator">+</span>
-            {/if}
-            <span class="dice" title="d{term.sides}">
-              <DieRoll
-                sides="{term.sides}"
-                value="{value}"
-                animated="{animated}" />
-            </span>
-          {:else if valueIndex === MAX_DICE_TO_SHOW_PER_TERM}
-            {' '}
-            <span class="operator overflow-operator">+</span>
-            {' '}
-            <span class="overflow">
-              {term.value.length - MAX_DICE_TO_SHOW_PER_TERM}
-              more
-            </span>
+        {#each term.value.slice(0, MAX_DICE_TO_SHOW_PER_TERM) as value, valueIndex}
+          {#if valueIndex !== 0}
+            <span class="dice-operator">{' + '}</span>
           {/if}
+          <DieRoll
+            sides="{term.sides}"
+            value="{value}"
+            animated="{animated}" />
         {/each}
+        {#if term.value.length > MAX_DICE_TO_SHOW_PER_TERM}
+          <span class="operator">{' + '}</span>
+          <span class="overflow">
+            {term.value.length - MAX_DICE_TO_SHOW_PER_TERM}
+            more
+          </span>
+        {/if}
       {/if}
     {/each}
   </span>
-  {#if date}<span class="time"> {date.toLocaleTimeString()} </span>{/if}
+  {#if date}<span class="time">{date.toLocaleTimeString()}</span>{/if}
 </div>
