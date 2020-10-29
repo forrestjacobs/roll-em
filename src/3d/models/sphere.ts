@@ -1,5 +1,5 @@
 import { Anchor, Hemisphere } from "zdog";
-import { getColor, RADIUS, GREEN } from "./consts";
+import { GREEN0, GREEN_D1, RADIUS } from "./consts";
 
 const DIAMETER = 1.8 * RADIUS;
 
@@ -9,8 +9,8 @@ new Hemisphere({
   addTo,
   diameter: DIAMETER,
   stroke: false,
-  color: getColor(GREEN, 0),
-  backface: getColor(GREEN, -1),
+  color: GREEN0,
+  backface: GREEN_D1,
 });
 
 new Hemisphere({
@@ -20,8 +20,8 @@ new Hemisphere({
   },
   diameter: DIAMETER,
   stroke: false,
-  color: getColor(GREEN, -1),
-  backface: getColor(GREEN, 0),
+  color: GREEN_D1,
+  backface: GREEN0,
 });
 
 addTo.rotate.x = Math.PI / 4;
