@@ -20,9 +20,9 @@ it("creates a sphere if the model isn't available", () => {
 });
 
 it("can get the basic model length", () => {
-  expect(getLength(6)).toBe(22 * Math.SQRT2);
+  expect(getLength(6)).toBeCloseTo(22 * Math.SQRT2);
 });
 
 it("can get the 2-sided model length", () => {
-  expect(getLength(2)).toBe(5.5 * Math.SQRT2);
+  expect(getLength(2)).toBeCloseTo(5.5 * Math.SQRT2);
 });

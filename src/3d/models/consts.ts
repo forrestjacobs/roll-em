@@ -1,38 +1,53 @@
 export const RADIUS = 22;
-export const LEN = RADIUS * Math.SQRT2;
 
-// Colors from Solarized: https://ethanschoonover.com/solarized/
-export const YELLOW = { r: 0xb5, g: 0x89, b: 0x00 };
-export const ORANGE = { r: 0xcb, g: 0x4b, b: 0x16 };
-export const RED = { r: 0xdc, g: 0x32, b: 0x2f };
-export const MAGENTA = { r: 0xd3, g: 0x36, b: 0x82 };
-export const VIOLET = { r: 0x6c, g: 0x71, b: 0xc4 };
-export const BLUE = { r: 0x26, g: 0x8b, b: 0xd2 };
-export const CYAN = { r: 0x2a, g: 0xa1, b: 0x98 };
-export const GREEN = { r: 0x85, g: 0x99, b: 0x00 };
+export const LEN = 31.11269837220809;
 
-export interface Color {
-  r: number;
-  g: number;
-  b: number;
-}
+export const PI = Math.PI;
 
-const dark = { r: 0, g: 0, b: 0x33 };
-const bright = { r: 0xff, g: 0xff, b: 0xcc };
+export const YELLOW_B2 = "#ECE199";
+export const YELLOW_B1 = "#D0B52C";
+export const YELLOW0 = "#B58900";
+export const YELLOW_D1 = "#71550B";
+export const YELLOW_D2 = "#2D2226";
 
-function mixChannel(lhs: number, rhs: number, mix: number): number {
-  return Math.floor(lhs * mix + rhs * (1 - mix));
-}
+export const ORANGE_B2 = "#F2D29E";
+export const ORANGE_B1 = "#DE8E3D";
+export const ORANGE0 = "#CB4B16";
+export const ORANGE_D1 = "#7E2E1C";
+export const ORANGE_D2 = "#32122B";
 
-function mixColors(lhs: Color, rhs: Color, mix: number): string {
-  const r = mixChannel(lhs.r, rhs.r, 0.75 * mix);
-  const g = mixChannel(lhs.g, rhs.g, 0.75 * mix);
-  const b = mixChannel(lhs.b, rhs.b, 0.75 * (1 - Math.pow(1 - mix, 0.5)));
-  return `rgb(${r} ${g} ${b})`;
-}
+export const RED_B2 = "#F6CBA4";
+export const RED_B1 = "#E97E51";
+export const RED0 = "#DC322F";
+export const RED_D1 = "#891F2F";
+export const RED_D2 = "#370C32";
 
-export function getColor(base: Color, relativeValue = 0): string {
-  return relativeValue > 0
-    ? mixColors(bright, base, relativeValue / 2)
-    : mixColors(dark, base, relativeValue / -2);
-}
+export const MAGENTA_B2 = "#F4CCB9";
+export const MAGENTA_B1 = "#E38192";
+export const MAGENTA0 = "#D33682";
+export const MAGENTA_D1 = "#832170";
+export const MAGENTA_D2 = "#340D46";
+
+export const VIOLET_B2 = "#DADBCA";
+export const VIOLET_B1 = "#A3A6C5";
+export const VIOLET0 = "#6C71C4";
+export const VIOLET_D1 = "#4346A4";
+export const VIOLET_D2 = "#1B1C57";
+
+export const BLUE_B2 = "#C8E2CD";
+export const BLUE_B1 = "#77B6D0";
+export const BLUE0 = "#268BD2";
+export const BLUE_D1 = "#1756AF";
+export const BLUE_D2 = "#09225A";
+
+export const CYAN_B2 = "#C9E7BF";
+export const CYAN_B1 = "#79C4A3";
+export const CYAN0 = "#2AA198";
+export const CYAN_D1 = "#1A6481";
+export const CYAN_D2 = "#0A284C";
+
+export const GREEN_B2 = "#E0E599";
+export const GREEN_B1 = "#B2BF2C";
+export const GREEN0 = "#859900";
+export const GREEN_D1 = "#535F0B";
+export const GREEN_D2 = "#212626";

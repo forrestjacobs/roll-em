@@ -1,4 +1,4 @@
-import { RADIUS, CYAN } from "./consts";
+import { CYAN0, CYAN_B1, CYAN_B2, CYAN_D1, CYAN_D2 } from "./consts";
 import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
 
 /**
@@ -6,49 +6,41 @@ import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
  * which is licensed under the MIT License.
  */
 
-const l = RADIUS / Math.sqrt(3);
-const t = (l * (1 + Math.sqrt(5))) / 2;
+const n0_65 = 0.6516936462691122;
+const n5_71 = 5.715767664977297;
+const n9_24 = 9.248306353730888;
+const n9_90 = 9.9;
+const n10_30 = 10.302768823646662;
+const n11_43 = 11.43153532995459;
+const n16_01 = 16.01853648862396;
+const n18_49 = 18.49661270746177;
+const n19_14 = 19.14830635373089;
+const n21_73 = 21.734304153601254;
 
-const v0 = makeVert(-l, t, 0);
-const v1 = makeVert(l, t, 0);
-// Not visible:
-// const v2 = makeVert(-l, -t, 0);
-// const v3 = makeVert(l, -t, 0);
-const v4 = makeVert(0, -l, t);
-const v5 = makeVert(0, l, t);
-const v6 = makeVert(0, -l, -t);
-const v7 = makeVert(0, l, -t);
-const v8 = makeVert(t, 0, -l);
-const v9 = makeVert(t, 0, l);
-const v10 = makeVert(-t, 0, -l);
-const v11 = makeVert(-t, 0, l);
+const v0 = makeVert(-n11_43, n9_24, n16_01);
+const v1 = makeVert(n11_43, n9_24, n16_01);
+const v4 = makeVert(0, -n21_73, -n0_65);
+const v5 = makeVert(0, -n10_30, n19_14);
+const v6 = makeVert(0, n10_30, -n19_14);
+const v7 = makeVert(0, n21_73, n0_65);
+const v8 = makeVert(n18_49, n9_90, -n5_71);
+const v9 = makeVert(n18_49, -n9_90, n5_71);
+const v10 = makeVert(-n18_49, n9_90, -n5_71);
+const v11 = makeVert(-n18_49, -n9_90, n5_71);
 
 const faces = [
-  makeFace(CYAN, 2, v4, v9, v5),
-  makeFace(CYAN, 1, v5, v11, v4),
-  makeFace(CYAN, 1, v1, v5, v9),
-  makeFace(CYAN, 1, v9, v8, v1),
-  makeFace(CYAN, 0, v0, v11, v5),
-  makeFace(CYAN, 0, v0, v5, v1),
-  makeFace(CYAN, -1, v0, v1, v7),
-  makeFace(CYAN, -1, v0, v10, v11),
-  makeFace(CYAN, -1, v7, v1, v8),
-  makeFace(CYAN, -2, v0, v7, v10),
-  makeFace(CYAN, -2, v10, v7, v6),
-  makeFace(CYAN, -2, v8, v6, v7),
-  // Not visible:
-  // makeFace(CYAN, -2, v11, v10, v2),
-  // makeFace(CYAN, -2, v3, v9, v4),
-  // makeFace(CYAN, -2, v3, v4, v2),
-  // makeFace(CYAN, -2, v3, v2, v6),
-  // makeFace(CYAN, -2, v3, v6, v8),
-  // makeFace(CYAN, -2, v3, v8, v9),
-  // makeFace(CYAN, -2, v2, v4, v11),
-  // makeFace(CYAN, -2, v6, v2, v10),
+  makeFace(CYAN_B2, v4, v9, v5),
+  makeFace(CYAN_B1, v5, v11, v4),
+  makeFace(CYAN_B1, v1, v5, v9),
+  makeFace(CYAN_B1, v9, v8, v1),
+  makeFace(CYAN0, v0, v11, v5),
+  makeFace(CYAN0, v0, v5, v1),
+  makeFace(CYAN_D1, v0, v1, v7),
+  makeFace(CYAN_D1, v0, v10, v11),
+  makeFace(CYAN_D1, v7, v1, v8),
+  makeFace(CYAN_D2, v0, v7, v10),
+  makeFace(CYAN_D2, v10, v7, v6),
+  makeFace(CYAN_D2, v8, v6, v7),
 ];
 
-const poly = makePolyhedron(faces);
-poly.rotate.x = Math.PI / 3;
-poly.scale.multiply(0.9);
-
-export const icosahedron = poly;
+export const icosahedron = makePolyhedron(faces);
