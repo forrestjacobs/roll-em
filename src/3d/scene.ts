@@ -1,14 +1,10 @@
-import { Anchor, Illustration } from "zdog";
+import { Anchor } from "zdog";
 import { random } from "../utils/rng";
-import { makeModel } from "./models";
+import { makeModel, PI } from "./models";
 
-const { PI } = Math;
 export const RAND_ROTATE_RANGE = PI / 32;
 
-export function makeIllustration(
-  sides: number,
-  element: HTMLCanvasElement | SVGSVGElement
-): Illustration {
+export function makeScene(sides: number): Anchor {
   const model = makeModel(sides);
 
   const anchor = new Anchor();
@@ -17,10 +13,8 @@ export function makeIllustration(
   anchor.rotate.z = (random() - 0.5) * RAND_ROTATE_RANGE;
   anchor.addChild(model);
 
-  const illustration = new Illustration({
-    element,
-  });
-  illustration.addChild(anchor);
+  const wrapper = new Anchor();
+  wrapper.addChild(anchor);
 
-  return illustration;
+  return wrapper;
 }

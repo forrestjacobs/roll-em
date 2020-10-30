@@ -6,14 +6,16 @@
   export let value: number;
   export let animated: boolean;
 
-  let illustrationEl: HTMLCanvasElement | SVGSVGElement | undefined = undefined;
+  const scale = window.devicePixelRatio || 1;
+
+  let canvas: HTMLCanvasElement | undefined = undefined;
   let valueEl: HTMLElement | undefined = undefined;
 
   onMount(() => {
     if (animated) {
-      animate(sides, illustrationEl!, valueEl!);
+      animate(sides, scale, canvas!, valueEl!);
     } else {
-      renderDie(sides, illustrationEl!, valueEl!);
+      renderDie(sides, scale, canvas!, valueEl!);
     }
   });
 </script>
@@ -30,6 +32,11 @@
   .illustration,
   .value {
     position: absolute;
+  }
+
+  .illustration {
+    width: 44px;
+    height: 44px;
   }
 
   .value {
@@ -50,8 +57,6 @@
 <span class="container" title="d{sides}">
   <canvas
     class="illustration"
-    bind:this="{illustrationEl}"
-    width="44"
-    height="44"></canvas>
+    bind:this="{canvas}"></canvas>
   <span class="value" bind:this="{valueEl}">{value}</span>
 </span>

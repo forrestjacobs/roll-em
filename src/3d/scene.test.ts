@@ -1,7 +1,7 @@
 import { Anchor } from "zdog";
 import { random } from "../utils/rng";
 import { makeModel } from "./models";
-import { makeIllustration } from "./illustration";
+import { makeScene } from "./scene";
 
 jest.mock("../utils/rng");
 jest.mock("./models");
@@ -26,30 +26,27 @@ function mockRandom(...values: number[]) {
   }
 }
 
-it("make an illustration containing the die's model", () => {
+it("make a scene containing the die's model", () => {
   const model = new Anchor();
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 
   mockModel(model);
   mockRandom(0, 0, 0);
 
-  const illustration = makeIllustration(6, svg);
+  const scene = makeScene(6);
 
   expect(makeModel).toBeCalledWith(6);
 
-  expect(illustration.element).toBe(svg);
-  expect(illustration.children.length).toBe(1);
-  expect(illustration.children[0].children).toStrictEqual([model]);
+  expect(scene.children.length).toBe(1);
+  expect(scene.children[0].children).toStrictEqual([model]);
 });
 
 it("renders the die a little ajar", () => {
   mockModel(new Anchor());
   mockRandom(0.3, 0.6, 0.9);
 
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-  const illustration = makeIllustration(6, svg);
+  const scene = makeScene(6);
 
-  const anchor = illustration.children[0];
+  const anchor = scene.children[0];
 
   expect(anchor.rotate.x).toBeCloseTo((-0.2 * Math.PI) / 32);
   expect(anchor.rotate.y).toBeCloseTo((0.1 * Math.PI) / 32);
