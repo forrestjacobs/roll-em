@@ -4,6 +4,13 @@ export const LEN = 31.11269837220809;
 
 export const PI = Math.PI;
 
+export type Renderer = (
+  context: CanvasRenderingContext2D,
+  xRotation: number
+) => void;
+
+export type RendererFactory = (x: number, y: number, z: number) => Renderer;
+
 export const YELLOW_B2 = "#ECE199";
 export const YELLOW_B1 = "#D0B52C";
 export const YELLOW0 = "#B58900";

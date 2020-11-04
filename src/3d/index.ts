@@ -1,5 +1,5 @@
 import { randomInt } from "../utils/rng";
-import { makeScene } from "./scene";
+import { makeRenderer } from "./scene";
 import { render as innerRender } from "./render";
 import { RADIUS } from "./models";
 
@@ -18,7 +18,7 @@ export function render(
   valueEl: HTMLElement
 ): void {
   setupCanvas(canvas, scale);
-  const scene = makeScene(sides);
+  const scene = makeRenderer(sides);
   const context = canvas.getContext("2d");
 
   if (context !== null) {
@@ -33,7 +33,7 @@ export function animate(
   valueEl: HTMLElement
 ): void {
   setupCanvas(canvas, scale);
-  const scene = makeScene(sides);
+  const scene = makeRenderer(sides);
   const context = canvas.getContext("2d");
   if (context === null) {
     return;
@@ -51,7 +51,7 @@ export function animate(
     if (progress != 1) {
       requestAnimationFrame(iter);
     }
-  }
+  };
 
   setTimeout(() => requestAnimationFrame(iter), randomInt(MAX_INITIAL_PAUSE));
 }

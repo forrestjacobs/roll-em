@@ -1,18 +1,18 @@
-import type { Anchor } from "zdog";
-import { LEN } from "./consts";
+import { LEN, Renderer, RendererFactory } from "./consts";
 import { cube } from "./cube";
-import { cylinder } from "./cylinder";
+import { makeCylinder } from "./cylinder";
 import { decahedron } from "./decahedron";
 import { dodecahedron } from "./dodecahedron";
 import { icosahedron } from "./icosahedron";
 import { octahedron } from "./octahedron";
-import { sphere } from "./sphere";
+import { makeSphere } from "./sphere";
 import { tetrahedron } from "./tetrahedron";
 
 export { PI, RADIUS } from "./consts";
+export type { Renderer } from "./consts";
 
-const shapes: { [sides: number]: Anchor } = {
-  2: cylinder,
+const shapes: { [sides: number]: RendererFactory } = {
+  2: makeCylinder,
   4: tetrahedron,
   6: cube,
   8: octahedron,
@@ -21,9 +21,14 @@ const shapes: { [sides: number]: Anchor } = {
   20: icosahedron,
 };
 
-export function makeModel(sides: number): Anchor {
-  const shape = shapes[sides] ?? sphere;
-  return shape.copyGraph();
+export function getRenderer(
+  sides: number,
+  x: number,
+  y: number,
+  z: number
+): Renderer {
+  const factory = shapes[sides] ?? makeSphere;
+  return factory(x, y, z);
 }
 
 export function getLength(sides: number): number {

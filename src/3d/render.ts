@@ -1,11 +1,4 @@
-import type { Anchor } from "zdog";
-import { getLength, RADIUS } from "./models";
-
-function updateScene(rx: number, ty: number, scene: Anchor): void {
-  scene.translate.y = ty;
-  scene.rotate.x = rx;
-  scene.updateGraph();
-}
+import { getLength, RADIUS, Renderer } from "./models";
 
 function getFaceTransform(rx: number, ty: number, sides: number): string {
   const valueYScale = Math.cos(rx).toFixed(5);
@@ -15,7 +8,7 @@ function getFaceTransform(rx: number, ty: number, sides: number): string {
 
 export function render(
   sides: number,
-  scene: Anchor,
+  render: Renderer,
   scale: number,
   context: CanvasRenderingContext2D,
   faceEl: HTMLElement,
@@ -25,14 +18,12 @@ export function render(
   const rotation = 2 * Math.pow(1 - progress, 3);
   const translation = RADIUS * -rotation;
 
-  updateScene(rotation, translation, scene);
-
   context.clearRect(0, 0, RADIUS * 2 * scale, RADIUS * 2 * scale);
 
   context.save();
   context.scale(scale, scale);
-  context.translate(RADIUS, RADIUS);
-  scene.renderGraphCanvas(context);
+  context.translate(RADIUS, RADIUS + translation);
+  render(context, rotation);
   context.restore();
 
   faceEl.style.transform = getFaceTransform(rotation, translation, sides);
