@@ -20,34 +20,35 @@ const n17_79 = 17.798373876248842;
 const n20_55 = 20.551791897179747;
 const n21_72 = 21.72341686375283;
 
-const v00 = makeVert(-n12_70, n4_64, -n17_35);
-const v01 = makeVert(-n12_70, -n17_35, -n4_64);
-const v02 = makeVert(-n12_70, n17_35, n4_64);
-const v03 = makeVert(-n12_70, -n4_64, n17_35);
-const v04 = makeVert(n12_70, n4_64, -n17_35);
-const v05 = makeVert(n12_70, -n17_35, -n4_64);
-const v06 = makeVert(n12_70, n17_35, n4_64);
-const v07 = makeVert(n12_70, -n4_64, n17_35);
-const v08 = makeVert(0, n13_87, -n17_07);
-const v09 = makeVert(0, -n21_72, n3_47);
-const v10 = makeVert(0, n21_72, -n3_47);
-const v11 = makeVert(0, -n13_87, n17_07);
-const v13 = makeVert(-n7_85, n10_27, n17_79);
-const v15 = makeVert(n7_85, n10_27, n17_79);
-const v16 = makeVert(-n20_55, n6_79, -n3_92);
-const v17 = makeVert(n20_55, n6_79, -n3_92);
-const v18 = makeVert(-n20_55, -n6_79, n3_92);
-const v19 = makeVert(n20_55, -n6_79, n3_92);
-
-const faces = [
-  makeFace(BLUE_B2, v11, v09, v05, v19, v07),
-  makeFace(BLUE_B1, v18, v01, v09, v11, v03),
-  makeFace(BLUE0, v03, v11, v07, v15, v13),
-  makeFace(BLUE0, v07, v19, v17, v06, v15),
-  makeFace(BLUE_D1, v02, v16, v18, v03, v13),
-  makeFace(BLUE_D1, v06, v10, v02, v13, v15),
-  makeFace(BLUE_D2, v17, v04, v08, v10, v06),
-  makeFace(BLUE_D2, v08, v00, v16, v02, v10),
-];
-
-export const dodecahedron = makePolyhedron(faces);
+export const dodecahedron = makePolyhedron(
+  [
+    makeVert(-n12_70, n4_64, -n17_35),
+    makeVert(-n12_70, -n17_35, -n4_64),
+    makeVert(-n12_70, n17_35, n4_64),
+    makeVert(-n12_70, -n4_64, n17_35),
+    makeVert(n12_70, n4_64, -n17_35),
+    makeVert(n12_70, -n17_35, -n4_64),
+    makeVert(n12_70, n17_35, n4_64),
+    makeVert(n12_70, -n4_64, n17_35),
+    makeVert(0, n13_87, -n17_07),
+    makeVert(0, -n21_72, n3_47),
+    makeVert(0, n21_72, -n3_47),
+    makeVert(0, -n13_87, n17_07),
+    makeVert(-n7_85, n10_27, n17_79),
+    makeVert(n7_85, n10_27, n17_79),
+    makeVert(-n20_55, n6_79, -n3_92),
+    makeVert(n20_55, n6_79, -n3_92),
+    makeVert(-n20_55, -n6_79, n3_92),
+    makeVert(n20_55, -n6_79, n3_92),
+  ],
+  [
+    makeFace(BLUE_B2, 11, 9, 5, 17, 7),
+    makeFace(BLUE_B1, 16, 1, 9, 11, 3),
+    makeFace(BLUE0, 3, 11, 7, 13, 12),
+    makeFace(BLUE0, 7, 17, 15, 6, 13),
+    makeFace(BLUE_D1, 2, 14, 16, 3, 12),
+    makeFace(BLUE_D1, 6, 10, 2, 12, 13),
+    makeFace(BLUE_D2, 15, 4, 8, 10, 6),
+    makeFace(BLUE_D2, 8, 0, 14, 2, 10),
+  ]
+);

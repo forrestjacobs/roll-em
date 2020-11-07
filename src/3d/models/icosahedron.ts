@@ -17,30 +17,31 @@ const n18_49 = 18.49661270746177;
 const n19_14 = 19.14830635373089;
 const n21_73 = 21.734304153601254;
 
-const v0 = makeVert(-n11_43, n9_24, n16_01);
-const v1 = makeVert(n11_43, n9_24, n16_01);
-const v4 = makeVert(0, -n21_73, -n0_65);
-const v5 = makeVert(0, -n10_30, n19_14);
-const v6 = makeVert(0, n10_30, -n19_14);
-const v7 = makeVert(0, n21_73, n0_65);
-const v8 = makeVert(n18_49, n9_90, -n5_71);
-const v9 = makeVert(n18_49, -n9_90, n5_71);
-const v10 = makeVert(-n18_49, n9_90, -n5_71);
-const v11 = makeVert(-n18_49, -n9_90, n5_71);
-
-const faces = [
-  makeFace(CYAN_B2, v4, v9, v5),
-  makeFace(CYAN_B1, v5, v11, v4),
-  makeFace(CYAN_B1, v1, v5, v9),
-  makeFace(CYAN_B1, v9, v8, v1),
-  makeFace(CYAN0, v0, v11, v5),
-  makeFace(CYAN0, v0, v5, v1),
-  makeFace(CYAN_D1, v0, v1, v7),
-  makeFace(CYAN_D1, v0, v10, v11),
-  makeFace(CYAN_D1, v7, v1, v8),
-  makeFace(CYAN_D2, v0, v7, v10),
-  makeFace(CYAN_D2, v10, v7, v6),
-  makeFace(CYAN_D2, v8, v6, v7),
-];
-
-export const icosahedron = makePolyhedron(faces);
+export const icosahedron = makePolyhedron(
+  [
+    makeVert(-n11_43, n9_24, n16_01),
+    makeVert(n11_43, n9_24, n16_01),
+    makeVert(0, -n21_73, -n0_65),
+    makeVert(0, -n10_30, n19_14),
+    makeVert(0, n10_30, -n19_14),
+    makeVert(0, n21_73, n0_65),
+    makeVert(n18_49, n9_90, -n5_71),
+    makeVert(n18_49, -n9_90, n5_71),
+    makeVert(-n18_49, n9_90, -n5_71),
+    makeVert(-n18_49, -n9_90, n5_71),
+  ],
+  [
+    makeFace(CYAN_B2, 2, 7, 3),
+    makeFace(CYAN_B1, 3, 9, 2),
+    makeFace(CYAN_B1, 1, 3, 7),
+    makeFace(CYAN_B1, 7, 6, 1),
+    makeFace(CYAN0, 0, 9, 3),
+    makeFace(CYAN0, 0, 3, 1),
+    makeFace(CYAN_D1, 0, 1, 5),
+    makeFace(CYAN_D1, 0, 8, 9),
+    makeFace(CYAN_D1, 5, 1, 6),
+    makeFace(CYAN_D2, 0, 5, 8),
+    makeFace(CYAN_D2, 8, 5, 4),
+    makeFace(CYAN_D2, 6, 4, 5),
+  ]
+);
