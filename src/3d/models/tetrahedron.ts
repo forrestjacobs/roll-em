@@ -1,5 +1,5 @@
 import { ORANGE0, ORANGE_B1, ORANGE_D1 } from "./consts";
-import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
+import { makeFace, makePolyhedron } from "./polyhedron";
 
 /**
  * Based off of https://github.com/mrdoob/three.js/blob/dev/src/geometries/TetrahedronGeometry.js
@@ -11,10 +11,10 @@ const n6_35 = 6.350852961085885;
 
 export const tetrahedron = makePolyhedron(
   [
-    makeVert(0, -2.018537609795011, 21.90720214718993),
-    makeVert(0, -19.98146239020499, -9.205496225018159),
-    makeVert(-n17_96, 11, -n6_35),
-    makeVert(n17_96, 11, -n6_35),
+    0, -2.018537609795011, 21.90720214718993,
+    0, -19.98146239020499, -9.205496225018159,
+    -n17_96, 11, -n6_35,
+    n17_96, 11, -n6_35,
   ],
   [
     makeFace(ORANGE_D1, 0, 3, 2),

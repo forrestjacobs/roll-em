@@ -1,5 +1,5 @@
 import { BLUE0, BLUE_B1, BLUE_B2, BLUE_D1, BLUE_D2 } from "./consts";
-import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
+import { makeFace, makePolyhedron } from "./polyhedron";
 
 /**
  * Based off of https://github.com/mrdoob/three.js/blob/master/src/geometries/DodecahedronGeometry.js
@@ -22,24 +22,24 @@ const n21_72 = 21.72341686375283;
 
 export const dodecahedron = makePolyhedron(
   [
-    makeVert(-n12_70, n4_64, -n17_35),
-    makeVert(-n12_70, -n17_35, -n4_64),
-    makeVert(-n12_70, n17_35, n4_64),
-    makeVert(-n12_70, -n4_64, n17_35),
-    makeVert(n12_70, n4_64, -n17_35),
-    makeVert(n12_70, -n17_35, -n4_64),
-    makeVert(n12_70, n17_35, n4_64),
-    makeVert(n12_70, -n4_64, n17_35),
-    makeVert(0, n13_87, -n17_07),
-    makeVert(0, -n21_72, n3_47),
-    makeVert(0, n21_72, -n3_47),
-    makeVert(0, -n13_87, n17_07),
-    makeVert(-n7_85, n10_27, n17_79),
-    makeVert(n7_85, n10_27, n17_79),
-    makeVert(-n20_55, n6_79, -n3_92),
-    makeVert(n20_55, n6_79, -n3_92),
-    makeVert(-n20_55, -n6_79, n3_92),
-    makeVert(n20_55, -n6_79, n3_92),
+    -n12_70, n4_64, -n17_35,
+    -n12_70, -n17_35, -n4_64,
+    -n12_70, n17_35, n4_64,
+    -n12_70, -n4_64, n17_35,
+    n12_70, n4_64, -n17_35,
+    n12_70, -n17_35, -n4_64,
+    n12_70, n17_35, n4_64,
+    n12_70, -n4_64, n17_35,
+    0, n13_87, -n17_07,
+    0, -n21_72, n3_47,
+    0, n21_72, -n3_47,
+    0, -n13_87, n17_07,
+    -n7_85, n10_27, n17_79,
+    n7_85, n10_27, n17_79,
+    -n20_55, n6_79, -n3_92,
+    n20_55, n6_79, -n3_92,
+    -n20_55, -n6_79, n3_92,
+    n20_55, -n6_79, n3_92,
   ],
   [
     makeFace(BLUE_B2, 11, 9, 5, 17, 7),

@@ -1,18 +1,18 @@
 import { RED0, RED_B1, RED_B2, RED_D1 } from "./consts";
-import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
+import { makeFace, makePolyhedron } from "./polyhedron";
 
 const n15_55 = 15.55634918610405;
 
 export const cube = makePolyhedron(
   [
-    makeVert(-n15_55, -n15_55, -n15_55),
-    makeVert(-n15_55, -n15_55, n15_55),
-    makeVert(-n15_55, n15_55, -n15_55),
-    makeVert(-n15_55, n15_55, n15_55),
-    makeVert(n15_55, -n15_55, -n15_55),
-    makeVert(n15_55, -n15_55, n15_55),
-    makeVert(n15_55, n15_55, -n15_55),
-    makeVert(n15_55, n15_55, n15_55),
+    -n15_55, -n15_55, -n15_55,
+    -n15_55, -n15_55, n15_55,
+    -n15_55, n15_55, -n15_55,
+    -n15_55, n15_55, n15_55,
+    n15_55, -n15_55, -n15_55,
+    n15_55, -n15_55, n15_55,
+    n15_55, n15_55, -n15_55,
+    n15_55, n15_55, n15_55,
   ],
   [
     makeFace(RED_B2, 0, 4, 5, 1),

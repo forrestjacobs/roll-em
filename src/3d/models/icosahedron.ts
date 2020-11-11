@@ -1,5 +1,5 @@
 import { CYAN0, CYAN_B1, CYAN_B2, CYAN_D1, CYAN_D2 } from "./consts";
-import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
+import { makeFace, makePolyhedron } from "./polyhedron";
 
 /**
  * Based off of https://github.com/mrdoob/three.js/blob/master/src/geometries/IcosahedronGeometry.js
@@ -19,16 +19,16 @@ const n21_73 = 21.734304153601254;
 
 export const icosahedron = makePolyhedron(
   [
-    makeVert(-n11_43, n9_24, n16_01),
-    makeVert(n11_43, n9_24, n16_01),
-    makeVert(0, -n21_73, -n0_65),
-    makeVert(0, -n10_30, n19_14),
-    makeVert(0, n10_30, -n19_14),
-    makeVert(0, n21_73, n0_65),
-    makeVert(n18_49, n9_90, -n5_71),
-    makeVert(n18_49, -n9_90, n5_71),
-    makeVert(-n18_49, n9_90, -n5_71),
-    makeVert(-n18_49, -n9_90, n5_71),
+    -n11_43, n9_24, n16_01,
+    n11_43, n9_24, n16_01,
+    0, -n21_73, -n0_65,
+    0, -n10_30, n19_14,
+    0, n10_30, -n19_14,
+    0, n21_73, n0_65,
+    n18_49, n9_90, -n5_71,
+    n18_49, -n9_90, n5_71,
+    -n18_49, n9_90, -n5_71,
+    -n18_49, -n9_90, n5_71,
   ],
   [
     makeFace(CYAN_B2, 2, 7, 3),

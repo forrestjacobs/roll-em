@@ -1,5 +1,5 @@
 import { VIOLET0, VIOLET_B1, VIOLET_D1, VIOLET_D2 } from "./consts";
-import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
+import { makeFace, makePolyhedron } from "./polyhedron";
 
 const n4_88 = 4.886950091276799;
 const n5_11 = 5.117448520156342;
@@ -14,18 +14,18 @@ const n20_09 = 20.098000068137218;
 
 export const decahedron = makePolyhedron(
   [
-    makeVert(0, -n20_09, n8_94),
-    makeVert(0, n20_09, -n8_94),
-    makeVert(0, n11_07, n19_15),
-    makeVert(n11_63, n5_11, n17_20),
-    makeVert(n18_83, n4_88, n5_26),
-    makeVert(n18_83, -n4_88, -n5_26),
-    makeVert(n11_63, -n5_11, -n17_20),
-    makeVert(0, -n11_07, -n19_15),
-    makeVert(-n11_63, -n5_11, -n17_20),
-    makeVert(-n18_83, -n4_88, -n5_26),
-    makeVert(-n18_83, n4_88, n5_26),
-    makeVert(-n11_63, n5_11, n17_20),
+    0, -n20_09, n8_94,
+    0, n20_09, -n8_94,
+    0, n11_07, n19_15,
+    n11_63, n5_11, n17_20,
+    n18_83, n4_88, n5_26,
+    n18_83, -n4_88, -n5_26,
+    n11_63, -n5_11, -n17_20,
+    0, -n11_07, -n19_15,
+    -n11_63, -n5_11, -n17_20,
+    -n18_83, -n4_88, -n5_26,
+    -n18_83, n4_88, n5_26,
+    -n11_63, n5_11, n17_20,
   ],
   [
     makeFace(VIOLET_D1, 0, 9, 10, 11),

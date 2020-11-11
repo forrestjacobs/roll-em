@@ -5,7 +5,7 @@ import {
   MAGENTA_D1,
   MAGENTA_D2,
 } from "./consts";
-import { makeFace, makePolyhedron, makeVert } from "./polyhedron";
+import { makeFace, makePolyhedron } from "./polyhedron";
 
 /**
  * Based off of https://github.com/mrdoob/three.js/blob/dev/src/geometries/OctahedronGeometry.js
@@ -20,12 +20,12 @@ const n10_99 = 10.999999999999998;
 
 export const octahedron = makePolyhedron(
   [
-    makeVert(n15_55, n7_77, n13_47),
-    makeVert(-n15_55, -n7_77, -n13_47),
-    makeVert(0, n19_05, -n10_99),
-    makeVert(0, -n19_05, n10_99),
-    makeVert(-n15_55, n7_77, n13_47),
-    makeVert(n15_55, -n7_77, -n13_47),
+    n15_55, n7_77, n13_47,
+    -n15_55, -n7_77, -n13_47,
+    0, n19_05, -n10_99,
+    0, -n19_05, n10_99,
+    -n15_55, n7_77, n13_47,
+    n15_55, -n7_77, -n13_47,
   ],
   [
     makeFace(MAGENTA_D2, 0, 5, 2),
