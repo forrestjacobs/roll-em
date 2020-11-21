@@ -1,30 +1,37 @@
-import { getLength, RADIUS, Renderer } from "./models";
+import type { DieRenderer } from "./scenes";
 
-function getFaceTransform(rx: number, ty: number, sides: number): string {
-  const valueYScale = Math.cos(rx).toFixed(5);
-  const valueTranslation = (ty - getLength(sides) * Math.sin(rx)).toFixed(5);
+function getFaceTransform(
+  radius: number,
+  faceRadius: number,
+  rotation: number
+): string {
+  const valueYScale = Math.cos(rotation).toFixed(5);
+  const valueTranslation = -(
+    radius *
+    (rotation + faceRadius * Math.sin(rotation))
+  ).toFixed(5);
   return `matrix(1, 0, 0, ${valueYScale}, 0, ${valueTranslation})`;
 }
 
-export function render(
-  sides: number,
-  render: Renderer,
-  scale: number,
+export function renderCanvas(
+  render: DieRenderer,
+  radius: number,
   context: CanvasRenderingContext2D,
-  faceEl: HTMLElement,
-  progress: number
+  rotation: number
 ): void {
-  // ease out cubic -- see https://easings.net/#easeOutCubic
-  const rotation = 2 * Math.pow(1 - progress, 3);
-  const translation = RADIUS * -rotation;
-
-  context.clearRect(0, 0, RADIUS * 2 * scale, RADIUS * 2 * scale);
-
+  context.clearRect(0, 0, radius * 2, radius * 2);
   context.save();
-  context.scale(scale, scale);
-  context.translate(RADIUS, RADIUS + translation);
+  context.scale(radius, radius);
+  context.translate(1, 1 - rotation);
   render(context, rotation);
   context.restore();
+}
 
-  faceEl.style.transform = getFaceTransform(rotation, translation, sides);
+export function renderValue(
+  radius: number,
+  faceRadius: number,
+  element: HTMLElement,
+  rotation: number
+): void {
+  element.style.transform = getFaceTransform(radius, faceRadius, rotation);
 }

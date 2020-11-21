@@ -1,15 +1,15 @@
-export const RADIUS = 22;
-
-export const LEN = 31.11269837220809;
-
+export const BASE_FACE_RADIUS = Math.SQRT2 / 2;
 export const PI = Math.PI;
 
-export type Renderer = (
+export interface Scene {
+  faceRadius: number;
+  getDieRenderer(x: number, y: number, z: number): DieRenderer;
+}
+
+export type DieRenderer = (
   context: CanvasRenderingContext2D,
   xRotation: number
 ) => void;
-
-export type RendererFactory = (x: number, y: number, z: number) => Renderer;
 
 export const YELLOW_B2 = "#ECE199";
 export const YELLOW_B1 = "#D0B52C";

@@ -5,27 +5,27 @@ import {
   MAGENTA_D1,
   MAGENTA_D2,
 } from "./consts";
-import { makeFace, makePolyhedron } from "./polyhedron";
+import { makeFace, makePolyhedronScene } from "./polyhedron";
 
 /**
  * Based off of https://github.com/mrdoob/three.js/blob/dev/src/geometries/OctahedronGeometry.js
  * which is licensed under the MIT License.
  */
 
-const n7_77 = 7.7781745930520225;
-const n13_47 = 13.472193585307481;
-const n15_55 = 15.556349186104047;
-const n19_05 = 19.052558883257653;
-const n10_99 = 10.999999999999998;
+const n35 = 0.35355; // 0.3535533905932737
+const n61 = 0.61237; // 0.6123724356957945
+const n70 = 0.70711; // 0.7071067811865473
+const n86 = 0.86603; // 0.8660254037844386
+const n50 = 0.5; // 0.5
 
-export const octahedron = makePolyhedron(
+export const octahedronScene = makePolyhedronScene(
   [
-    n15_55, n7_77, n13_47,
-    -n15_55, -n7_77, -n13_47,
-    0, n19_05, -n10_99,
-    0, -n19_05, n10_99,
-    -n15_55, n7_77, n13_47,
-    n15_55, -n7_77, -n13_47,
+    n70, n35, n61,
+    -n70, -n35, -n61,
+    0, n86, -n50,
+    0, -n86, n50,
+    -n70, n35, n61,
+    n70, -n35, -n61,
   ],
   [
     makeFace(MAGENTA_D2, 0, 5, 2),

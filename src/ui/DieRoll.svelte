@@ -8,14 +8,17 @@
 
   const scale = window.devicePixelRatio || 1;
 
+  const valueRadius = 22;
+  const canvasRadius = valueRadius * scale;
+
   let canvas: HTMLCanvasElement | undefined = undefined;
   let valueEl: HTMLElement | undefined = undefined;
 
   onMount(() => {
     if (animated) {
-      animate(sides, scale, canvas!, valueEl!);
+      animate(sides, canvasRadius, canvas!, valueRadius, valueEl!);
     } else {
-      renderDie(sides, scale, canvas!, valueEl!);
+      renderDie(sides, canvasRadius, canvas!);
     }
   });
 </script>
@@ -57,6 +60,8 @@
 <span class="container" title="d{sides}">
   <canvas
     class="illustration"
+    width="{canvasRadius * 2}"
+    height="{canvasRadius * 2}"
     bind:this="{canvas}"></canvas>
   <span class="value" bind:this="{valueEl}">{value}</span>
 </span>
