@@ -1,7 +1,7 @@
 <script lang="ts">
   import { tick } from "svelte";
   import { parse, roll } from "../formula";
-  import { getResultsStore, ResultsStoreState } from "../stores";
+  import { getResultsStore } from "../stores";
 
   const resultsStore = getResultsStore();
 
@@ -171,11 +171,11 @@
   {:else if $resultsStore.groups.length === 0}
     <div class="examples">
       {'Examples: '}
-      <button class="show-as-link" on:click="{() => textValue = 'd20 + 2'}">
+      <button class="show-as-link" on:click="{() => (textValue = 'd20 + 2')}">
         d20 + 2
       </button>
       {' or '}
-      <button class="show-as-link" on:click="{() => textValue = 'd8 + d6'}">
+      <button class="show-as-link" on:click="{() => (textValue = 'd8 + d6')}">
         d8 + d6
       </button>
     </div>

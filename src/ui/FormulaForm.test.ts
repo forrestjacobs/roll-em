@@ -12,7 +12,6 @@ import type { GroupedResults } from "../stores/results-store";
 import FormulaForm from "./FormulaForm.svelte";
 
 const resultd6 = [{ type: "roll", count: 1, sides: 6, value: [6] }];
-const result2d6 = [{ type: "roll", count: 2, sides: 6, value: [6] }];
 
 type LocationError = Error & { location?: { start: { offset: number } } };
 
@@ -25,7 +24,10 @@ locationError.location = {
 
 const mockParseResults: { [text: string]: Formula | Error } = {
   d6: [{ type: "roll", count: 1, sides: 6 }],
-  "2d6": [{ type: "roll", count: 2, sides: 6 }],
+  "d20 + 2": [
+    { type: "roll", count: 1, sides: 20 },
+    { type: "number", value: 2 },
+  ],
   d: new Error("Unexpected value"),
   loc: locationError,
 };
@@ -175,8 +177,11 @@ test("It rolls an example when you click it", async () => {
   const resultsStore = mockResults([]);
 
   const result = render(FormulaForm);
-  await fireEvent.click(result.getByText("2d6"));
+  await fireEvent.click(result.getByText("d20 + 2"));
 
-  expect(resultsStore.append).toBeCalledWith(result2d6);
+  expect(resultsStore.append).toBeCalledWith([
+    { type: "roll", count: 1, sides: 20, value: [20] },
+    { type: "number", value: 2 },
+  ]);
   expectFieldToBeSelected(result.getByRole("textbox") as HTMLTextAreaElement);
 });

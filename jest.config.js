@@ -8,10 +8,9 @@ module.exports = {
     "!**/src/**/Mock*.svelte",
   ],
   coverageDirectory: "coverage",
-  moduleFileExtensions: ["ts", "svelte", "pegjs", "js", "json", "css"],
+  moduleFileExtensions: ["ts", "svelte", "pegjs", "js", "json"],
   setupFilesAfterEnv: ["@testing-library/jest-dom/extend-expect"],
   transform: {
-    "^.+\\.css$": "./transformers/css-transformer.js",
     "^.+\\.pegjs$": "./transformers/pegjs-transformer.js",
     "^.+\\.svelte$": ["svelte-jester", { "preprocess": true }],
     "^.+\\.ts$": "ts-jest",

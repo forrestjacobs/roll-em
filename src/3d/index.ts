@@ -43,8 +43,8 @@ export function animate(
   const scene = getScene(sides);
   const renderer = makeRenderer(scene);
   const faceRadius = scene.faceRadius;
-  renderCanvas(renderer, canvasRadius, context, 0);
-  renderValue(valueRadius, faceRadius, valueEl, 0);
+  renderCanvas(renderer, canvasRadius, context, 2);
+  renderValue(valueRadius, faceRadius, valueEl, 2);
 
   let start: number | undefined;
   const iter = (now: number) => {

@@ -41,14 +41,6 @@ function matchExactly(string: string) {
   return new RegExp(`^${escapeStringRegexp(string)}$`);
 }
 
-test("It defaults to blank", () => {
-  const { container } = render(Result, {
-    animated: false,
-    date: undefined,
-  });
-  expect(container).toHaveTextContent(matchExactly("999 = (empty)"));
-});
-
 test("It renders a number", () => {
   const { container } = render(Result, {
     animated: false,

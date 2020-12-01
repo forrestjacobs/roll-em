@@ -11,7 +11,11 @@
   export let animated: boolean;
 
   function getTermOp(term: ResultTerm, termIndex: number) {
-    return term.type === 'number' && term.value < 0 ? "-" : termIndex === 0 ? undefined : "+";
+    return term.type === "number" && term.value < 0
+      ? "-"
+      : termIndex === 0
+      ? undefined
+      : "+";
   }
 </script>
 
@@ -85,13 +89,8 @@
         <span class="number">{Math.abs(term.value)}</span>
       {:else}
         {#each term.value.slice(0, MAX_DICE_TO_SHOW_PER_TERM) as value, valueIndex}
-          {#if valueIndex !== 0}
-            <span class="dice-operator">{' + '}</span>
-          {/if}
-          <DieRoll
-            sides="{term.sides}"
-            value="{value}"
-            animated="{animated}" />
+          {#if valueIndex !== 0}<span class="dice-operator">{' + '}</span>{/if}
+          <DieRoll sides="{term.sides}" value="{value}" animated="{animated}" />
         {/each}
         {#if term.value.length > MAX_DICE_TO_SHOW_PER_TERM}
           <span class="operator">{' + '}</span>
