@@ -112,6 +112,7 @@
     height: 100%;
     color: transparent;
     caret-color: #000;
+    outline: none;
   }
 
   form button[type="submit"] {
