@@ -17,6 +17,13 @@
       ? undefined
       : "+";
   }
+
+  function formatTime(date: Date) {
+    return date.toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit",
+    });
+  }
 </script>
 
 <style>
@@ -102,5 +109,5 @@
       {/if}
     {/each}
   </span>
-  {#if date}<span class="time">{date.toLocaleTimeString()}</span>{/if}
+  {#if date}<span class="time">{formatTime(date)}</span>{/if}
 </div>
