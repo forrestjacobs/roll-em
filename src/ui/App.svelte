@@ -10,12 +10,28 @@
     --light: #ccc;
     --medium: #999;
     --dark: #666;
-    --darkest: #333;
+    --darkest: #222;
     --black: #000;
 
     --brand: #636;
     --red: #900;
     --green: #164;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root) {
+      --white: #000;
+      --lightest: #222;
+      --light: #666;
+      --medium: #999;
+      --dark: #ccc;
+      --darkest: #eee;
+      --black: #fff;
+
+      --brand: #d6d;
+      --red: #e55;
+      --green: #890;
+    }
   }
 
   :global(body) {
