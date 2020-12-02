@@ -51,9 +51,13 @@
     height: 32px;
     line-height: 30px;
     overflow: hidden;
-    color: var(--white);
+    color: #fff;
     font-weight: 600;
-    text-shadow: 0 -1px 1px rgba(0, 0, 33, 0.25);
+    text-shadow:
+      0 -1px 0 rgba(0, 0, 33, .5),
+      1px 0 0 rgba(0, 0, 33, .5),
+      0 1px 0 rgba(0, 0, 33, .5),
+      -1px 0 0 rgba(0, 0, 33, .5);
   }
 </style>
 
