@@ -7,7 +7,7 @@
   :global(:root) {
     --white: #fff;
     --lightest: #eee;
-    --light: #ccc;
+    --light: #bbb;
     --medium: #999;
     --dark: #666;
     --darkest: #222;
@@ -22,15 +22,15 @@
     :global(:root) {
       --white: #000;
       --lightest: #222;
-      --light: #666;
+      --light: #444;
       --medium: #999;
       --dark: #ccc;
       --darkest: #eee;
       --black: #fff;
 
       --brand: #d6d;
-      --red: #e55;
-      --green: #890;
+      --red: #c65;
+      --green: #0a9;
     }
   }
 

@@ -63,7 +63,7 @@
 
   .editor-container {
     flex-grow: 1;
-    border: 1px solid var(--medium);
+    border: 1px solid var(--light);
     background: var(--white);
     padding: 4px;
     overflow: auto;
@@ -117,9 +117,9 @@
 
   form button[type="submit"] {
     border: 0;
-    background-color: var(--brand);
+    background-color: #636;
     font-size: 1em;
-    color: var(--white);
+    color: #fff;
     min-width: 8em;
     flex-shrink: 0;
   }
