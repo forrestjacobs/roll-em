@@ -31,7 +31,7 @@
     flex-shrink: 0;
     line-height: 2em;
     font-weight: bold;
-    background: #fff;
+    background: var(--white);
     padding: 0 0.5em;
     border-radius: 0.125em;
   }
@@ -42,7 +42,7 @@
     padding: 0 0.5em;
     width: 1em;
     text-align: center;
-    color: #ccc;
+    color: var(--dark);
   }
 
   .components {
@@ -57,7 +57,7 @@
     flex-shrink: 0;
     line-height: 2em;
     padding: 0 0.5em;
-    color: #999;
+    color: var(--dark);
   }
 
   .operator,

@@ -63,8 +63,8 @@
 
   .editor-container {
     flex-grow: 1;
-    border: 1px solid #999;
-    background: #fff;
+    border: 1px solid var(--medium);
+    background: var(--white);
     padding: 4px;
     overflow: auto;
   }
@@ -79,15 +79,15 @@
   }
 
   .formatted-value :global(.num) {
-    color: #164;
+    color: var(--green);
   }
 
   .formatted-value :global(.d) {
-    color: #708;
+    color: var(--brand);
   }
 
   .formatted-value :global(.error-text) {
-    box-shadow: inset 0 0 0 #fff, inset 0 -0.125em 0 #900;
+    box-shadow: inset 0 0 0 var(--white), inset 0 -0.125em 0 var(--red);
   }
 
   .formatted-value :global(.error-bookmark) {
@@ -95,7 +95,7 @@
     left: -0.2em;
     border: 0.2em solid transparent;
     border-top-width: 0;
-    border-bottom-color: #900;
+    border-bottom-color: var(--red);
   }
 
   .editor textarea {
@@ -111,15 +111,15 @@
     width: 100%;
     height: 100%;
     color: transparent;
-    caret-color: #000;
+    caret-color: var(--black);
     outline: none;
   }
 
   form button[type="submit"] {
     border: 0;
-    background-color: #636;
+    background-color: var(--brand);
     font-size: 1em;
-    color: white;
+    color: var(--white);
     min-width: 8em;
     flex-shrink: 0;
   }
@@ -127,7 +127,7 @@
   .error-message {
     padding: 0.3em 0;
     font-size: 0.833em;
-    color: #900;
+    color: var(--red);
   }
 
   .error-message::before {

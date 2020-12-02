@@ -4,28 +4,42 @@
 </script>
 
 <style>
+  :global(:root) {
+    --white: #fff;
+    --lightest: #eee;
+    --light: #ccc;
+    --medium: #999;
+    --dark: #666;
+    --darkest: #333;
+    --black: #000;
+
+    --brand: #636;
+    --red: #900;
+    --green: #164;
+  }
+
   :global(body) {
-    background: #eee;
-    color: #333;
+    background: var(--lightest);
+    color: var(--darkest);
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
 
   :global(a) {
-    color: #636;
+    color: var(--brand);
     text-decoration: none;
-    border-bottom: 2px solid #999;
+    border-bottom: 2px solid var(--medium);
   }
 
   :global(button.show-as-link) {
     background: none !important;
     border: none;
-    border-bottom: 2px solid #999;
+    border-bottom: 2px solid var(--medium);
     padding: 0 !important;
     font-size: 1em;
     font-family: unset;
-    color: #636;
+    color: var(--brand);
     cursor: pointer;
   }
 
@@ -52,7 +66,6 @@
 
   :global(.footer) {
     padding: 6em 1em 1em 1em;
-    color: #666;
   }
 </style>
 

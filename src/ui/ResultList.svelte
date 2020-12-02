@@ -25,8 +25,8 @@
   }
 
   h3 {
-    background: #eee;
-    color: #000;
+    background: var(--lightest);
+    color: var(--dark);
     padding: 1em 1em 0.25em 1em;
     margin: 0;
     font-weight: normal;
@@ -34,7 +34,7 @@
     position: sticky;
     top: 0;
     z-index: 1;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--light);
   }
 
   ol {
@@ -43,7 +43,7 @@
   }
 
   ol > li {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--light);
     list-style: none;
     display: flex;
     align-items: flex-start;
