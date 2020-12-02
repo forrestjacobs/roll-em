@@ -144,7 +144,7 @@
   <div class="row">
     <div class="editor-container">
       <div class="editor">
-        <div class="formatted-value">
+        <div class="formatted-value" aria-hidden="true">
           {#each textValue as char, i}
             <span
               class="{`${classByCharacter[char]} ${i === errorIndex ? 'error-text' : ''}`}">{char}</span>

@@ -62,6 +62,7 @@
     class="illustration"
     width="{canvasRadius * 2}"
     height="{canvasRadius * 2}"
+    aria-hidden="true"
     bind:this="{canvas}"></canvas>
   <span class="value" bind:this="{valueEl}">{value}</span>
 </span>
