@@ -63,10 +63,9 @@
 
   .editor-container {
     flex-grow: 1;
-    border: 1px solid var(--light);
     background: var(--white);
-    padding: 4px;
     overflow: auto;
+    overflow-wrap: break-word;
   }
 
   .editor {
@@ -74,6 +73,7 @@
   }
 
   .formatted-value {
+    padding: 5px;
     white-space: pre-wrap;
     font: inherit;
   }
@@ -103,9 +103,10 @@
     left: 0;
     top: 0;
     font: inherit;
-    border: 0;
+    box-sizing: border-box;
     margin: 0;
-    padding: 0;
+    border: 1px solid var(--light);
+    padding: 4px;
     background: transparent;
     resize: none;
     width: 100%;
@@ -113,6 +114,11 @@
     color: transparent;
     caret-color: var(--black);
     outline: none;
+  }
+
+  .editor textarea:focus {
+    border: 2px solid var(--medium);
+    padding: 3px;
   }
 
   form button[type="submit"] {
