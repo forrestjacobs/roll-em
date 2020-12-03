@@ -1,5 +1,3 @@
-import type { DbV1, ResultsDBStoreV1 } from "./db";
-
 type ResultTermV0 =
   | { type: "number"; value: number }
   | { type: "roll"; count: number; sides: number; value: number[] };
@@ -11,8 +9,8 @@ interface StoredResultV0 {
 
 const LOCAL_STORAGE_KEY_V0 = "results";
 
-function makeResultsStore(db: DbV1): ResultsDBStoreV1 {
-  const store: ResultsDBStoreV1 = db.createObjectStore("results", {
+function makeResultsStore(db: IDBDatabase): IDBObjectStore {
+  const store = db.createObjectStore("results", {
     keyPath: "index",
     autoIncrement: true,
   });
@@ -22,7 +20,7 @@ function makeResultsStore(db: DbV1): ResultsDBStoreV1 {
   return store;
 }
 
-function migrateLocalStorageResults(store: ResultsDBStoreV1): void {
+function migrateLocalStorageResults(store: IDBObjectStore): void {
   const resultsItem = localStorage.getItem(LOCAL_STORAGE_KEY_V0);
   if (resultsItem === null) {
     return;
@@ -39,6 +37,6 @@ function migrateLocalStorageResults(store: ResultsDBStoreV1): void {
   localStorage.removeItem(LOCAL_STORAGE_KEY_V0);
 }
 
-export function migrate(db: DbV1): void {
+export function migrate(db: IDBDatabase): void {
   migrateLocalStorageResults(makeResultsStore(db));
 }

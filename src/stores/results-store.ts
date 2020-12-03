@@ -1,6 +1,6 @@
 import { Readable, writable } from "svelte/store";
 import type { Result } from "../formula";
-import type { DbV1 } from "./db";
+import { add as addDb, clear, select } from "./db";
 
 export enum ResultSource {
   USER,
@@ -101,7 +101,7 @@ function makeGroupedResultsBuilder(
 }
 
 export function makeResultsStore(
-  db: Promise<DbV1>,
+  db: Promise<IDBDatabase>,
   batchSize: number
 ): ResultsStore {
   let value: ResultsStoreValue = {
@@ -129,10 +129,10 @@ export function makeResultsStore(
     }
   }
 
-  function getQuery(): IDBKeyRange | undefined {
+  function getQuery(): IDBKeyRange | null {
     const groups = value.groups;
     if (groups.length === 0) {
-      return;
+      return null;
     }
     const lastResults = groups[groups.length - 1].results;
     return IDBKeyRange.upperBound(
@@ -144,22 +144,20 @@ export function makeResultsStore(
   async function loadMore() {
     await wrappedLoadingUpdate(async () => {
       const query = getQuery();
-      let cursor = await (await db)
-        .transaction("results", "readonly")
-        .store.openCursor(query, "prev");
-
       const builder = makeGroupedResultsBuilder(value.groups, 1);
-      for (let i = 0; i < batchSize && cursor !== null; i++) {
+      let i = 0;
+
+      const cursor = await select(await db, "results", query, "prev", (cursor) => {
         const value = cursor.value;
         builder.add({
-          index: cursor.key,
+          index: cursor.key as number,
           date: toDate(value.date),
           source: ResultSource.DB,
           result: value.result,
         });
-
-        cursor = await cursor.continue();
-      }
+        i++;
+        return i < batchSize;
+      });
 
       return {
         state:
@@ -177,7 +175,10 @@ export function makeResultsStore(
     subscribe,
     async append(result: Result): Promise<void> {
       const date = Date.now();
-      const index = await (await db).add("results", { date, result });
+      const index = (await addDb(await db, "results", {
+        date,
+        result,
+      })) as number;
       const builder = makeGroupedResultsBuilder(value.groups, -1);
       builder.add({
         index,
@@ -200,7 +201,7 @@ export function makeResultsStore(
       }
 
       await wrappedLoadingUpdate(async () => {
-        await (await db).clear("results");
+        await clear(await db, "results");
         return { state: ResultsStoreState.HAS_NO_MORE, groups: [] };
       });
     },

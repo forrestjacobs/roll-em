@@ -1,28 +1,38 @@
-import type { DbV1, ResultsDBStoreV1 } from "./db";
+import FDBFactory from "fake-indexeddb/lib/FDBFactory";
 import { migrate } from "./migrate-from-v0";
 
-function createMockStore(): ResultsDBStoreV1 {
-  return ({
-    createIndex: jest.fn(),
-    add: jest.fn(),
-  } as unknown) as ResultsDBStoreV1;
+const DB_NAME = "DiceDB";
+
+function wrap<T>(request: IDBRequest<T>): Promise<T> {
+  return new Promise((resolve) => {
+    request.addEventListener("success", () => {
+      resolve(request.result);
+    });
+  });
 }
 
-function createMockDb(store: ResultsDBStoreV1): DbV1 {
-  return ({ createObjectStore: jest.fn(() => store) } as unknown) as DbV1;
+function openAndMigrateDb(): Promise<IDBDatabase> {
+  const open = new FDBFactory().open(DB_NAME);
+  open.addEventListener("upgradeneeded", (event) => {
+    migrate(open.result);
+  });
+  return wrap(open);
 }
 
-test("it makes the v1 store", () => {
-  const store = createMockStore();
-  const db = createMockDb(store);
-  migrate(db);
+test("it makes the v1 store", async () => {
+  const db = await openAndMigrateDb();
 
-  expect(db.createObjectStore).toBeCalledWith("results", expect.anything());
-  expect(store.createIndex).toBeCalledWith("date", "date", expect.anything());
-  expect(store.add).toBeCalledTimes(0);
+  expect(db.objectStoreNames).toEqual(["results"]);
+
+  const store = db.transaction("results").objectStore("results");
+  expect(store.keyPath).toBe("index");
+  expect(store.autoIncrement).toBe(true);
+  expect(store.indexNames).toEqual(["date"]);
+
+  expect(await wrap(store.getAll())).toEqual([]);
 });
 
-test("it migrates v0's values from local storage", () => {
+test("it migrates v0's values from local storage", async () => {
   const a = {
     id: "a",
     result: [
@@ -47,21 +57,24 @@ test("it migrates v0's values from local storage", () => {
 
   localStorage.setItem("results", JSON.stringify([a, b, c]));
 
-  const store = createMockStore();
-  const db = createMockDb(store);
-  migrate(db);
+  const db = await openAndMigrateDb();
 
-  expect(store.add).toHaveBeenCalledTimes(3);
-  expect(store.add).toHaveBeenNthCalledWith(1, {
-    date: 0,
-    result: c.result,
-  });
-  expect(store.add).toHaveBeenNthCalledWith(2, {
-    date: 0,
-    result: b.result,
-  });
-  expect(store.add).toHaveBeenNthCalledWith(3, {
-    date: 0,
-    result: a.result,
-  });
+  const store = db.transaction("results").objectStore("results");
+  expect(await wrap(store.getAll())).toEqual([
+    {
+      date: 0,
+      index: 1,
+      result: c.result,
+    },
+    {
+      date: 0,
+      index: 2,
+      result: b.result,
+    },
+    {
+      date: 0,
+      index: 3,
+      result: a.result,
+    },
+  ]);
 });

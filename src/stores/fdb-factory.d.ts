@@ -1,1 +1,3 @@
-declare module "fake-indexeddb/lib/FDBFactory";
+declare module "fake-indexeddb/lib/FDBFactory" {
+  export = class FDBFactory extends IDBFactory {};
+}
