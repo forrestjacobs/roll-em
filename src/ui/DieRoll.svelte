@@ -1,22 +1,23 @@
-<script lang="ts">
+<script lang="ts" context="module">
   import { onMount } from "svelte";
   import { animate, render as renderDie } from "../3d";
 
+  const VALUE_RADIUS = 22;
+</script>
+
+<script lang="ts">
   export let sides: number;
   export let value: number;
   export let animated: boolean;
 
-  const scale = window.devicePixelRatio || 1;
-
-  const valueRadius = 22;
-  const canvasRadius = valueRadius * scale;
+  const canvasRadius = VALUE_RADIUS * (window.devicePixelRatio || 1);
 
   let canvas: HTMLCanvasElement | undefined = undefined;
   let valueEl: HTMLElement | undefined = undefined;
 
   onMount(() => {
     if (animated) {
-      animate(sides, canvasRadius, canvas!, valueRadius, valueEl!);
+      animate(sides, canvasRadius, canvas!, VALUE_RADIUS, valueEl!);
     } else {
       renderDie(sides, canvasRadius, canvas!);
     }

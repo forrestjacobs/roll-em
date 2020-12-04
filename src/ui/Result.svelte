@@ -1,13 +1,8 @@
 <script lang="ts" context="module">
-  const MAX_DICE_TO_SHOW_PER_TERM = 15;
-</script>
-
-<script lang="ts">
   import { sum, Result, ResultTerm } from "../formula";
   import DieRoll from "./DieRoll.svelte";
 
-  export let result: Result = [];
-  export let animated: boolean;
+  const MAX_DICE_TO_SHOW_PER_TERM = 15;
 
   function getTermOp(term: ResultTerm, termIndex: number) {
     return term.type === "number" && term.value < 0
@@ -16,6 +11,11 @@
       ? undefined
       : "+";
   }
+</script>
+
+<script lang="ts">
+  export let result: Result = [];
+  export let animated: boolean;
 </script>
 
 <style>

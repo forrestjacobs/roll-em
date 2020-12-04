@@ -1,8 +1,19 @@
-<script lang="ts">
+<script lang="ts" context="module">
   import { tick } from "svelte";
   import { parse, roll } from "../formula";
   import { getResultsStore } from "../stores";
 
+  let classByCharacter: { [char: string]: string } = {};
+  function registerClass(name: string, charset: string) {
+    for (const c of charset) {
+      classByCharacter[c] = name;
+    }
+  }
+  registerClass("num", "0123456789%");
+  registerClass("d", "dD");
+</script>
+
+<script lang="ts">
   const resultsStore = getResultsStore();
 
   let input: HTMLTextAreaElement;
@@ -41,15 +52,6 @@
       }
     }
   }
-
-  let classByCharacter: { [char: string]: string } = {};
-  function registerClass(name: string, charset: string) {
-    for (const c of charset) {
-      classByCharacter[c] = name;
-    }
-  }
-  registerClass("num", "0123456789%");
-  registerClass("d", "dD");
 </script>
 
 <style>

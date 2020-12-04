@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" context="module">
   import FormulaForm from "./FormulaForm.svelte";
   import ResultList from "./ResultList.svelte";
 </script>

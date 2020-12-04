@@ -1,12 +1,15 @@
-<script lang="ts">
+<script lang="ts" context="module">
   import { getResultsStore, ResultSource, ResultsStoreState } from "../stores";
   import type { GroupedResults } from "../stores/results-store";
   import Result from "./Result.svelte";
 
-  const resultsStore = getResultsStore();
+  const TIME_OPTIONS = {
+    hour: "numeric",
+    minute: "2-digit",
+  };
 
-  function getIndex(group: GroupedResults) {
-    return group.day?.getTime();
+  function getIndex(group: GroupedResults): number {
+    return group.day?.getTime() ?? -1;
   }
 
   function getDayString(day: Date | undefined) {
@@ -14,11 +17,12 @@
   }
 
   function getTimeString(date: Date) {
-    return date.toLocaleTimeString([], {
-      hour: "numeric",
-      minute: "2-digit",
-    });
+    return date.toLocaleTimeString([], TIME_OPTIONS);
   }
+</script>
+
+<script lang="ts">
+  const resultsStore = getResultsStore();
 </script>
 
 <style>
@@ -82,10 +86,10 @@
     <ol>
       {#each group.results as { index, date, source, result } (index)}
         <li>
-          <Result
-            result="{result}"
-            animated="{source === ResultSource.USER}" />
-          {#if date}<div class="time">{getTimeString(date)}</div>{/if}
+          <Result result="{result}" animated="{source === ResultSource.USER}" />
+          {#if date}
+            <div class="time">{getTimeString(date)}</div>
+          {/if}
         </li>
       {/each}
     </ol>
