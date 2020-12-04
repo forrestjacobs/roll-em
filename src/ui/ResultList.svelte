@@ -3,21 +3,27 @@
   import type { GroupedResults } from "../stores/results-store";
   import Result from "./Result.svelte";
 
-  const TIME_OPTIONS = {
+  const dateFormatter = new Intl.DateTimeFormat([], {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+  });
+
+  const timeFormatter = new Intl.DateTimeFormat([], {
     hour: "numeric",
     minute: "2-digit",
-  };
+  });
 
   function getIndex(group: GroupedResults): number {
     return group.day?.getTime() ?? -1;
   }
 
-  function getDayString(day: Date | undefined) {
-    return day?.toLocaleDateString() ?? "Earlier";
+  function getDayString(date: Date | undefined) {
+    return date === undefined ? "Earlier" : dateFormatter.format(date);
   }
 
   function getTimeString(date: Date) {
-    return date.toLocaleTimeString([], TIME_OPTIONS);
+    return timeFormatter.format(date);
   }
 </script>
 
