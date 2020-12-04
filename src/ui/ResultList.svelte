@@ -12,6 +12,13 @@
   function getDayString(day: Date | undefined) {
     return day?.toLocaleDateString() ?? "Earlier";
   }
+
+  function getTimeString(date: Date) {
+    return date.toLocaleTimeString([], {
+      hour: "numeric",
+      minute: "2-digit",
+    });
+  }
 </script>
 
 <style>
@@ -46,7 +53,17 @@
     border-bottom: 1px solid var(--light);
     list-style: none;
     display: flex;
-    align-items: flex-start;
+    flex-wrap: wrap;
+    align-items: baseline;
+    padding: 0.5em;
+  }
+
+  .time {
+    flex-shrink: 0;
+    flex-grow: 1;
+    text-align: right;
+    padding: 0 1em 0 0.5em;
+    color: var(--dark);
   }
 
   .load-more {
@@ -67,8 +84,8 @@
         <li>
           <Result
             result="{result}"
-            date="{date}"
             animated="{source === ResultSource.USER}" />
+          {#if date}<div class="time">{getTimeString(date)}</div>{/if}
         </li>
       {/each}
     </ol>

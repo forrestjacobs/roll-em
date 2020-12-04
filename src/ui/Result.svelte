@@ -7,7 +7,6 @@
   import DieRoll from "./DieRoll.svelte";
 
   export let result: Result = [];
-  export let date: Date | undefined;
   export let animated: boolean;
 
   function getTermOp(term: ResultTerm, termIndex: number) {
@@ -17,21 +16,13 @@
       ? undefined
       : "+";
   }
-
-  function formatTime(date: Date) {
-    return date.toLocaleTimeString([], {
-      hour: "numeric",
-      minute: "2-digit",
-    });
-  }
 </script>
 
 <style>
   .result {
     display: flex;
     align-items: flex-start;
-    width: 100%;
-    padding: 1em;
+    padding: 0.5em;
   }
 
   .sum {
@@ -60,11 +51,8 @@
     line-height: 2.75em;
   }
 
-  .time {
-    flex-shrink: 0;
-    line-height: 2em;
-    padding: 0 0.5em;
-    color: var(--dark);
+  .operator {
+    font-style: normal;
   }
 
   .operator,
@@ -100,8 +88,8 @@
           <DieRoll sides="{term.sides}" value="{value}" animated="{animated}" />
         {/each}
         {#if term.value.length > MAX_DICE_TO_SHOW_PER_TERM}
-          <span class="operator">{' + '}</span>
           <span class="overflow">
+            <span class="operator">{' + '}</span>
             {term.value.length - MAX_DICE_TO_SHOW_PER_TERM}
             more
           </span>
@@ -109,5 +97,4 @@
       {/if}
     {/each}
   </span>
-  {#if date}<span class="time">{formatTime(date)}</span>{/if}
 </div>
