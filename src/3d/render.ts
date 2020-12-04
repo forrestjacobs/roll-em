@@ -1,4 +1,6 @@
-import type { DieRenderer } from "./scenes";
+import { DieRenderer, PI } from "./scenes";
+
+const VISIBLE_THRESHOLD = PI / 2;
 
 function getFaceTransform(
   radius: number,
@@ -11,6 +13,12 @@ function getFaceTransform(
     (rotation + faceRadius * Math.sin(rotation))
   ).toFixed(5);
   return `matrix(1, 0, 0, ${valueYScale}, 0, ${valueTranslation})`;
+}
+
+function setVisibility(element: HTMLElement, value: string): void {
+  if (element.style.visibility !== value) {
+    element.style.visibility = value;
+  }
 }
 
 export function renderCanvas(
@@ -33,5 +41,10 @@ export function renderValue(
   element: HTMLElement,
   rotation: number
 ): void {
-  element.style.transform = getFaceTransform(radius, faceRadius, rotation);
+  if (rotation < VISIBLE_THRESHOLD) {
+    setVisibility(element, "visible");
+    element.style.transform = getFaceTransform(radius, faceRadius, rotation);
+  } else {
+    setVisibility(element, "hidden");
+  }
 }

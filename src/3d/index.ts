@@ -54,7 +54,8 @@ export function animate(
     const progress = Math.min(1, (now - start) / ANIMATION_LENGTH_MS);
 
     // ease out cubic -- see https://easings.net/#easeOutCubic
-    const rotation = 2 * Math.pow(1 - progress, 3);
+    const invertedProgress = 1 - progress;
+    const rotation = 2 * invertedProgress * invertedProgress * invertedProgress;
     renderCanvas(renderer, canvasRadius, context, rotation);
     renderValue(valueRadius, faceRadius, valueEl, rotation);
     if (progress != 1) {
