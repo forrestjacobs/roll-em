@@ -16,7 +16,7 @@ export const cylinderScene: Scene = {
 
     return (context, xRotation) => {
       rotateX(startingPointBuffer, currentPointBuffer, xRotation);
-      
+
       const radiusY = Math.cos(x + xRotation) * RADIUS;
       if (radiusY > 0) {
         const [x0, y0, , x1, y1] = currentPointBuffer;

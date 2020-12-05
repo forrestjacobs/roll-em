@@ -14,14 +14,17 @@
     minute: "2-digit",
   });
 
+  /*@__PURE__*/
   function getIndex(group: GroupedResults): number {
     return group.day?.getTime() ?? -1;
   }
 
+  /*@__PURE__*/
   function getDayString(date: Date | undefined) {
     return date === undefined ? "Earlier" : dateFormatter.format(date);
   }
 
+  /*@__PURE__*/
   function getTimeString(date: Date) {
     return timeFormatter.format(date);
   }

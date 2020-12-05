@@ -1,5 +1,5 @@
 import { VIOLET0, VIOLET_B1, VIOLET_D1, VIOLET_D2 } from "./consts";
-import { makeFace, makePolyhedronScene } from "./polyhedron";
+import { makePolyhedronScene } from "./polyhedron";
 
 const n22 = 0.22213; // 0.2221340950580363
 const n232 = 0.23261; // 0.2326112963707428
@@ -13,6 +13,7 @@ const n87 = 0.87061; // 0.8706051277098241
 const n91 = 0.91355; // 0.9135454576426005
 
 export const decahedronScene = makePolyhedronScene(
+  // prettier-ignore
   [
     0, -n91, n40,
     0, n91, -n40,
@@ -28,13 +29,13 @@ export const decahedronScene = makePolyhedronScene(
     -n52, n232, n78,
   ],
   [
-    makeFace(VIOLET_D1, 0, 9, 10, 11),
-    makeFace(VIOLET_D2, 1, 10, 11, 2),
-    makeFace(VIOLET0, 0, 11, 2, 3),
-    makeFace(VIOLET_D1, 1, 2, 3, 4),
-    makeFace(VIOLET_B1, 0, 3, 4, 5),
-    makeFace(VIOLET_D2, 1, 4, 5, 6),
-    makeFace(VIOLET_D2, 1, 6, 7, 8),
-    makeFace(VIOLET_D2, 1, 8, 9, 10),
+    [VIOLET_D1, [0, 9, 10, 11]],
+    [VIOLET_D2, [1, 10, 11, 2]],
+    [VIOLET0, [0, 11, 2, 3]],
+    [VIOLET_D1, [1, 2, 3, 4]],
+    [VIOLET_B1, [0, 3, 4, 5]],
+    [VIOLET_D2, [1, 4, 5, 6]],
+    [VIOLET_D2, [1, 6, 7, 8]],
+    [VIOLET_D2, [1, 8, 9, 10]],
   ]
 );

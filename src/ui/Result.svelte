@@ -4,6 +4,7 @@
 
   const MAX_DICE_TO_SHOW_PER_TERM = 15;
 
+  /*@__PURE__*/
   function getTermOp(term: ResultTerm, termIndex: number) {
     return term.type === "number" && term.value < 0
       ? "-"

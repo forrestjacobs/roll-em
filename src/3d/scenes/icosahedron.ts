@@ -1,5 +1,5 @@
 import { CYAN0, CYAN_B1, CYAN_B2, CYAN_D1, CYAN_D2 } from "./consts";
-import { makeFace, makePolyhedronScene } from "./polyhedron";
+import { makePolyhedronScene } from "./polyhedron";
 
 /**
  * Based off of https://github.com/mrdoob/three.js/blob/master/src/geometries/IcosahedronGeometry.js
@@ -18,6 +18,7 @@ const n87 = 0.87038; // 0.8703775615332223
 const n98 = 0.98792; // 0.9879229160727841
 
 export const icosahedronScene = makePolyhedronScene(
+  // prettier-ignore
   [
     -n51, n42, n72,
     n51, n42, n72,
@@ -31,17 +32,17 @@ export const icosahedronScene = makePolyhedronScene(
     -n84, -n45, n25,
   ],
   [
-    makeFace(CYAN_B2, 2, 7, 3),
-    makeFace(CYAN_B1, 3, 9, 2),
-    makeFace(CYAN_B1, 1, 3, 7),
-    makeFace(CYAN_B1, 7, 6, 1),
-    makeFace(CYAN0, 0, 9, 3),
-    makeFace(CYAN0, 0, 3, 1),
-    makeFace(CYAN_D1, 0, 1, 5),
-    makeFace(CYAN_D1, 0, 8, 9),
-    makeFace(CYAN_D1, 5, 1, 6),
-    makeFace(CYAN_D2, 0, 5, 8),
-    makeFace(CYAN_D2, 8, 5, 4),
-    makeFace(CYAN_D2, 6, 4, 5),
+    [CYAN_B2, [2, 7, 3]],
+    [CYAN_B1, [3, 9, 2]],
+    [CYAN_B1, [1, 3, 7]],
+    [CYAN_B1, [7, 6, 1]],
+    [CYAN0, [0, 9, 3]],
+    [CYAN0, [0, 3, 1]],
+    [CYAN_D1, [0, 1, 5]],
+    [CYAN_D1, [0, 8, 9]],
+    [CYAN_D1, [5, 1, 6]],
+    [CYAN_D2, [0, 5, 8]],
+    [CYAN_D2, [8, 5, 4]],
+    [CYAN_D2, [6, 4, 5]],
   ]
 );

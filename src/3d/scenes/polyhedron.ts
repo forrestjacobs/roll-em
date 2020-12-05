@@ -3,6 +3,7 @@ import { rotateX, rotateY, rotateZ } from "./vert";
 
 export type Face = [color: string, vertIndexes: number[]];
 
+/*@__PURE__*/
 function getAvgDimension(
   pointBuffer: number[],
   vertIndexes: number[],
@@ -34,10 +35,6 @@ function drawFace(
   }
   context.closePath();
   context.fill();
-}
-
-export function makeFace(color: string, ...i: number[]): Face {
-  return [color, i];
 }
 
 export function makePolyhedronScene(

@@ -1,5 +1,5 @@
 import { ORANGE0, ORANGE_B1, ORANGE_D1 } from "./consts";
-import { makeFace, makePolyhedronScene } from "./polyhedron";
+import { makePolyhedronScene } from "./polyhedron";
 
 /**
  * Based off of https://github.com/mrdoob/three.js/blob/dev/src/geometries/TetrahedronGeometry.js
@@ -15,6 +15,7 @@ const n90 = 0.90825; // 0.9082482904638632
 const n99 = 0.99578; // 0.9957819157813605
 
 export const tetrahedronScene = makePolyhedronScene(
+  // prettier-ignore
   [
     0, -n09, n99,
     0, -n90, -n41,
@@ -22,8 +23,8 @@ export const tetrahedronScene = makePolyhedronScene(
     n81, n50, -n28,
   ],
   [
-    makeFace(ORANGE_D1, 0, 3, 2),
-    makeFace(ORANGE0, 0, 2, 1),
-    makeFace(ORANGE_B1, 0, 1, 3),
+    [ORANGE_D1, [0, 3, 2]],
+    [ORANGE0, [0, 2, 1]],
+    [ORANGE_B1, [0, 1, 3]],
   ]
 );

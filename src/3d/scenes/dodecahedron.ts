@@ -1,5 +1,5 @@
 import { BLUE0, BLUE_B1, BLUE_B2, BLUE_D1, BLUE_D2 } from "./consts";
-import { makeFace, makePolyhedronScene } from "./polyhedron";
+import { makePolyhedronScene } from "./polyhedron";
 
 /**
  * Based off of https://github.com/mrdoob/three.js/blob/master/src/geometries/DodecahedronGeometry.js
@@ -21,6 +21,7 @@ const n93 = 0.93417; // 0.9341723589627155
 const n98 = 0.98743; // 0.9874280392614923
 
 export const dodecahedronScene = makePolyhedronScene(
+  // prettier-ignore
   [
     -n57, n21, -n78,
     -n57, -n78, -n21,
@@ -42,13 +43,13 @@ export const dodecahedronScene = makePolyhedronScene(
     n93, -n30, n17,
   ],
   [
-    makeFace(BLUE_B2, 11, 9, 5, 17, 7),
-    makeFace(BLUE_B1, 16, 1, 9, 11, 3),
-    makeFace(BLUE0, 3, 11, 7, 13, 12),
-    makeFace(BLUE0, 7, 17, 15, 6, 13),
-    makeFace(BLUE_D1, 2, 14, 16, 3, 12),
-    makeFace(BLUE_D1, 6, 10, 2, 12, 13),
-    makeFace(BLUE_D2, 15, 4, 8, 10, 6),
-    makeFace(BLUE_D2, 8, 0, 14, 2, 10),
+    [BLUE_B2, [11, 9, 5, 17, 7]],
+    [BLUE_B1, [16, 1, 9, 11, 3]],
+    [BLUE0, [3, 11, 7, 13, 12]],
+    [BLUE0, [7, 17, 15, 6, 13]],
+    [BLUE_D1, [2, 14, 16, 3, 12]],
+    [BLUE_D1, [6, 10, 2, 12, 13]],
+    [BLUE_D2, [15, 4, 8, 10, 6]],
+    [BLUE_D2, [8, 0, 14, 2, 10]],
   ]
 );

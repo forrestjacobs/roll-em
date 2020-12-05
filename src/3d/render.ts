@@ -2,6 +2,7 @@ import { DieRenderer, PI } from "./scenes";
 
 const VISIBLE_THRESHOLD = PI / 2;
 
+/*@__PURE__*/
 function getFaceTransform(
   radius: number,
   faceRadius: number,

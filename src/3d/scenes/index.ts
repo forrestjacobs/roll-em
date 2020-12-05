@@ -21,6 +21,7 @@ const scenes: { [sides: number]: Scene } = {
   20: icosahedronScene,
 };
 
+/*@__PURE__*/
 export function getScene(sides: number): Scene {
   return scenes[sides] ?? sphereScene;
 }

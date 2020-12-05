@@ -19,10 +19,12 @@ export interface GroupedResults {
   results: StoredResult[];
 }
 
+/*@__PURE__*/
 function toDate(num: number): Date | undefined {
   return num === 0 ? undefined : new Date(num);
 }
 
+/*@__PURE__*/
 function toDay(date: Date | undefined): Date | undefined {
   if (date === undefined) {
     return undefined;
@@ -147,17 +149,23 @@ export function makeResultsStore(
       const builder = makeGroupedResultsBuilder(value.groups, 1);
       let i = 0;
 
-      const cursor = await select(await db, "results", query, "prev", (cursor) => {
-        const value = cursor.value;
-        builder.add({
-          index: cursor.key as number,
-          date: toDate(value.date),
-          source: ResultSource.DB,
-          result: value.result,
-        });
-        i++;
-        return i < batchSize;
-      });
+      const cursor = await select(
+        await db,
+        "results",
+        query,
+        "prev",
+        (cursor) => {
+          const value = cursor.value;
+          builder.add({
+            index: cursor.key as number,
+            date: toDate(value.date),
+            source: ResultSource.DB,
+            result: value.result,
+          });
+          i++;
+          return i < batchSize;
+        }
+      );
 
       return {
         state:
