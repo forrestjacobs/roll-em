@@ -15,15 +15,15 @@ export const cylinderScene: Scene = {
     const currentPointBuffer = startingPointBuffer.slice();
 
     return (context, xRotation) => {
-      const radiusY = Math.cos(x + xRotation);
       rotateX(startingPointBuffer, currentPointBuffer, xRotation);
-
+      
+      const radiusY = Math.cos(x + xRotation) * RADIUS;
       if (radiusY > 0) {
         const [x0, y0, , x1, y1] = currentPointBuffer;
         context.fillStyle = YELLOW_D1;
         context.beginPath();
-        context.ellipse(x1, y1, RADIUS, radiusY * RADIUS, 0, 0, PI);
-        context.ellipse(x1, y1, RADIUS, radiusY * RADIUS, 0, PI, 0);
+        context.ellipse(x1, y1, RADIUS, radiusY, 0, 0, PI);
+        context.ellipse(x1, y1, RADIUS, radiusY, 0, PI, 0);
         context.fill();
 
         context.strokeStyle = YELLOW_D1;
@@ -36,8 +36,8 @@ export const cylinderScene: Scene = {
 
         context.fillStyle = YELLOW0;
         context.beginPath();
-        context.ellipse(x0, y0, RADIUS, radiusY * RADIUS, 0, 0, PI);
-        context.ellipse(x0, y0, RADIUS, radiusY * RADIUS, 0, PI, 0);
+        context.ellipse(x0, y0, RADIUS, radiusY, 0, 0, PI);
+        context.ellipse(x0, y0, RADIUS, radiusY, 0, PI, 0);
         context.fill();
       }
     };
