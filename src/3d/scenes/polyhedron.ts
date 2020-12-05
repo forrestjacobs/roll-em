@@ -3,6 +3,39 @@ import { rotateX, rotateY, rotateZ } from "./vert";
 
 export type Face = [color: string, vertIndexes: number[]];
 
+function getAvgDimension(
+  pointBuffer: number[],
+  vertIndexes: number[],
+  offset: number
+): number {
+  let sum = 0;
+  for (const vertIndex of vertIndexes) {
+    sum += pointBuffer[vertIndex + offset];
+  }
+  return sum / vertIndexes.length;
+}
+
+function drawFace(
+  context: CanvasRenderingContext2D,
+  pointBuffer: number[],
+  [color, pointIndexes]: Face
+): void {
+  const firstPointIndex = pointIndexes[0];
+
+  context.fillStyle = color;
+  context.beginPath();
+  context.moveTo(
+    pointBuffer[firstPointIndex],
+    pointBuffer[firstPointIndex + 1]
+  );
+  for (let index = 1; index < pointIndexes.length; index++) {
+    const pointIndex = pointIndexes[index];
+    context.lineTo(pointBuffer[pointIndex], pointBuffer[pointIndex + 1]);
+  }
+  context.closePath();
+  context.fill();
+}
+
 export function makeFace(color: string, ...i: number[]): Face {
   return [color, i];
 }
@@ -11,6 +44,23 @@ export function makePolyhedronScene(
   pointBuffer: number[],
   faces: Face[]
 ): Scene {
+  let nextPointIndex = pointBuffer.length - 1;
+  const zIndexes: number[] = [];
+  for (const face of faces) {
+    const vertIndexes = face[1];
+    for (let index = 0; index < vertIndexes.length; index++) {
+      vertIndexes[index] *= 3;
+    }
+
+    pointBuffer.push(
+      0,
+      getAvgDimension(pointBuffer, vertIndexes, 1),
+      getAvgDimension(pointBuffer, vertIndexes, 2)
+    );
+    nextPointIndex += 3;
+    zIndexes.push(nextPointIndex);
+  }
+
   return {
     faceRadius: BASE_FACE_RADIUS,
 
@@ -21,44 +71,21 @@ export function makePolyhedronScene(
       rotateX(startingPointBuffer, startingPointBuffer, initRotX);
 
       const currentPointBuffer = startingPointBuffer.slice();
-      const currentFaces = faces.slice();
 
       return (context, xRotation) => {
         rotateX(startingPointBuffer, currentPointBuffer, xRotation);
 
-        function avgZ(face: Face): number {
-          const pointIndexes = face[1];
-          return (
-            pointIndexes.reduce(
-              (acc, index) => acc + currentPointBuffer[index * 3 + 2],
-              0
-            ) / pointIndexes.length
-          );
-        }
-
-        currentFaces.sort((a, b) => {
-          return avgZ(a) - avgZ(b);
-        });
-
-        for (const face of currentFaces) {
-          const [color, pointIndexes] = face;
-          const firstPointIndex = pointIndexes[0] * 3;
-
-          context.fillStyle = color;
-          context.beginPath();
-          context.moveTo(
-            currentPointBuffer[firstPointIndex],
-            currentPointBuffer[firstPointIndex + 1]
-          );
-          for (let i = 1; i < pointIndexes.length; i++) {
-            const pointIndex = pointIndexes[i] * 3;
-            context.lineTo(
-              currentPointBuffer[pointIndex],
-              currentPointBuffer[pointIndex + 1]
-            );
+        for (let index = 0; index < faces.length; index++) {
+          const z = currentPointBuffer[zIndexes[index]];
+          if (z <= 0) {
+            drawFace(context, currentPointBuffer, faces[index]);
           }
-          context.closePath();
-          context.fill();
+        }
+        for (let index = 0; index < faces.length; index++) {
+          const z = currentPointBuffer[zIndexes[index]];
+          if (z > 0) {
+            drawFace(context, currentPointBuffer, faces[index]);
+          }
         }
       };
     },
