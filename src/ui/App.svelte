@@ -3,8 +3,8 @@
   import ResultList from "./ResultList.svelte";
 </script>
 
-<style>
-  :global(:root) {
+<style global>
+  :root {
     --white: #fff;
     --lightest: #eee;
     --light: #bbb;
@@ -19,7 +19,7 @@
   }
 
   @media (prefers-color-scheme: dark) {
-    :global(:root) {
+    :root {
       --white: #000;
       --lightest: #222;
       --light: #444;
@@ -34,7 +34,7 @@
     }
   }
 
-  :global(body) {
+  body {
     background: var(--lightest);
     color: var(--darkest);
     margin: 0;
@@ -42,13 +42,13 @@
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
 
-  :global(a) {
+  a {
     color: var(--brand);
     text-decoration: none;
     border-bottom: 2px solid var(--medium);
   }
 
-  :global(button.show-as-link) {
+  button.show-as-link {
     background: none !important;
     border: none;
     border-bottom: 2px solid var(--medium);
@@ -59,28 +59,28 @@
     cursor: pointer;
   }
 
-  :global(p) {
+  p {
     margin: 0;
   }
 
-  :global(.body-container) {
+  .body-container {
     padding: 2em 0;
     margin: 0 auto;
     max-width: 43.25em;
   }
 
-  :global(.header) {
+  .header {
     padding: 1em 1em 0 1em;
   }
 
-  :global(h1),
-  :global(h2) {
+  h1,
+  h2 {
     margin: 0;
     font-weight: normal;
     font-size: 1.5em;
   }
 
-  :global(.footer) {
+  .footer {
     padding: 6em 1em 1em 1em;
   }
 </style>
