@@ -24,14 +24,9 @@
       <div id="app"></div>
       <div class="footer">
         <p>
-          <%
-            const startYear = 2020;
-            const endYear = new Date().getFullYear();
-            const range = startYear === endYear ? startYear : `${startYear}–${endYear}`;
-          %>
           <a
             href="https://github.com/forrestjacobs/roll-em/blob/prod/LICENSE.txt"
-            >Copyright <%= range %> Forrest Jacobs</a
+            >Copyright 2020–<%= new Date().getFullYear() %> Forrest Jacobs</a
           >
         </p>
       </div>
