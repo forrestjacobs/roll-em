@@ -16,7 +16,8 @@
 
   /*@__PURE__*/
   function getIndex(group: GroupedResults): number {
-    return group.day?.getTime() ?? -1;
+    const day = group.day;
+    return day === undefined ? -1 : day.getTime();
   }
 
   /*@__PURE__*/
