@@ -23,5 +23,6 @@ const scenes: { [sides: number]: Scene } = {
 
 /*@__PURE__*/
 export function getScene(sides: number): Scene {
-  return scenes[sides] ?? sphereScene;
+  const scene = scenes[sides];
+  return scenes[sides] === undefined ? sphereScene : scene;
 }

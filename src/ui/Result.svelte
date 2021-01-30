@@ -15,7 +15,7 @@
 </script>
 
 <script lang="ts">
-  export let result: Result = [];
+  export let result: Result;
   export let animated: boolean;
 </script>
 
