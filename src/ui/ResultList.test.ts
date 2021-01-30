@@ -1,7 +1,14 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/svelte";
-import { getResultsStore, ResultsStore, ResultsStoreState } from "../stores";
-import { GroupedResults, ResultSource } from "../stores/results-store";
+import {
+  getResultsStore,
+  ResultsStore,
+  ResultsStoreState,
+  RESULTS_STORE_HAS_MORE,
+  RESULTS_STORE_HAS_NO_MORE,
+  RESULT_SOURCE_USER,
+} from "../stores";
+import type { GroupedResults } from "../stores/results-store";
 import MockResult from "./MockResult.svelte";
 import ResultList from "./ResultList.svelte";
 
@@ -13,7 +20,7 @@ jest.mock("../stores");
 
 function mockResults(
   groups: GroupedResults[],
-  state: ResultsStoreState = ResultsStoreState.HAS_NO_MORE,
+  state: ResultsStoreState = RESULTS_STORE_HAS_NO_MORE,
   etc: Partial<ResultsStore> = {}
 ): ResultsStore {
   const implementation = ({
@@ -46,7 +53,7 @@ test("it renders an entry", () => {
         {
           index: 1,
           date: new Date(2020, 9, 1, 1),
-          source: ResultSource.USER,
+          source: RESULT_SOURCE_USER,
           result: [{ type: "number", value: 1 }],
         },
       ],
@@ -68,7 +75,7 @@ test("it renders a 'timeless' entry", () => {
         {
           index: 1,
           date: undefined,
-          source: ResultSource.USER,
+          source: RESULT_SOURCE_USER,
           result: [{ type: "number", value: 1 }],
         },
       ],
@@ -83,7 +90,7 @@ test("it renders a 'timeless' entry", () => {
 
 test("it renders a 'load more' button", async () => {
   const loadMore = jest.fn();
-  mockResults([], ResultsStoreState.HAS_MORE, { loadMore });
+  mockResults([], RESULTS_STORE_HAS_MORE, { loadMore });
 
   const container = render(ResultList);
   await fireEvent.click(container.getByText("Load More"));
@@ -100,13 +107,13 @@ test("it renders a 'clear' button", async () => {
           {
             index: 1,
             date: new Date(2020, 9, 1, 1),
-            source: ResultSource.USER,
+            source: RESULT_SOURCE_USER,
             result: [{ type: "number", value: 1 }],
           },
         ],
       },
     ],
-    ResultsStoreState.HAS_NO_MORE,
+    RESULTS_STORE_HAS_NO_MORE,
     { clear }
   );
 

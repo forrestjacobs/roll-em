@@ -6,8 +6,12 @@ import {
   makeResultsStore,
   ResultSource,
   ResultsStore,
-  ResultsStoreState,
   ResultsStoreValue,
+  RESULTS_STORE_HAS_MORE,
+  RESULTS_STORE_HAS_NO_MORE,
+  RESULTS_STORE_LOADING,
+  RESULT_SOURCE_DB,
+  RESULT_SOURCE_USER,
 } from "./results-store";
 
 const RESULTS: Array<{ date: Date; result: Result }> = [
@@ -41,8 +45,8 @@ function getGroup(index: number, source: ResultSource) {
 }
 
 const FIRST_BATCH = [
-  getGroup(3, ResultSource.DB),
-  getGroup(2, ResultSource.DB),
+  getGroup(3, RESULT_SOURCE_DB),
+  getGroup(2, RESULT_SOURCE_DB),
 ];
 
 function makeStore(): ResultsStore {
@@ -88,18 +92,18 @@ function makeNextValueAccessor(store: ResultsStore): NextValueAccessor {
 async function expectFirstBatch(getNextValue: NextValueAccessor) {
   expect(await getNextValue()).toStrictEqual({
     groups: [],
-    state: ResultsStoreState.LOADING,
+    state: RESULTS_STORE_LOADING,
   });
   expect(await getNextValue()).toStrictEqual({
     groups: FIRST_BATCH,
-    state: ResultsStoreState.HAS_MORE,
+    state: RESULTS_STORE_HAS_MORE,
   });
 }
 
 async function expectLoadingAfterFirst(getNextValue: NextValueAccessor) {
   expect(await getNextValue()).toStrictEqual({
     groups: FIRST_BATCH,
-    state: ResultsStoreState.LOADING,
+    state: RESULTS_STORE_LOADING,
   });
 }
 
@@ -111,11 +115,11 @@ test("store initializes from scratch", async () => {
   const getNextValue = makeNextValueAccessor(makeStore());
   expect(await getNextValue()).toStrictEqual({
     groups: [],
-    state: ResultsStoreState.LOADING,
+    state: RESULTS_STORE_LOADING,
   });
   expect(await getNextValue()).toStrictEqual({
     groups: [],
-    state: ResultsStoreState.HAS_NO_MORE,
+    state: RESULTS_STORE_HAS_NO_MORE,
   });
 });
 
@@ -126,11 +130,11 @@ test("it can append results", async () => {
   const getNextValue = makeNextValueAccessor(store);
   expect(await getNextValue()).toStrictEqual({
     groups: [
-      getGroup(3, ResultSource.USER),
-      getGroup(2, ResultSource.USER),
-      getGroup(1, ResultSource.USER),
+      getGroup(3, RESULT_SOURCE_USER),
+      getGroup(2, RESULT_SOURCE_USER),
+      getGroup(1, RESULT_SOURCE_USER),
     ],
-    state: ResultsStoreState.HAS_NO_MORE,
+    state: RESULTS_STORE_HAS_NO_MORE,
   });
 });
 
@@ -152,11 +156,11 @@ test("it can load more", async () => {
   await expectLoadingAfterFirst(getNextValue);
   expect(await getNextValue()).toStrictEqual({
     groups: [
-      getGroup(3, ResultSource.DB),
-      getGroup(2, ResultSource.DB),
-      getGroup(1, ResultSource.DB),
+      getGroup(3, RESULT_SOURCE_DB),
+      getGroup(2, RESULT_SOURCE_DB),
+      getGroup(1, RESULT_SOURCE_DB),
     ],
-    state: ResultsStoreState.HAS_NO_MORE,
+    state: RESULTS_STORE_HAS_NO_MORE,
   });
 });
 
@@ -171,6 +175,6 @@ test("it can clear results", async () => {
   await expectLoadingAfterFirst(getNextValue);
   expect(await getNextValue()).toStrictEqual({
     groups: [],
-    state: ResultsStoreState.HAS_NO_MORE,
+    state: RESULTS_STORE_HAS_NO_MORE,
   });
 });

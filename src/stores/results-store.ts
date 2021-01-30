@@ -2,10 +2,10 @@ import { Readable, writable } from "svelte/store";
 import type { Result } from "../formula";
 import { add as addDb, clear, select } from "./db";
 
-export enum ResultSource {
-  USER,
-  DB,
-}
+export const RESULT_SOURCE_USER = 0;
+export const RESULT_SOURCE_DB = 1;
+
+export type ResultSource = typeof RESULT_SOURCE_USER | typeof RESULT_SOURCE_DB;
 
 export interface StoredResult {
   index: number;
@@ -35,11 +35,14 @@ function toDay(date: Date | undefined): Date | undefined {
   return day;
 }
 
-export enum ResultsStoreState {
-  HAS_NO_MORE,
-  HAS_MORE,
-  LOADING,
-}
+export const RESULTS_STORE_LOADING = 0;
+export const RESULTS_STORE_HAS_NO_MORE = 1;
+export const RESULTS_STORE_HAS_MORE = 2;
+
+export type ResultsStoreState =
+  | typeof RESULTS_STORE_LOADING
+  | typeof RESULTS_STORE_HAS_NO_MORE
+  | typeof RESULTS_STORE_HAS_MORE;
 
 export interface ResultsStoreValue {
   groups: GroupedResults[];
@@ -108,7 +111,7 @@ export function makeResultsStore(
 ): ResultsStore {
   let value: ResultsStoreValue = {
     groups: [],
-    state: ResultsStoreState.LOADING,
+    state: RESULTS_STORE_LOADING,
   };
 
   const { set, subscribe } = writable<ResultsStoreValue>(value);
@@ -123,7 +126,7 @@ export function makeResultsStore(
   ): Promise<void> {
     const prevState = value.state;
     try {
-      setValue({ state: ResultsStoreState.LOADING });
+      setValue({ state: RESULTS_STORE_LOADING });
       setValue(await callback());
     } catch (error) {
       setValue({ state: prevState });
@@ -159,7 +162,7 @@ export function makeResultsStore(
           builder.add({
             index: cursor.key as number,
             date: toDate(value.date),
-            source: ResultSource.DB,
+            source: RESULT_SOURCE_DB,
             result: value.result,
           });
           i++;
@@ -170,8 +173,8 @@ export function makeResultsStore(
       return {
         state:
           cursor !== null
-            ? ResultsStoreState.HAS_MORE
-            : ResultsStoreState.HAS_NO_MORE,
+            ? RESULTS_STORE_HAS_MORE
+            : RESULTS_STORE_HAS_NO_MORE,
         groups: builder.build(),
       };
     });
@@ -191,7 +194,7 @@ export function makeResultsStore(
       builder.add({
         index,
         date: toDate(date),
-        source: ResultSource.USER,
+        source: RESULT_SOURCE_USER,
         result,
       });
       setValue({
@@ -199,18 +202,18 @@ export function makeResultsStore(
       });
     },
     async loadMore(): Promise<void> {
-      if (value.state === ResultsStoreState.HAS_MORE) {
+      if (value.state === RESULTS_STORE_HAS_MORE) {
         await loadMore();
       }
     },
     async clear(): Promise<void> {
-      if (value.state === ResultsStoreState.LOADING) {
+      if (value.state === RESULTS_STORE_LOADING) {
         return;
       }
 
       await wrappedLoadingUpdate(async () => {
         await clear(await db, "results");
-        return { state: ResultsStoreState.HAS_NO_MORE, groups: [] };
+        return { state: RESULTS_STORE_HAS_NO_MORE, groups: [] };
       });
     },
   };

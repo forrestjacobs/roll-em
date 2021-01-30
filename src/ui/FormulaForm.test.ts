@@ -4,9 +4,9 @@ import userEvent from "@testing-library/user-event";
 import type { Formula } from "../formula";
 import {
   getResultsStore,
-  ResultSource,
   ResultsStore,
-  ResultsStoreState,
+  RESULTS_STORE_HAS_NO_MORE,
+  RESULT_SOURCE_DB,
 } from "../stores";
 import type { GroupedResults } from "../stores/results-store";
 import FormulaForm from "./FormulaForm.svelte";
@@ -52,7 +52,7 @@ jest.mock("../stores");
 function mockResults(groups: GroupedResults[]): ResultsStore {
   const implementation = ({
     subscribe: jest.fn((run) => {
-      run({ groups, state: ResultsStoreState.HAS_NO_MORE });
+      run({ groups, state: RESULTS_STORE_HAS_NO_MORE });
       return () => void {};
     }),
     append: jest.fn(),
@@ -152,7 +152,7 @@ test("It hides examples when there are results", async () => {
     {
       day: undefined,
       results: [
-        { index: 0, date: undefined, source: ResultSource.DB, result: [] },
+        { index: 0, date: undefined, source: RESULT_SOURCE_DB, result: [] },
       ],
     },
   ]);

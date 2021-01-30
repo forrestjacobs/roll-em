@@ -1,5 +1,9 @@
 <script lang="ts" context="module">
-  import { getResultsStore, ResultSource, ResultsStoreState } from "../stores";
+  import {
+    getResultsStore,
+    RESULTS_STORE_HAS_MORE,
+    RESULT_SOURCE_USER,
+  } from "../stores";
   import type { GroupedResults } from "../stores/results-store";
   import Result from "./Result.svelte";
 
@@ -96,7 +100,9 @@
     <ol>
       {#each group.results as { index, date, source, result } (index)}
         <li>
-          <Result result="{result}" animated="{source === ResultSource.USER}" />
+          <Result
+            result="{result}"
+            animated="{source === RESULT_SOURCE_USER}" />
           {#if date}
             <div class="time">{getTimeString(date)}</div>
           {/if}
@@ -106,7 +112,7 @@
   {/each}
 {/if}
 
-{#if $resultsStore.state === ResultsStoreState.HAS_MORE}
+{#if $resultsStore.state === RESULTS_STORE_HAS_MORE}
   <button class="show-as-link load-more" on:click="{resultsStore.loadMore}">
     Load More
   </button>
