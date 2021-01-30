@@ -46,7 +46,7 @@
     } catch (e) {
       if (e.message) {
         errorMessage = e.message;
-        errorIndex = e.location?.start?.offset;
+        errorIndex = e.location !== undefined && e.location.start !== undefined ? e.location.start.offset : undefined;
       } else {
         throw e;
       }
