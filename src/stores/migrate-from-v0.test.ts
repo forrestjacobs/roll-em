@@ -32,7 +32,7 @@ test("it makes the v1 store", async () => {
   expect(await wrap(store.getAll())).toEqual([]);
 });
 
-test("it migrates v0's values from local storage", async () => {
+test("it cleans up v0's local storage", async () => {
   const a = {
     id: "a",
     result: [
@@ -57,24 +57,7 @@ test("it migrates v0's values from local storage", async () => {
 
   localStorage.setItem("results", JSON.stringify([a, b, c]));
 
-  const db = await openAndMigrateDb();
+  await openAndMigrateDb();
 
-  const store = db.transaction("results").objectStore("results");
-  expect(await wrap(store.getAll())).toEqual([
-    {
-      date: 0,
-      index: 1,
-      result: c.result,
-    },
-    {
-      date: 0,
-      index: 2,
-      result: b.result,
-    },
-    {
-      date: 0,
-      index: 3,
-      result: a.result,
-    },
-  ]);
+  expect(localStorage.getItem("results")).toBe(null);
 });
