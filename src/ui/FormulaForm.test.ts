@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/svelte";
 import userEvent from "@testing-library/user-event";
+import { mocked } from "ts-jest/utils";
 import type { Formula } from "../formula";
 import {
   getResultsStore,
@@ -58,9 +59,7 @@ function mockResults(groups: GroupedResults[]): ResultsStore {
     append: jest.fn(),
   } as unknown) as ResultsStore;
 
-  ((getResultsStore as unknown) as jest.MockedFunction<
-    typeof getResultsStore
-  >).mockImplementation(() => implementation);
+  mocked(getResultsStore).mockImplementation(() => implementation);
 
   return implementation;
 }

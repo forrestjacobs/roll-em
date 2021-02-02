@@ -1,5 +1,6 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/svelte";
+import { mocked } from "ts-jest/utils";
 import {
   getResultsStore,
   ResultsStore,
@@ -32,9 +33,7 @@ function mockResults(
     ...etc,
   } as unknown) as ResultsStore;
 
-  ((getResultsStore as unknown) as jest.MockedFunction<
-    typeof getResultsStore
-  >).mockImplementation(() => implementation);
+  mocked(getResultsStore).mockImplementation(() => implementation);
 
   return implementation;
 }

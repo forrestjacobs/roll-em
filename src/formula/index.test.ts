@@ -1,3 +1,4 @@
+import { mocked } from "ts-jest/utils";
 import { parse } from ".";
 import { parse as pegParse } from "./parser.pegjs";
 import type { Formula } from "./types";
@@ -8,12 +9,8 @@ jest.mock("./validate");
 
 it("validates parsed input", () => {
   const formula: Formula = [];
-  ((pegParse as unknown) as jest.MockedFunction<
-    typeof pegParse
-  >).mockImplementation(() => formula);
-  ((validate as unknown) as jest.MockedFunction<
-    typeof validate
-  >).mockImplementation(() => {
+  mocked(pegParse).mockImplementation(() => formula);
+  mocked(validate).mockImplementation(() => {
     return;
   });
   expect(parse("test")).toBe(formula);
