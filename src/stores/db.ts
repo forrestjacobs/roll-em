@@ -42,11 +42,9 @@ function transactOnStore(
 export function add(
   db: IDBDatabase,
   store: string,
-  value: any
+  value: unknown
 ): Promise<IDBValidKey> {
-  return wrapValueRequest(
-    transactOnStore(db, store, "readwrite").add(value)
-  ) as Promise<IDBValidKey>;
+  return wrapValueRequest(transactOnStore(db, store, "readwrite").add(value));
 }
 
 export function clear(db: IDBDatabase, store: string): Promise<void> {

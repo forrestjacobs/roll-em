@@ -8,7 +8,7 @@ test("it sets up the canvas for render", () => {
     scale: jest.fn(),
     translate: jest.fn(),
     restore: jest.fn(),
-  } as unknown) as CanvasRenderingContext2D;
+  } as Partial<CanvasRenderingContext2D>) as CanvasRenderingContext2D;
   const rotation = Math.PI / 2;
   renderCanvas(render, 22, context, rotation);
 
