@@ -21,17 +21,13 @@ test("it sets up the canvas for render", () => {
 });
 
 test("it hides the value element before it crests", () => {
-  const element = ({
-    style: {},
-  } as unknown) as HTMLElement;
+  const element = document.createElement("div");
   renderValue(22, Math.SQRT2 / 2, element, (2 * Math.PI) / 3);
   expect(element.style.visibility).toBe("hidden");
 });
 
 test("shows and rotates the value element after it crests", () => {
-  const element = ({
-    style: {},
-  } as unknown) as HTMLElement;
+  const element = document.createElement("div");
   renderValue(22, Math.SQRT2 / 2, element, Math.PI / 3);
   expect(element.style.visibility).toBe("visible");
   expect(element.style.transform).toBe(
