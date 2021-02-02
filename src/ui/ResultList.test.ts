@@ -21,17 +21,17 @@ jest.mock("../stores");
 
 function mockResults(
   groups: GroupedResults[],
-  state: ResultsStoreState = RESULTS_STORE_HAS_NO_MORE,
-  etc: Partial<ResultsStore> = {}
+  state: ResultsStoreState = RESULTS_STORE_HAS_NO_MORE
 ): ResultsStore {
-  const implementation = ({
+  const implementation: ResultsStore = {
     subscribe: jest.fn((run) => {
       run({ groups, state });
       return () => void {};
     }),
     append: jest.fn(),
-    ...etc,
-  } as unknown) as ResultsStore;
+    loadMore: jest.fn(),
+    clear: jest.fn(),
+  };
 
   mocked(getResultsStore).mockImplementation(() => implementation);
 
@@ -88,17 +88,15 @@ test("it renders a 'timeless' entry", () => {
 });
 
 test("it renders a 'load more' button", async () => {
-  const loadMore = jest.fn();
-  mockResults([], RESULTS_STORE_HAS_MORE, { loadMore });
+  const store = mockResults([], RESULTS_STORE_HAS_MORE);
 
   const container = render(ResultList);
   await fireEvent.click(container.getByText("Load More"));
-  expect(loadMore).toBeCalled();
+  expect(store.loadMore).toBeCalled();
 });
 
 test("it renders a 'clear' button", async () => {
-  const clear = jest.fn();
-  mockResults(
+  const store = mockResults(
     [
       {
         day: new Date(2020, 9, 1),
@@ -112,11 +110,10 @@ test("it renders a 'clear' button", async () => {
         ],
       },
     ],
-    RESULTS_STORE_HAS_NO_MORE,
-    { clear }
+    RESULTS_STORE_HAS_NO_MORE
   );
 
   const container = render(ResultList);
   await fireEvent.click(container.getByText("Clear"));
-  expect(clear).toBeCalled();
+  expect(store.clear).toBeCalled();
 });

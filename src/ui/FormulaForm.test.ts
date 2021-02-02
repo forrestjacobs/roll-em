@@ -51,13 +51,15 @@ jest.mock("../formula", () => ({
 jest.mock("../stores");
 
 function mockResults(groups: GroupedResults[]): ResultsStore {
-  const implementation = ({
+  const implementation: ResultsStore = {
     subscribe: jest.fn((run) => {
       run({ groups, state: RESULTS_STORE_HAS_NO_MORE });
       return () => void {};
     }),
     append: jest.fn(),
-  } as unknown) as ResultsStore;
+    loadMore: jest.fn(),
+    clear: jest.fn(),
+  };
 
   mocked(getResultsStore).mockImplementation(() => implementation);
 
