@@ -12,7 +12,7 @@ function randAxis() {
   return (random() - 0.5) * RAND_ROTATE_RANGE;
 }
 
-export function makeRenderer(scene: Scene): DieRenderer {
+function makeRenderer(scene: Scene): DieRenderer {
   return scene.getDieRenderer(randAxis(), randAxis(), randAxis());
 }
 
