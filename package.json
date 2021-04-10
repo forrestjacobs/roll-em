@@ -16,7 +16,7 @@
     "@testing-library/dom": "^7.29.0",
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/svelte": "^3.0.3",
-    "@testing-library/user-event": "^12.6.0",
+    "@testing-library/user-event": "^13.1.2",
     "@tsconfig/svelte": "^1.0.10",
     "@types/jest": "^26.0.19",
     "@types/pegjs": "^0.10.2",
