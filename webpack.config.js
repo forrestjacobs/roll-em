@@ -1,10 +1,9 @@
 const path = require("path");
 
 const TerserPlugin = require("terser-webpack-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const HtmlWebpackInlineSourcePlugin = require("html-webpack-inline-source-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 
@@ -14,11 +13,9 @@ module.exports = function (env, argv) {
   const plugins = [
     new CleanWebpackPlugin({
       protectWebpackAssets: false,
-      cleanAfterEveryBuildPatterns: ["main.css", "main.js"],
     }),
     new HtmlWebpackPlugin({
       template: "./src/index.ejs",
-      inlineSource: ".(js|css)$",
     }),
     new MiniCssExtractPlugin(),
   ];
@@ -33,13 +30,12 @@ module.exports = function (env, argv) {
         ],
       })
     );
-    plugins.push(new HtmlWebpackInlineSourcePlugin(HtmlWebpackPlugin));
   }
 
   return {
     entry: "./src/index.ts",
     optimization: {
-      minimizer: [new TerserPlugin(), new OptimizeCSSAssetsPlugin({})],
+      minimizer: [new TerserPlugin(), new CssMinimizerPlugin({})],
     },
     plugins,
     devtool: "source-map",
