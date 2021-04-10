@@ -11,7 +11,7 @@ jest.mock("./scenes");
 
 beforeEach(() => {
   jest.resetAllMocks();
-})
+});
 
 test("It skips rendering if 2d context is not available", () => {
   const canvas = ({

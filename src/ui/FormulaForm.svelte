@@ -46,7 +46,10 @@
     } catch (e) {
       if (e.message) {
         errorMessage = e.message;
-        errorIndex = e.location !== undefined && e.location.start !== undefined ? e.location.start.offset : undefined;
+        errorIndex =
+          e.location !== undefined && e.location.start !== undefined
+            ? e.location.start.offset
+            : undefined;
       } else {
         throw e;
       }
@@ -155,12 +158,15 @@
         <div class="formatted-value" aria-hidden="true">
           {#each textValue as char, i}
             <span
-              class="{`${classByCharacter[char]} ${i === errorIndex ? 'error-text' : ''}`}">{char}</span>
+              class="{`${classByCharacter[char]} ${
+                i === errorIndex ? 'error-text' : ''
+              }`}">{char}</span
+            >
           {/each}
           {#if errorIndex === [...textValue].length}
             <span class="error-bookmark"></span>
           {/if}
-          {' '}
+          {" "}
         </div>
         <textarea
           bind:this="{input}"
@@ -179,11 +185,11 @@
     <div class="error-message">{errorMessage}</div>
   {:else if $resultsStore.groups.length === 0}
     <div class="examples">
-      {'Examples: '}
+      {"Examples: "}
       <button class="show-as-link" on:click="{() => (textValue = 'd20 + 2')}">
         d20 + 2
       </button>
-      {' or '}
+      {" or "}
       <button class="show-as-link" on:click="{() => (textValue = 'd8 + d6')}">
         d8 + d6
       </button>

@@ -10,12 +10,12 @@
 {#if animated}*{/if}
 {#each result as term}
   [
-  {#if term.type === 'number'}
+  {#if term.type === "number"}
     {` ${term.value}`}
   {:else}
     [d{term.sides}:
     {#each term.value as value}{` ${value}`}{/each}
-    {' ]'}
+    {" ]"}
   {/if}
-  {' ]'}
+  {" ]"}
 {/each}

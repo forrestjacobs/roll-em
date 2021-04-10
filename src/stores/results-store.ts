@@ -172,9 +172,7 @@ export function makeResultsStore(
 
       return {
         state:
-          cursor !== null
-            ? RESULTS_STORE_HAS_MORE
-            : RESULTS_STORE_HAS_NO_MORE,
+          cursor !== null ? RESULTS_STORE_HAS_MORE : RESULTS_STORE_HAS_NO_MORE,
         groups: builder.build(),
       };
     });

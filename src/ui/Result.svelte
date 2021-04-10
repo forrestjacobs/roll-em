@@ -74,23 +74,23 @@
 
 <div class="result">
   <span class="sum">{sum(result)}</span>
-  <span class="equals">{' = '}</span>
+  <span class="equals">{" = "}</span>
   <span class="components">
     {#each result as term, termIndex}
       {#if getTermOp(term, termIndex) !== undefined}
         <span class="operator">{` ${getTermOp(term, termIndex)} `}</span>
       {/if}
 
-      {#if term.type === 'number'}
+      {#if term.type === "number"}
         <span class="number">{Math.abs(term.value)}</span>
       {:else}
         {#each term.value.slice(0, MAX_DICE_TO_SHOW_PER_TERM) as value, valueIndex}
-          {#if valueIndex !== 0}<span class="dice-operator">{' + '}</span>{/if}
+          {#if valueIndex !== 0}<span class="dice-operator">{" + "}</span>{/if}
           <DieRoll sides="{term.sides}" value="{value}" animated="{animated}" />
         {/each}
         {#if term.value.length > MAX_DICE_TO_SHOW_PER_TERM}
           <span class="overflow">
-            <span class="operator">{' + '}</span>
+            <span class="operator">{" + "}</span>
             {term.value.length - MAX_DICE_TO_SHOW_PER_TERM}
             more
           </span>

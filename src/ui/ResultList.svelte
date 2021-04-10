@@ -102,7 +102,8 @@
         <li>
           <Result
             result="{result}"
-            animated="{source === RESULT_SOURCE_USER}" />
+            animated="{source === RESULT_SOURCE_USER}"
+          />
           {#if date}
             <div class="time">{getTimeString(date)}</div>
           {/if}

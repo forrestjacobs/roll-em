@@ -1,1 +1,2 @@
 svelteStrictMode = true
+svelteSortOrder = "scripts-styles-options-markup"
