@@ -1,6 +1,5 @@
 <script lang="ts" context="module">
-  import FormulaForm from "./FormulaForm.svelte";
-  import ResultList from "./ResultList.svelte";
+  const year = new Date().getFullYear();
 </script>
 
 <style global>
@@ -63,7 +62,7 @@
     margin: 0;
   }
 
-  .body-container {
+  #app {
     padding: 2em 0;
     margin: 0 auto;
     max-width: 43.25em;
@@ -85,6 +84,21 @@
   }
 </style>
 
-<FormulaForm />
+<div class="header">
+  <h1>Roll 'Em</h1>
+  <p>
+    {"Enter the dice you want to roll using "}
+    <a href="https://en.wikipedia.org/wiki/Dice_notation">dice notation</a>
+    {" and press "}<em>Roll</em>
+  </p>
+</div>
 
-<ResultList />
+<slot />
+
+<div class="footer">
+  <p>
+    <a href="https://github.com/forrestjacobs/roll-em/blob/prod/LICENSE.txt"
+      >Copyright 2020–{year} Forrest Jacobs</a
+    >
+  </p>
+</div>

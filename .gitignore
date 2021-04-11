@@ -1,3 +1,4 @@
-dist
+.svelte
+build
 coverage
 node_modules

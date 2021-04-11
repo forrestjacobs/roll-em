@@ -1,5 +1,6 @@
 <script lang="ts" context="module">
-  import { sum, Result, ResultTerm } from "../formula";
+  import type { Result, ResultTerm } from "../formula";
+  import { sum } from "../formula";
   import DieRoll from "./DieRoll.svelte";
 
   const MAX_DICE_TO_SHOW_PER_TERM = 15;

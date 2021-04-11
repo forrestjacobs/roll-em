@@ -1,4 +1,5 @@
 <script lang="ts" context="module">
+  import { browser } from "$app/env";
   import {
     getResultsStore,
     RESULTS_STORE_HAS_MORE,
@@ -36,7 +37,7 @@
 </script>
 
 <script lang="ts">
-  const resultsStore = getResultsStore();
+  const resultsStore = browser ? getResultsStore() : undefined;
 </script>
 
 <style>
@@ -89,7 +90,7 @@
   }
 </style>
 
-{#if $resultsStore.groups.length !== 0}
+{#if resultsStore !== undefined && $resultsStore.groups.length !== 0}
   <div class="results-header">
     <h2>Results</h2>
     <button class="show-as-link" on:click="{resultsStore.clear}">Clear</button>
@@ -113,7 +114,7 @@
   {/each}
 {/if}
 
-{#if $resultsStore.state === RESULTS_STORE_HAS_MORE}
+{#if resultsStore !== undefined && $resultsStore.state === RESULTS_STORE_HAS_MORE}
   <button class="show-as-link load-more" on:click="{resultsStore.loadMore}">
     Load More
   </button>
