@@ -1,5 +1,4 @@
 <script lang="ts" context="module">
-  import { browser } from "$app/env";
   import {
     getResultsStore,
     RESULTS_STORE_HAS_MORE,
@@ -37,7 +36,7 @@
 </script>
 
 <script lang="ts">
-  const resultsStore = browser ? getResultsStore() : undefined;
+  const resultsStore = getResultsStore();
 </script>
 
 <style>

@@ -1,5 +1,4 @@
 <script lang="ts" context="module">
-  import { browser } from "$app/env";
   import { tick } from "svelte";
   import { parse,roll } from "../formula";
   import { getResultsStore } from "../stores";
@@ -15,7 +14,7 @@
 </script>
 
 <script lang="ts">
-  const resultsStore = browser ? getResultsStore() : undefined;
+  const resultsStore = getResultsStore();
 
   let input: HTMLTextAreaElement;
   let textValue = "";
@@ -36,9 +35,6 @@
   }
 
   async function submit() {
-    if (resultsStore === undefined) {
-      throw new Error("Not implemented on server");
-    }
     errorMessage = undefined;
     errorIndex = undefined;
     try {
@@ -183,11 +179,11 @@
           spellcheck="{false}"></textarea>
       </div>
     </div>
-    <button type="submit" disabled="{resultsStore === undefined}">Roll</button>
+    <button type="submit">Roll</button>
   </div>
   {#if errorMessage}
     <div class="error-message">{errorMessage}</div>
-  {:else if resultsStore !== undefined && $resultsStore.groups.length === 0}
+  {:else if $resultsStore.groups.length === 0}
     <div class="examples">
       {"Examples: "}
       <button class="show-as-link" on:click="{() => (textValue = 'd20 + 2')}">

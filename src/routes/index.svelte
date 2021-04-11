@@ -1,7 +1,22 @@
 <script lang="ts" context="module">
+  import { onMount } from "svelte";
   import FormulaForm from "../ui/FormulaForm.svelte";
+  import LoadingSection from "../ui/LoadingSection.svelte";
   import ResultList from "../ui/ResultList.svelte";
 </script>
+
+<script>
+  let mounted = false;
+  onMount(() => {
+    mounted = true;
+  });
+</script>
+
+<style>
+  .loading-container {
+    height: 6.425em;
+  }
+</style>
 
 <svelte:head>
 	<title>Roll 'Em</title>
@@ -15,6 +30,11 @@
   </p>
 </div>
 
-<FormulaForm />
-
-<ResultList />
+{#if mounted}
+  <FormulaForm />
+  <ResultList />
+{:else}
+  <div class="loading-container">
+    <LoadingSection />
+  </div>
+{/if}
