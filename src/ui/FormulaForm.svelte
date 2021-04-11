@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  import { tick } from "svelte";
+  import { onMount, tick } from "svelte";
   import { parse,roll } from "../formula";
   import { getResultsStore } from "../stores";
 
@@ -55,6 +55,10 @@
       }
     }
   }
+
+  onMount(() => {
+    input.focus();
+  });
 </script>
 
 <style>
