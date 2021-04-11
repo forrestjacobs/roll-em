@@ -69,12 +69,19 @@
   }
 
   .header {
-    padding: 1em 1em 0 1em;
+    padding: 0 1em;
+  }
+
+  h1 {
+    margin: 0.6667em 0.6667em 0 0.6667em;
+  }
+
+  h2 {
+    margin: 0;
   }
 
   h1,
   h2 {
-    margin: 0;
     font-weight: normal;
     font-size: 1.5em;
   }
@@ -84,14 +91,7 @@
   }
 </style>
 
-<div class="header">
-  <h1>Roll 'Em</h1>
-  <p>
-    {"Enter the dice you want to roll using "}
-    <a href="https://en.wikipedia.org/wiki/Dice_notation">dice notation</a>
-    {" and press "}<em>Roll</em>
-  </p>
-</div>
+<h1>Roll 'Em</h1>
 
 <slot />
 
