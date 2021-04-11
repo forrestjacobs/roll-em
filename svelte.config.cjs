@@ -32,6 +32,9 @@ module.exports = {
     target: "#app",
 
     vite: {
+      define: {
+        BUILD_YEAR: `${new Date().getFullYear()}`,
+      },
       ssr: {
         noExternal: Object.keys(pkg.dependencies || {}),
       },

@@ -1,7 +1,3 @@
-<script lang="ts" context="module">
-  const year = new Date().getFullYear();
-</script>
-
 <style global>
   :root {
     --white: #fff;
@@ -98,7 +94,7 @@
 <div class="footer">
   <p>
     <a href="https://github.com/forrestjacobs/roll-em/blob/prod/LICENSE.txt"
-      >Copyright 2020–{year} Forrest Jacobs</a
+      >Copyright 2020–{BUILD_YEAR} Forrest Jacobs</a
     >
   </p>
 </div>
