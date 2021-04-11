@@ -149,6 +149,12 @@
   .examples {
     padding-top: 1em;
   }
+
+  @media (prefers-color-scheme: dark) {
+    .editor-container {
+      background: #333;
+    }
+  }
 </style>
 
 <form on:submit|preventDefault="{submit}">

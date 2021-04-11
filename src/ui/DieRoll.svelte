@@ -43,12 +43,6 @@
     height: 44px;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .illustration {
-      opacity: 0.5;
-    }
-  }
-
   .value {
     display: block;
     left: 6px;
