@@ -13,7 +13,7 @@ function wrap<T>(request: IDBRequest<T>): Promise<T> {
 
 function openAndMigrateDb(): Promise<IDBDatabase> {
   const open = new FDBFactory().open(DB_NAME);
-  open.addEventListener("upgradeneeded", (event) => {
+  open.addEventListener("upgradeneeded", () => {
     migrate(open.result);
   });
   return wrap(open);
