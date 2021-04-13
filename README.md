@@ -13,5 +13,5 @@ npm install
 npm run build
 ```
 
-That generates a `dist` directory with the site's static resources. Roll 'Em is
+That generates a `build` directory with the site's static resources. Roll 'Em is
 a totally static site, so you can just serve that directory.
