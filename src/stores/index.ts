@@ -9,6 +9,7 @@ export {
   RESULT_SOURCE_USER,
 } from "./results-store";
 export type {
+  GroupedResults,
   ResultSource,
   ResultsStore,
   ResultsStoreState,

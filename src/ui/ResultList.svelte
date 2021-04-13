@@ -1,7 +1,6 @@
 <script lang="ts" context="module">
-  import type { ResultsStore } from "../stores";
+  import type { GroupedResults, ResultsStore } from "../stores";
   import { RESULTS_STORE_HAS_MORE, RESULT_SOURCE_USER } from "../stores";
-  import type { GroupedResults } from "../stores/results-store";
   import Result from "./Result.svelte";
 
   const dateFormatter = new Intl.DateTimeFormat([], {
