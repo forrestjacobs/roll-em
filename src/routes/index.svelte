@@ -1,14 +1,16 @@
 <script lang="ts" context="module">
   import { onMount } from "svelte";
+  import type { ResultsStore } from "../stores";
+  import { getResultsStore } from "../stores";
   import FormulaForm from "../ui/FormulaForm.svelte";
   import LoadingSection from "../ui/LoadingSection.svelte";
   import ResultList from "../ui/ResultList.svelte";
 </script>
 
-<script>
-  let mounted = false;
+<script lang="ts">
+  let resultsStore: ResultsStore | undefined;
   onMount(() => {
-    mounted = true;
+    resultsStore = getResultsStore();
   });
 </script>
 
@@ -30,9 +32,9 @@
   </p>
 </div>
 
-{#if mounted}
-  <FormulaForm />
-  <ResultList />
+{#if resultsStore !== undefined}
+  <FormulaForm resultsStore="{resultsStore}" />
+  <ResultList resultsStore="{resultsStore}" />
 {:else}
   <div class="loading-container">
     <LoadingSection />

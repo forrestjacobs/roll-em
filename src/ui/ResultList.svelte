@@ -1,9 +1,6 @@
 <script lang="ts" context="module">
-  import {
-    getResultsStore,
-    RESULTS_STORE_HAS_MORE,
-    RESULT_SOURCE_USER,
-  } from "../stores";
+  import type { ResultsStore } from "../stores";
+  import { RESULTS_STORE_HAS_MORE, RESULT_SOURCE_USER } from "../stores";
   import type { GroupedResults } from "../stores/results-store";
   import Result from "./Result.svelte";
 
@@ -36,7 +33,7 @@
 </script>
 
 <script lang="ts">
-  const resultsStore = getResultsStore();
+  export let resultsStore: ResultsStore;
 </script>
 
 <style>

@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
+  import type { ResultsStore } from "../stores";
   import { onMount, tick } from "svelte";
   import { parse,roll } from "../formula";
-  import { getResultsStore } from "../stores";
 
   let classByCharacter: { [char: string]: string } = {};
   function registerClass(name: string, charset: string) {
@@ -14,7 +14,7 @@
 </script>
 
 <script lang="ts">
-  const resultsStore = getResultsStore();
+  export let resultsStore: ResultsStore;
 
   let input: HTMLTextAreaElement;
   let textValue = "";
