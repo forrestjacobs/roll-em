@@ -5,12 +5,9 @@ export {
   RESULTS_STORE_HAS_MORE,
   RESULTS_STORE_HAS_NO_MORE,
   RESULTS_STORE_LOADING,
-  RESULT_SOURCE_DB,
-  RESULT_SOURCE_USER,
 } from "./results-store";
 export type {
   GroupedResults,
-  ResultSource,
   ResultsStore,
   ResultsStoreState,
   StoredResult,

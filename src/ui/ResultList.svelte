@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
   import type { GroupedResults, ResultsStore } from "../stores";
-  import { RESULTS_STORE_HAS_MORE, RESULT_SOURCE_USER } from "../stores";
+  import { RESULTS_STORE_HAS_MORE } from "../stores";
   import Result from "./Result.svelte";
 
   const dateFormatter = new Intl.DateTimeFormat([], {
@@ -94,12 +94,9 @@
   {#each $resultsStore.groups as group (getIndex(group))}
     <h3>{getDayString(group.day)}</h3>
     <ol>
-      {#each group.results as { index, date, source, result } (index)}
+      {#each group.results as { index, date, roll, result } (index)}
         <li>
-          <Result
-            result="{result}"
-            animated="{source === RESULT_SOURCE_USER}"
-          />
+          <Result result="{result}" animated="{roll}" />
           {#if date}
             <div class="time">{getTimeString(date)}</div>
           {/if}

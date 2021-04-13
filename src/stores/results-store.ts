@@ -2,15 +2,10 @@ import { Readable, writable } from "svelte/store";
 import type { Result } from "../formula";
 import { add as addDb, clear, select } from "./db";
 
-export const RESULT_SOURCE_USER = 0;
-export const RESULT_SOURCE_DB = 1;
-
-export type ResultSource = typeof RESULT_SOURCE_USER | typeof RESULT_SOURCE_DB;
-
 export interface StoredResult {
   index: number;
   date: Date | undefined;
-  source: ResultSource;
+  roll: boolean;
   result: Result;
 }
 
@@ -162,7 +157,7 @@ export function makeResultsStore(
           builder.add({
             index: cursor.key as number,
             date: toDate(value.date),
-            source: RESULT_SOURCE_DB,
+            roll: false,
             result: value.result,
           });
           i++;
@@ -192,7 +187,7 @@ export function makeResultsStore(
       builder.add({
         index,
         date: toDate(date),
-        source: RESULT_SOURCE_USER,
+        roll: true,
         result,
       });
       setValue({
