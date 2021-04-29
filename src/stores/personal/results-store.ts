@@ -1,18 +1,17 @@
-import { Readable, writable } from "svelte/store";
-import type { Result } from "../formula";
-import { add as addDb, clear, select } from "./db";
-
-export interface StoredResult {
-  index: number;
-  date: Date | undefined;
-  roll: boolean;
-  result: Result;
-}
-
-export interface GroupedResults {
-  day: Date | undefined;
-  results: StoredResult[];
-}
+import { writable } from "svelte/store";
+import type { Result } from "../../formula";
+import { add as addDb, clear, select } from "./idb";
+import type {
+  GroupedResults,
+  ResultsStore,
+  ResultsStoreValue,
+  StoredResult,
+} from "../types";
+import {
+  RESULTS_STORE_HAS_MORE,
+  RESULTS_STORE_HAS_NO_MORE,
+  RESULTS_STORE_LOADING,
+} from "../types";
 
 /*@__PURE__*/
 function toDate(num: number): Date | undefined {
@@ -29,26 +28,6 @@ function toDay(date: Date | undefined): Date | undefined {
   day.setHours(0, 0, 0, 0);
   return day;
 }
-
-export const RESULTS_STORE_LOADING = 0;
-export const RESULTS_STORE_HAS_NO_MORE = 1;
-export const RESULTS_STORE_HAS_MORE = 2;
-
-export type ResultsStoreState =
-  | typeof RESULTS_STORE_LOADING
-  | typeof RESULTS_STORE_HAS_NO_MORE
-  | typeof RESULTS_STORE_HAS_MORE;
-
-export interface ResultsStoreValue {
-  groups: GroupedResults[];
-  state: ResultsStoreState;
-}
-
-export type ResultsStore = Readable<ResultsStoreValue> & {
-  append(result: Result): Promise<void>;
-  loadMore(): Promise<void>;
-  clear(): Promise<void>;
-};
 
 interface Builder {
   add(result: StoredResult): void;

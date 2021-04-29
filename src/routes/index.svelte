@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
   import { onMount } from "svelte";
   import type { ResultsStore } from "../stores";
-  import { getResultsStore } from "../stores";
+  import { getPersonalResultsStore } from "../stores";
   import FormulaForm from "../ui/FormulaForm.svelte";
   import LoadingSection from "../ui/LoadingSection.svelte";
   import ResultList from "../ui/ResultList.svelte";
@@ -10,7 +10,7 @@
 <script lang="ts">
   let resultsStore: ResultsStore | undefined;
   onMount(() => {
-    resultsStore = getResultsStore();
+    resultsStore = getPersonalResultsStore();
   });
 </script>
 
@@ -21,7 +21,7 @@
 </style>
 
 <svelte:head>
-	<title>Roll 'Em</title>
+  <title>Roll 'Em</title>
 </svelte:head>
 
 <div class="header">

@@ -1,18 +1,15 @@
 import "fake-indexeddb/auto";
 import FDBFactory from "fake-indexeddb/lib/FDBFactory";
-import type { Result } from "../formula";
-import { makeDb } from "./db";
+import type { Result } from "../../formula";
 import {
-  makeResultsStore,
-  ResultSource,
   ResultsStore,
   ResultsStoreValue,
   RESULTS_STORE_HAS_MORE,
   RESULTS_STORE_HAS_NO_MORE,
   RESULTS_STORE_LOADING,
-  RESULT_SOURCE_DB,
-  RESULT_SOURCE_USER,
-} from "./results-store";
+} from "../types";
+import { makeDb } from "./idb";
+import { makeResultsStore } from "./results-store";
 
 const RESULTS: Array<{ date: Date; result: Result }> = [
   {
@@ -29,7 +26,7 @@ const RESULTS: Array<{ date: Date; result: Result }> = [
   },
 ];
 
-function getGroup(index: number, source: ResultSource) {
+function getGroup(index: number, roll: boolean) {
   const { date, result } = RESULTS[index - 1];
   return {
     day: date,
@@ -37,17 +34,14 @@ function getGroup(index: number, source: ResultSource) {
       {
         index,
         date,
-        source,
+        roll,
         result,
       },
     ],
   };
 }
 
-const FIRST_BATCH = [
-  getGroup(3, RESULT_SOURCE_DB),
-  getGroup(2, RESULT_SOURCE_DB),
-];
+const FIRST_BATCH = [getGroup(3, false), getGroup(2, false)];
 
 function makeStore(): ResultsStore {
   return makeResultsStore(makeDb(), 2);
@@ -129,11 +123,7 @@ test("it can append results", async () => {
   await appendResults(store);
   const getNextValue = makeNextValueAccessor(store);
   expect(await getNextValue()).toStrictEqual({
-    groups: [
-      getGroup(3, RESULT_SOURCE_USER),
-      getGroup(2, RESULT_SOURCE_USER),
-      getGroup(1, RESULT_SOURCE_USER),
-    ],
+    groups: [getGroup(3, true), getGroup(2, true), getGroup(1, true)],
     state: RESULTS_STORE_HAS_NO_MORE,
   });
 });
@@ -155,11 +145,7 @@ test("it can load more", async () => {
   store.loadMore();
   await expectLoadingAfterFirst(getNextValue);
   expect(await getNextValue()).toStrictEqual({
-    groups: [
-      getGroup(3, RESULT_SOURCE_DB),
-      getGroup(2, RESULT_SOURCE_DB),
-      getGroup(1, RESULT_SOURCE_DB),
-    ],
+    groups: [getGroup(3, false), getGroup(2, false), getGroup(1, false)],
     state: RESULTS_STORE_HAS_NO_MORE,
   });
 });

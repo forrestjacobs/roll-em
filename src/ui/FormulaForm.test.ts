@@ -1,15 +1,12 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/svelte";
 import userEvent from "@testing-library/user-event";
-import { mocked } from "ts-jest/utils";
 import type { Formula } from "../formula";
 import {
-  getResultsStore,
+  GroupedResults,
   ResultsStore,
   RESULTS_STORE_HAS_NO_MORE,
-  RESULT_SOURCE_DB,
 } from "../stores";
-import type { GroupedResults } from "../stores/results-store";
 import FormulaForm from "./FormulaForm.svelte";
 
 const resultd6 = [{ type: "roll", count: 1, sides: 6, value: [6] }];
@@ -51,7 +48,7 @@ jest.mock("../formula", () => ({
 jest.mock("../stores");
 
 function mockResults(groups: GroupedResults[]): ResultsStore {
-  const implementation: ResultsStore = {
+  return {
     subscribe: jest.fn((run) => {
       run({ groups, state: RESULTS_STORE_HAS_NO_MORE });
       return () => void {};
@@ -60,10 +57,6 @@ function mockResults(groups: GroupedResults[]): ResultsStore {
     loadMore: jest.fn(),
     clear: jest.fn(),
   };
-
-  mocked(getResultsStore).mockImplementation(() => implementation);
-
-  return implementation;
 }
 
 function expectFieldToBeSelected(field: HTMLTextAreaElement) {
@@ -76,7 +69,7 @@ function expectFieldToBeSelected(field: HTMLTextAreaElement) {
 test("It can roll", async () => {
   const resultsStore = mockResults([]);
 
-  const result = render(FormulaForm);
+  const result = render(FormulaForm, { resultsStore });
 
   const field = result.getByRole("textbox") as HTMLTextAreaElement;
   await userEvent.type(field, "d6");
@@ -89,7 +82,7 @@ test("It can roll", async () => {
 test("It can roll by pressing enter", async () => {
   const resultsStore = mockResults([]);
 
-  const result = render(FormulaForm);
+  const result = render(FormulaForm, { resultsStore });
   const field = result.getByRole("textbox");
   await userEvent.type(field, "d6");
   await fireEvent(
@@ -101,9 +94,9 @@ test("It can roll by pressing enter", async () => {
 });
 
 test("It shows error messages", async () => {
-  mockResults([]);
+  const resultsStore = mockResults([]);
 
-  const result = render(FormulaForm);
+  const result = render(FormulaForm, { resultsStore });
   const field = result.getByRole("textbox");
   await userEvent.type(field, "d");
   await fireEvent.click(result.getByText("Roll"));
@@ -112,9 +105,9 @@ test("It shows error messages", async () => {
 });
 
 test("It marks errors when there's a location", async () => {
-  mockResults([]);
+  const resultsStore = mockResults([]);
 
-  const result = render(FormulaForm);
+  const result = render(FormulaForm, { resultsStore });
   const field = result.getByRole("textbox");
   await userEvent.type(field, "loc");
   await fireEvent.click(result.getByText("Roll"));
@@ -124,9 +117,9 @@ test("It marks errors when there's a location", async () => {
 });
 
 test("It clears errors on the next roll", async () => {
-  mockResults([]);
+  const resultsStore = mockResults([]);
 
-  const result = render(FormulaForm);
+  const result = render(FormulaForm, { resultsStore });
   const field = result.getByRole("textbox");
   const button = result.getByText("Roll");
 
@@ -141,32 +134,30 @@ test("It clears errors on the next roll", async () => {
 });
 
 test("It shows examples when there are no results", async () => {
-  mockResults([]);
+  const resultsStore = mockResults([]);
 
-  const result = render(FormulaForm);
+  const result = render(FormulaForm, { resultsStore });
 
   expect(result.container).toHaveTextContent("Examples:");
 });
 
 test("It hides examples when there are results", async () => {
-  mockResults([
+  const resultsStore = mockResults([
     {
       day: undefined,
-      results: [
-        { index: 0, date: undefined, source: RESULT_SOURCE_DB, result: [] },
-      ],
+      results: [{ index: 0, date: undefined, roll: false, result: [] }],
     },
   ]);
 
-  const result = render(FormulaForm);
+  const result = render(FormulaForm, { resultsStore });
 
   expect(result.container).not.toHaveTextContent("Examples:");
 });
 
 test("It hides examples when there are errors", async () => {
-  mockResults([]);
+  const resultsStore = mockResults([]);
 
-  const result = render(FormulaForm);
+  const result = render(FormulaForm, { resultsStore });
   const field = result.getByRole("textbox");
   await userEvent.type(field, "d");
   await fireEvent.click(result.getByText("Roll"));
@@ -177,7 +168,7 @@ test("It hides examples when there are errors", async () => {
 test("It rolls an example when you click it", async () => {
   const resultsStore = mockResults([]);
 
-  const result = render(FormulaForm);
+  const result = render(FormulaForm, { resultsStore });
   await fireEvent.click(result.getByText("d20 + 2"));
 
   expect(resultsStore.append).toBeCalledWith([

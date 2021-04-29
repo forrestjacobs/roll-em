@@ -1,8 +1,8 @@
 import { getResultsStore } from ".";
-import { makeDb } from "./db";
+import { makeDb } from "./idb";
 import { makeResultsStore } from "./results-store";
 
-jest.mock("./db", () => ({
+jest.mock("./idb", () => ({
   makeDb: jest.fn(() => "db"),
 }));
 jest.mock("./results-store", () => ({
