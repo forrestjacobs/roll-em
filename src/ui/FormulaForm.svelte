@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
   import type { ResultsStore } from "../stores";
   import { onMount, tick } from "svelte";
-  import { parse,roll } from "../formula";
+  import { parse, roll } from "../formula";
 
   let classByCharacter: { [char: string]: string } = {};
   function registerClass(name: string, charset: string) {
