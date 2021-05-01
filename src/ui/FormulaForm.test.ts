@@ -146,7 +146,7 @@ test("It hides examples when there are results", async () => {
   const resultsStore = mockResults([
     {
       day: undefined,
-      results: [{ index: 0, date: undefined, roll: false, result: [] }],
+      results: [{ key: 0, date: undefined, roll: false, result: [] }],
     },
   ]);
 

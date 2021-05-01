@@ -115,7 +115,7 @@ export function makeResultsStore(
     }
     const lastResults = groups[groups.length - 1].results;
     return IDBKeyRange.upperBound(
-      lastResults[lastResults.length - 1].index,
+      lastResults[lastResults.length - 1].key,
       true
     );
   }
@@ -134,7 +134,7 @@ export function makeResultsStore(
         (cursor) => {
           const value = cursor.value;
           builder.add({
-            index: cursor.key as number,
+            key: cursor.key,
             date: toDate(value.date),
             roll: false,
             result: value.result,
@@ -158,13 +158,13 @@ export function makeResultsStore(
     subscribe,
     async append(result: Result): Promise<void> {
       const date = Date.now();
-      const index = (await addDb(await db, "results", {
+      const key = (await addDb(await db, "results", {
         date,
         result,
       })) as number;
       const builder = makeGroupedResultsBuilder(value.groups, -1);
       builder.add({
-        index,
+        key,
         date: toDate(date),
         roll: true,
         result,

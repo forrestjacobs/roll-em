@@ -44,7 +44,7 @@ test("it renders an entry", () => {
       day: new Date(2020, 9, 1),
       results: [
         {
-          index: 1,
+          key: 1,
           date: new Date(2020, 9, 1, 1),
           roll: true,
           result: [{ type: "number", value: 1 }],
@@ -66,7 +66,7 @@ test("it renders a 'timeless' entry", () => {
       day: undefined,
       results: [
         {
-          index: 1,
+          key: 1,
           date: undefined,
           roll: true,
           result: [{ type: "number", value: 1 }],
@@ -96,7 +96,7 @@ test("it renders a 'clear' button", async () => {
         day: new Date(2020, 9, 1),
         results: [
           {
-            index: 1,
+            key: 1,
             date: new Date(2020, 9, 1, 1),
             roll: true,
             result: [{ type: "number", value: 1 }],

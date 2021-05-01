@@ -2,7 +2,7 @@ import type { Readable } from "svelte/store";
 import type { Result } from "../formula";
 
 export interface StoredResult {
-  index: number;
+  key: unknown;
   date: Date | undefined;
   roll: boolean;
   result: Result;

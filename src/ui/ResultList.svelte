@@ -94,7 +94,7 @@
   {#each $resultsStore.groups as group (getIndex(group))}
     <h3>{getDayString(group.day)}</h3>
     <ol>
-      {#each group.results as { index, date, roll, result } (index)}
+      {#each group.results as { key, date, roll, result } (key)}
         <li>
           <Result result="{result}" animated="{roll}" />
           {#if date}

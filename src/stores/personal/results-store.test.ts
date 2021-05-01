@@ -32,7 +32,7 @@ function getGroup(index: number, roll: boolean) {
     day: date,
     results: [
       {
-        index,
+        key: index,
         date,
         roll,
         result,
