@@ -1,10 +1,9 @@
 import { writable } from "svelte/store";
 import type { Result } from "../../formula";
-import { add as addDb, clear, select } from "./idb";
+import { grouped, ListResultsStoreValue } from "../grouped";
 import type {
-  GroupedResults,
+  ClearableResultsStore,
   ResultsStore,
-  ResultsStoreValue,
   StoredResult,
 } from "../types";
 import {
@@ -12,91 +11,31 @@ import {
   RESULTS_STORE_HAS_NO_MORE,
   RESULTS_STORE_LOADING,
 } from "../types";
+import { add as addDb, clear, select } from "./idb";
 
 /*@__PURE__*/
 function toDate(num: number): Date | undefined {
   return num === 0 ? undefined : new Date(num);
 }
 
-/*@__PURE__*/
-function toDay(date: Date | undefined): Date | undefined {
-  if (date === undefined) {
-    return undefined;
-  }
-
-  const day = new Date(date);
-  day.setHours(0, 0, 0, 0);
-  return day;
-}
-
-interface Builder {
-  add(result: StoredResult): void;
-  build(): GroupedResults[];
-}
-
-type Direction = -1 | 1;
-
-function add<T>(target: T[], value: T, direction: Direction): void {
-  if (direction === -1) {
-    target.unshift(value);
-  } else {
-    target.push(value);
-  }
-}
-
-function makeGroupedResultsBuilder(
-  start: GroupedResults[],
-  direction: Direction
-): Builder {
-  const target = start.slice();
-
-  // Copy the end we're building on
-  if (target.length !== 0) {
-    const targetIndex = direction == -1 ? 0 : target.length - 1;
-    const group = target[targetIndex];
-    target[targetIndex] = {
-      day: group.day,
-      results: group.results.slice(),
-    };
-  }
-
-  return {
-    add(result: StoredResult) {
-      const day = toDay(result.date);
-      const targetIndex = direction == -1 ? 0 : target.length - 1;
-      if (
-        target.length !== 0 &&
-        target[targetIndex].day?.getTime() === day?.getTime()
-      ) {
-        add(target[targetIndex].results, result, direction);
-      } else {
-        add(target, { day, results: [result] }, direction);
-      }
-    },
-    build() {
-      return target;
-    },
-  };
-}
-
 export function makeResultsStore(
   db: Promise<IDBDatabase>,
   batchSize: number
-): ResultsStore {
-  let value: ResultsStoreValue = {
-    groups: [],
+): ResultsStore & ClearableResultsStore {
+  let value: ListResultsStoreValue = {
+    results: [],
     state: RESULTS_STORE_LOADING,
   };
 
-  const { set, subscribe } = writable<ResultsStoreValue>(value);
+  const store = writable<ListResultsStoreValue>(value);
 
-  function setValue(partialValue: Partial<ResultsStoreValue>) {
+  function setValue(partialValue: Partial<ListResultsStoreValue>) {
     value = { ...value, ...partialValue };
-    set(value);
+    store.set(value);
   }
 
   async function wrappedLoadingUpdate(
-    callback: () => Promise<Partial<ResultsStoreValue>>
+    callback: () => Promise<Partial<ListResultsStoreValue>>
   ): Promise<void> {
     const prevState = value.state;
     try {
@@ -108,24 +47,15 @@ export function makeResultsStore(
     }
   }
 
-  function getQuery(): IDBKeyRange | null {
-    const groups = value.groups;
-    if (groups.length === 0) {
-      return null;
-    }
-    const lastResults = groups[groups.length - 1].results;
-    return IDBKeyRange.upperBound(
-      lastResults[lastResults.length - 1].key,
-      true
-    );
-  }
-
   async function loadMore() {
     await wrappedLoadingUpdate(async () => {
-      const query = getQuery();
-      const builder = makeGroupedResultsBuilder(value.groups, 1);
-      let i = 0;
+      const results: StoredResult[] = value.results.slice();
+      const query =
+        results.length === 0
+          ? null
+          : IDBKeyRange.upperBound(results[results.length - 1].key, true);
 
+      let i = 0;
       const cursor = await select(
         await db,
         "results",
@@ -133,7 +63,7 @@ export function makeResultsStore(
         "prev",
         (cursor) => {
           const value = cursor.value;
-          builder.add({
+          results.push({
             key: cursor.key,
             date: toDate(value.date),
             roll: false,
@@ -147,7 +77,7 @@ export function makeResultsStore(
       return {
         state:
           cursor !== null ? RESULTS_STORE_HAS_MORE : RESULTS_STORE_HAS_NO_MORE,
-        groups: builder.build(),
+        results,
       };
     });
   }
@@ -155,23 +85,21 @@ export function makeResultsStore(
   loadMore();
 
   return {
-    subscribe,
+    subscribe: grouped(store).subscribe,
     async append(result: Result): Promise<void> {
       const date = Date.now();
       const key = (await addDb(await db, "results", {
         date,
         result,
       })) as number;
-      const builder = makeGroupedResultsBuilder(value.groups, -1);
-      builder.add({
+      const results: StoredResult[] = value.results.slice();
+      results.unshift({
         key,
         date: toDate(date),
         roll: true,
         result,
       });
-      setValue({
-        groups: builder.build(),
-      });
+      setValue({ results });
     },
     async loadMore(): Promise<void> {
       if (value.state === RESULTS_STORE_HAS_MORE) {
