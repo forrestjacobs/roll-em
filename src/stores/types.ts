@@ -30,6 +30,9 @@ export interface ResultsStoreValue {
 export type ResultsStore = Readable<ResultsStoreValue> & {
   append(result: Result): Promise<void>;
   loadMore(): Promise<void>;
-  clear(): Promise<void>;
   destroy(): Promise<void>;
+};
+
+export type ClearableResultsStore = {
+  clear(): Promise<void>;
 };

@@ -5,6 +5,7 @@ export {
   RESULTS_STORE_LOADING,
 } from "./types";
 export type {
+  ClearableResultsStore,
   GroupedResults,
   ResultsStore,
   ResultsStoreState,

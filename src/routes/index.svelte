@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
   import { onDestroy, onMount } from "svelte";
-  import type { ResultsStore } from "../stores";
+  import type { ClearableResultsStore, ResultsStore } from "../stores";
   import { getPersonalResultsStore } from "../stores";
   import FormulaForm from "../ui/FormulaForm.svelte";
   import LoadingSection from "../ui/LoadingSection.svelte";
@@ -8,7 +8,7 @@
 </script>
 
 <script lang="ts">
-  let resultsStore: ResultsStore | undefined;
+  let resultsStore: (ResultsStore & ClearableResultsStore) | undefined;
   onMount(() => {
     resultsStore = getPersonalResultsStore();
   });

@@ -1,5 +1,9 @@
 <script lang="ts" context="module">
-  import type { GroupedResults, ResultsStore } from "../stores";
+  import type {
+    ClearableResultsStore,
+    GroupedResults,
+    ResultsStore,
+  } from "../stores";
   import { RESULTS_STORE_HAS_MORE } from "../stores";
   import Result from "./Result.svelte";
 
@@ -32,7 +36,7 @@
 </script>
 
 <script lang="ts">
-  export let resultsStore: ResultsStore;
+  export let resultsStore: ResultsStore & Partial<ClearableResultsStore>;
 </script>
 
 <style>
@@ -85,10 +89,13 @@
   }
 </style>
 
-{#if resultsStore !== undefined && $resultsStore.groups.length !== 0}
+{#if $resultsStore.groups.length !== 0}
   <div class="results-header">
     <h2>Results</h2>
-    <button class="show-as-link" on:click="{resultsStore.clear}">Clear</button>
+    {#if resultsStore.clear !== undefined}
+      <button class="show-as-link" on:click="{resultsStore.clear}">Clear</button
+      >
+    {/if}
   </div>
 
   {#each $resultsStore.groups as group (getIndex(group))}
@@ -106,7 +113,7 @@
   {/each}
 {/if}
 
-{#if resultsStore !== undefined && $resultsStore.state === RESULTS_STORE_HAS_MORE}
+{#if $resultsStore.state === RESULTS_STORE_HAS_MORE}
   <button class="show-as-link load-more" on:click="{resultsStore.loadMore}">
     Load More
   </button>
