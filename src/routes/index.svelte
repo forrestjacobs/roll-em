@@ -14,7 +14,7 @@
   });
   onDestroy(() => {
     resultsStore?.destroy();
-  })
+  });
 </script>
 
 <style>
