@@ -190,6 +190,6 @@ export function makeResultsStore(
     },
     async destroy(): Promise<void> {
       (await db).close();
-    }
+    },
   };
 }
