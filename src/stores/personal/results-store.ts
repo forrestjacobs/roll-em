@@ -188,5 +188,8 @@ export function makeResultsStore(
         return { state: RESULTS_STORE_HAS_NO_MORE, groups: [] };
       });
     },
+    async destroy(): Promise<void> {
+      (await db).close();
+    }
   };
 }

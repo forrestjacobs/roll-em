@@ -31,4 +31,5 @@ export type ResultsStore = Readable<ResultsStoreValue> & {
   append(result: Result): Promise<void>;
   loadMore(): Promise<void>;
   clear(): Promise<void>;
+  destroy(): Promise<void>;
 };

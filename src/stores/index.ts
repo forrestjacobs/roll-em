@@ -1,4 +1,4 @@
-export { getResultsStore as getPersonalResultsStore } from "./personal";
+export { makeResultsStore as getPersonalResultsStore } from "./personal";
 export {
   RESULTS_STORE_HAS_MORE,
   RESULTS_STORE_HAS_NO_MORE,

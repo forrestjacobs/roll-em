@@ -1,5 +1,5 @@
 <script lang="ts" context="module">
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   import type { ResultsStore } from "../stores";
   import { getPersonalResultsStore } from "../stores";
   import FormulaForm from "../ui/FormulaForm.svelte";
@@ -12,6 +12,9 @@
   onMount(() => {
     resultsStore = getPersonalResultsStore();
   });
+  onDestroy(() => {
+    resultsStore?.destroy();
+  })
 </script>
 
 <style>
