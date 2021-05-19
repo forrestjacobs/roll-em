@@ -84,6 +84,18 @@ export function makePolyhedronScene(
             drawFace(context, currentPointBuffer, faces[index]);
           }
         }
+
+        let minX = Infinity;
+        let maxX = -Infinity;
+        let minY = Infinity;
+        let maxY = -Infinity;
+        for (let index = 0; index < startingPointBuffer.length; index += 3) {
+          minX = Math.min(minX, startingPointBuffer[index]);
+          maxX = Math.max(maxX, startingPointBuffer[index]);
+          minY = Math.min(minY, startingPointBuffer[index + 1]);
+          maxY = Math.max(maxY, startingPointBuffer[index + 1]);
+        }
+        return [minX, minY, maxX, maxY];
       };
     },
   };

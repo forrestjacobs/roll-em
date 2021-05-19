@@ -43,25 +43,26 @@ export function animate(
   const scene = getScene(sides);
   const renderer = makeRenderer(scene);
   const faceRadius = scene.faceRadius;
-  renderCanvas(renderer, canvasRadius, context, 2);
   renderValue(valueRadius, faceRadius, valueEl, 2);
 
-  let start: number | undefined;
-  const iter = (now: number) => {
-    if (start === undefined) {
-      start = now;
-    }
-    const progress = Math.min(1, (now - start) / ANIMATION_LENGTH_MS);
-
-    // ease out cubic -- see https://easings.net/#easeOutCubic
-    const invertedProgress = 1 - progress;
-    const rotation = 2 * invertedProgress * invertedProgress * invertedProgress;
-    renderCanvas(renderer, canvasRadius, context, rotation);
-    renderValue(valueRadius, faceRadius, valueEl, rotation);
-    if (progress != 1) {
-      requestAnimationFrame(iter);
-    }
-  };
-
-  setTimeout(() => requestAnimationFrame(iter), randomInt(MAX_INITIAL_PAUSE));
+  setTimeout(() => {
+    const start = performance.now();
+    let bounds: [x: number, y: number, w: number, h: number] | undefined = undefined;
+    const iter = (now: number) => {
+      const progress = Math.min(1, (now - start) / ANIMATION_LENGTH_MS);
+  
+      // ease out cubic -- see https://easings.net/#easeOutCubic
+      const invertedProgress = 1 - progress;
+      const rotation = 2 * invertedProgress * invertedProgress * invertedProgress;
+      if (bounds !== undefined) {
+        context.clearRect(...bounds);
+      }
+      bounds = renderCanvas(renderer, canvasRadius, context, rotation);
+      renderValue(valueRadius, faceRadius, valueEl, rotation);
+      if (progress != 1) {
+        requestAnimationFrame(iter);
+      }
+    };
+    requestAnimationFrame(iter);
+  }, randomInt(MAX_INITIAL_PAUSE));
 }

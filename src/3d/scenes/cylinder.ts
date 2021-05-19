@@ -39,6 +39,15 @@ export const cylinderScene: Scene = {
         context.ellipse(x0, y0, RADIUS, radiusY, 0, 0, PI);
         context.ellipse(x0, y0, RADIUS, radiusY, 0, PI, 0);
         context.fill();
+
+        return [
+          Math.min(x0, x1) - RADIUS,
+          Math.min(y0, y1) - radiusY,
+          Math.max(x0, x1) + RADIUS,
+          Math.max(y0, y1) + radiusY,
+        ];
+      } else {
+        return undefined;
       }
     };
   },

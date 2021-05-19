@@ -1,7 +1,16 @@
-import { BASE_FACE_RADIUS, GREEN0, GREEN_D1, PI, Scene } from "./consts";
+import {
+  BASE_FACE_RADIUS,
+  Bounds,
+  GREEN0,
+  GREEN_D1,
+  PI,
+  Scene,
+} from "./consts";
 
 const RADIUS = 0.9;
 const DEFAULT_X = PI / 4;
+
+const BOUNDS: Bounds = [-RADIUS, -RADIUS, RADIUS, RADIUS];
 
 function pathHemisphere(
   context: CanvasRenderingContext2D,
@@ -29,6 +38,8 @@ export const sphereScene: Scene = {
       context.fillStyle = GREEN0;
       pathHemisphere(context, Math.max(0, radiusY), z, PI, 0);
       context.fill();
+
+      return BOUNDS;
     };
   },
 };

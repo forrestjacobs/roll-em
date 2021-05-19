@@ -27,13 +27,31 @@ export function renderCanvas(
   radius: number,
   context: CanvasRenderingContext2D,
   rotation: number
-): void {
-  context.clearRect(0, 0, radius * 2, radius * 2);
+): [x: number, y: number, w: number, h: number] | undefined {
   context.save();
   context.scale(radius, radius);
   context.translate(1, 1 - rotation);
-  render(context, rotation);
+  const bounds = render(context, rotation);
   context.restore();
+
+  if (bounds === undefined) {
+    return undefined;
+  }
+
+  const [w, n, e, s] = bounds;
+  const y = Math.max(0, Math.floor((n + 1 - rotation) * radius));
+  const h = Math.ceil((s + 1 - rotation) * radius) - y;
+  if (h <= 0) {
+    return undefined;
+  }
+
+  const x = Math.floor((w + 1) * radius);
+  return [
+    x,
+    y,
+    Math.ceil((e + 1) * radius) - x,
+    h,
+  ];
 }
 
 export function renderValue(

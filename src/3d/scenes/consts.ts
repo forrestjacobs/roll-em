@@ -6,10 +6,12 @@ export interface Scene {
   getDieRenderer(x: number, y: number, z: number): DieRenderer;
 }
 
+export type Bounds = [w: number, n: number, e: number, s: number];
+
 export type DieRenderer = (
   context: CanvasRenderingContext2D,
   xRotation: number
-) => void;
+) => Bounds | undefined;
 
 export const YELLOW_B2 = "#ECE199";
 export const YELLOW_B1 = "#D0B52C";
