@@ -113,7 +113,7 @@ export function makeResultsStore(
 
       await wrappedLoadingUpdate(async () => {
         await clear(await db, "results");
-        return { state: RESULTS_STORE_HAS_NO_MORE, groups: [] };
+        return { state: RESULTS_STORE_HAS_NO_MORE, results: [] };
       });
     },
     async destroy(): Promise<void> {
