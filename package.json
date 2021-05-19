@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "svelte-kit dev",
     "build": "svelte-kit build",
-    "start": "svelte-kit start",
+    "preview": "svelte-kit preview",
     "format": "prettier --loglevel warn --write \"src/**/*.{ts,svelte,js,json}\"",
     "lint": "eslint src --ext .ts,.js,.json && svelte-check",
     "test": "jest"
