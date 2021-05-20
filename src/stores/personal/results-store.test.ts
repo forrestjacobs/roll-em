@@ -2,6 +2,7 @@ import "fake-indexeddb/auto";
 import FDBFactory from "fake-indexeddb/lib/FDBFactory";
 import type { Result } from "../../formula";
 import {
+  ClearableResultsStore,
   ResultsStore,
   ResultsStoreValue,
   RESULTS_STORE_HAS_MORE,
@@ -43,7 +44,7 @@ function getGroup(index: number, roll: boolean) {
 
 const FIRST_BATCH = [getGroup(3, false), getGroup(2, false)];
 
-function makeStore(): ResultsStore {
+function makeStore(): ResultsStore & ClearableResultsStore {
   return makeResultsStore(makeDb(), 2);
 }
 

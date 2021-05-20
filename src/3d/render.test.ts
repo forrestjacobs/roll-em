@@ -1,18 +1,19 @@
 import { renderCanvas, renderValue } from "./render";
+import type { Bounds } from "./scenes/consts";
 
 test("it sets up the canvas for render", () => {
-  const render = jest.fn();
+  const render = jest.fn((): Bounds => [-.5, 0, .5, 1]);
   const context = ({
-    clearRect: jest.fn(),
     save: jest.fn(),
     scale: jest.fn(),
     translate: jest.fn(),
     restore: jest.fn(),
   } as Partial<CanvasRenderingContext2D>) as CanvasRenderingContext2D;
   const rotation = Math.PI / 2;
-  renderCanvas(render, 22, context, rotation);
 
-  expect(context.clearRect).toBeCalledWith(0, 0, 44, 44);
+  const rect = renderCanvas(render, 22, context, rotation);
+  expect(rect).toEqual([11, 0, 22, 10]);
+
   expect(context.save).toBeCalledWith();
   expect(context.scale).toBeCalledWith(22, 22);
   expect(context.translate).toBeCalledWith(1, 1 - rotation);

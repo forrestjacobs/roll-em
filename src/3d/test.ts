@@ -3,7 +3,7 @@ import { animate, render } from ".";
 import { random, randomInt } from "../utils/rng";
 import { renderCanvas, renderValue } from "./render";
 import { getScene } from "./scenes";
-import type { DieRenderer } from "./scenes/consts";
+import type { Bounds, DieRenderer } from "./scenes/consts";
 
 jest.mock("../utils/rng");
 jest.mock("./render");
@@ -25,12 +25,16 @@ test("It skips rendering if 2d context is not available", () => {
 });
 
 test("It can render a static scene", () => {
+  const context = ({
+    clearRect: jest.fn(),
+  } as Partial<CanvasRenderingContext2D>) as CanvasRenderingContext2D;
   const canvas = ({
-    getContext: jest.fn<RenderingContext | null, [string]>(
-      () => ("context" as unknown) as RenderingContext
-    ),
+    getContext: jest.fn<RenderingContext | null, [string]>(() => context),
   } as Partial<HTMLCanvasElement>) as HTMLCanvasElement;
-  const dieRenderer = jest.fn<void, [CanvasRenderingContext2D, number]>();
+  const dieRenderer = jest.fn<
+    Bounds | undefined,
+    [CanvasRenderingContext2D, number]
+  >();
   const getSceneDieRenderer = jest.fn<DieRenderer, [number, number, number]>(
     () => dieRenderer
   );
@@ -50,18 +54,22 @@ test("It can render a static scene", () => {
   expect(getSceneDieRenderer.mock.calls[0][0]).toBeCloseTo(Math.PI / -160);
   expect(getSceneDieRenderer.mock.calls[0][1]).toBeCloseTo(Math.PI / 320);
   expect(getSceneDieRenderer.mock.calls[0][2]).toBeCloseTo(Math.PI / 80);
-  expect(renderCanvas).toBeCalledWith(dieRenderer, 10, "context", 0);
+  expect(renderCanvas).toBeCalledWith(dieRenderer, 10, context, 0);
 });
 
 test("It can animate a scene", () => {
   jest.useFakeTimers();
 
+  const context = ({
+    clearRect: jest.fn(),
+  } as Partial<CanvasRenderingContext2D>) as CanvasRenderingContext2D;
   const canvas = ({
-    getContext: jest.fn<RenderingContext | null, [string]>(
-      () => ("context" as unknown) as RenderingContext
-    ),
+    getContext: jest.fn<RenderingContext | null, [string]>(() => context),
   } as Partial<HTMLCanvasElement>) as HTMLCanvasElement;
-  const dieRenderer = jest.fn<void, [CanvasRenderingContext2D, number]>();
+  const dieRenderer = jest.fn<
+    Bounds | undefined,
+    [CanvasRenderingContext2D, number]
+  >();
   const getSceneDieRenderer = jest.fn<DieRenderer, [number, number, number]>(
     () => dieRenderer
   );
@@ -69,6 +77,7 @@ test("It can animate a scene", () => {
     faceRadius: 4,
     getDieRenderer: getSceneDieRenderer,
   }));
+  mocked(renderCanvas).mockImplementation((_, _2, _3, r) => [3, 0, 7, 2 - r]);
   mocked(random)
     .mockImplementationOnce(() => 0.3)
     .mockImplementationOnce(() => 0.6)
@@ -83,7 +92,6 @@ test("It can animate a scene", () => {
   expect(getSceneDieRenderer.mock.calls[0][0]).toBeCloseTo(Math.PI / -160);
   expect(getSceneDieRenderer.mock.calls[0][1]).toBeCloseTo(Math.PI / 320);
   expect(getSceneDieRenderer.mock.calls[0][2]).toBeCloseTo(Math.PI / 80);
-  expect(renderCanvas).toBeCalledWith(dieRenderer, 10, "context", 2);
   expect(renderValue).toBeCalledWith(8, 4, valueEl, 2);
 
   const raf = jest
@@ -104,9 +112,11 @@ test("It can animate a scene", () => {
   jest.runAllTimers();
   expect(requestAnimationFrame).toBeCalledTimes(3);
 
-  expect(mocked(renderCanvas).mock.calls[1][3]).toBeCloseTo(2);
-  expect(mocked(renderCanvas).mock.calls[2][3]).toBeCloseTo(0.128);
-  expect(mocked(renderCanvas).mock.calls[3][3]).toBeCloseTo(0);
+  expect(mocked(renderCanvas).mock.calls[0][3]).toBeCloseTo(2);
+  expect(mocked(renderCanvas).mock.calls[1][3]).toBeCloseTo(0.128);
+  expect(mocked(renderCanvas).mock.calls[2][3]).toBeCloseTo(0);
+  expect(mocked(context.clearRect).mock.calls[0]).toEqual([3, 0, 7, 0]);
+  expect(mocked(context.clearRect).mock.calls[1][3]).toBeCloseTo(1.872);
   expect(mocked(renderValue).mock.calls[1][3]).toBeCloseTo(2);
   expect(mocked(renderValue).mock.calls[2][3]).toBeCloseTo(0.128);
   expect(mocked(renderValue).mock.calls[3][3]).toBeCloseTo(0);

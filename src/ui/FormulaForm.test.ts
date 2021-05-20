@@ -55,7 +55,6 @@ function mockResults(groups: GroupedResults[]): ResultsStore {
     }),
     append: jest.fn(),
     loadMore: jest.fn(),
-    clear: jest.fn(),
     destroy: jest.fn(),
   };
 }

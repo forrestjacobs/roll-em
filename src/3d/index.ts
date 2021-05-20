@@ -46,9 +46,13 @@ export function animate(
   renderValue(valueRadius, faceRadius, valueEl, 2);
 
   setTimeout(() => {
-    const start = performance.now();
+    let start: number | undefined = undefined;
     let bounds: [x: number, y: number, w: number, h: number] | undefined = undefined;
     const iter = (now: number) => {
+      if (start === undefined) {
+        start = now;
+      }
+
       const progress = Math.min(1, (now - start) / ANIMATION_LENGTH_MS);
   
       // ease out cubic -- see https://easings.net/#easeOutCubic

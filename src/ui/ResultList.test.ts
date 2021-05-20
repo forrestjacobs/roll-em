@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/svelte";
 import {
+  ClearableResultsStore,
   GroupedResults,
   ResultsStore,
   ResultsStoreState,
@@ -19,7 +20,7 @@ jest.mock("../stores");
 function mockResults(
   groups: GroupedResults[],
   state: ResultsStoreState = RESULTS_STORE_HAS_NO_MORE
-): ResultsStore {
+): ResultsStore & ClearableResultsStore {
   return {
     subscribe: jest.fn((run) => {
       run({ groups, state });
