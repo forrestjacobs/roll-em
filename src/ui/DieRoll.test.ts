@@ -21,7 +21,7 @@ test("it can render a die", () => {
 });
 
 test("it can render an unscaled die", () => {
-  globalThis.devicePixelRatio = (undefined as unknown) as number;
+  globalThis.devicePixelRatio = undefined as unknown as number;
 
   render(DieRoll, {
     sides: 12,

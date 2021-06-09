@@ -2,13 +2,13 @@ import { renderCanvas, renderValue } from "./render";
 import type { Bounds } from "./scenes/consts";
 
 test("it sets up the canvas for render", () => {
-  const render = jest.fn((): Bounds => [-.5, 0, .5, 1]);
-  const context = ({
+  const render = jest.fn((): Bounds => [-0.5, 0, 0.5, 1]);
+  const context = {
     save: jest.fn(),
     scale: jest.fn(),
     translate: jest.fn(),
     restore: jest.fn(),
-  } as Partial<CanvasRenderingContext2D>) as CanvasRenderingContext2D;
+  } as Partial<CanvasRenderingContext2D> as CanvasRenderingContext2D;
   const rotation = Math.PI / 2;
 
   const rect = renderCanvas(render, 22, context, rotation);

@@ -47,17 +47,19 @@ export function animate(
 
   setTimeout(() => {
     let start: number | undefined = undefined;
-    let bounds: [x: number, y: number, w: number, h: number] | undefined = undefined;
+    let bounds: [x: number, y: number, w: number, h: number] | undefined =
+      undefined;
     const iter = (now: number) => {
       if (start === undefined) {
         start = now;
       }
 
       const progress = Math.min(1, (now - start) / ANIMATION_LENGTH_MS);
-  
+
       // ease out cubic -- see https://easings.net/#easeOutCubic
       const invertedProgress = 1 - progress;
-      const rotation = 2 * invertedProgress * invertedProgress * invertedProgress;
+      const rotation =
+        2 * invertedProgress * invertedProgress * invertedProgress;
       if (bounds !== undefined) {
         context.clearRect(...bounds);
       }

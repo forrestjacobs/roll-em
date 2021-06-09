@@ -46,12 +46,7 @@ export function renderCanvas(
   }
 
   const x = Math.floor((w + 1) * radius);
-  return [
-    x,
-    y,
-    Math.ceil((e + 1) * radius) - x,
-    h,
-  ];
+  return [x, y, Math.ceil((e + 1) * radius) - x, h];
 }
 
 export function renderValue(

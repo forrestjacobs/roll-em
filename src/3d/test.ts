@@ -14,9 +14,9 @@ beforeEach(() => {
 });
 
 test("It skips rendering if 2d context is not available", () => {
-  const canvas = ({
+  const canvas = {
     getContext: jest.fn<RenderingContext | null, [string]>(() => null),
-  } as Partial<HTMLCanvasElement>) as HTMLCanvasElement;
+  } as Partial<HTMLCanvasElement> as HTMLCanvasElement;
 
   render(6, 10, canvas);
 
@@ -25,12 +25,12 @@ test("It skips rendering if 2d context is not available", () => {
 });
 
 test("It can render a static scene", () => {
-  const context = ({
+  const context = {
     clearRect: jest.fn(),
-  } as Partial<CanvasRenderingContext2D>) as CanvasRenderingContext2D;
-  const canvas = ({
+  } as Partial<CanvasRenderingContext2D> as CanvasRenderingContext2D;
+  const canvas = {
     getContext: jest.fn<RenderingContext | null, [string]>(() => context),
-  } as Partial<HTMLCanvasElement>) as HTMLCanvasElement;
+  } as Partial<HTMLCanvasElement> as HTMLCanvasElement;
   const dieRenderer = jest.fn<
     Bounds | undefined,
     [CanvasRenderingContext2D, number]
@@ -60,12 +60,12 @@ test("It can render a static scene", () => {
 test("It can animate a scene", () => {
   jest.useFakeTimers();
 
-  const context = ({
+  const context = {
     clearRect: jest.fn(),
-  } as Partial<CanvasRenderingContext2D>) as CanvasRenderingContext2D;
-  const canvas = ({
+  } as Partial<CanvasRenderingContext2D> as CanvasRenderingContext2D;
+  const canvas = {
     getContext: jest.fn<RenderingContext | null, [string]>(() => context),
-  } as Partial<HTMLCanvasElement>) as HTMLCanvasElement;
+  } as Partial<HTMLCanvasElement> as HTMLCanvasElement;
   const dieRenderer = jest.fn<
     Bounds | undefined,
     [CanvasRenderingContext2D, number]

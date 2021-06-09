@@ -1,11 +1,10 @@
-const { minify } = require("html-minifier");
-const pkg = require("./package.json");
-const static = require("@sveltejs/adapter-static");
-const sveltePreprocess = require("svelte-preprocess");
-const { generate } = require("pegjs");
+import { minify } from "html-minifier";
+import adapter from "@sveltejs/adapter-static";
+import sveltePreprocess from "svelte-preprocess";
+import pegjs from "pegjs";
 
 /** @type {import('@sveltejs/kit').Config} */
-module.exports = {
+export default {
   preprocess: [
     {
       markup({ content }) {
@@ -26,17 +25,14 @@ module.exports = {
     sveltePreprocess(),
   ],
   kit: {
-    adapter: static(),
+    adapter: adapter(),
 
     // hydrate the <div id="svelte"> element in src/app.html
     target: "#app",
 
     vite: {
       define: {
-        BUILD_YEAR: `${new Date().getFullYear()}`,
-      },
-      ssr: {
-        noExternal: Object.keys(pkg.dependencies || {}),
+        "process.env.BUILD_YEAR": `${new Date().getFullYear()}`,
       },
       plugins: [
         {
@@ -44,10 +40,12 @@ module.exports = {
             if (!id.endsWith(".pegjs")) {
               return null;
             }
-            return generate(source, {
-              format: "commonjs",
-              output: "source",
-            }).replace("module.exports", "export const { SyntaxError, parse }");
+            return pegjs
+              .generate(source, {
+                format: "commonjs",
+                output: "source",
+              })
+              .replace("module.exports", "export const { SyntaxError, parse }");
           },
         },
       ],
