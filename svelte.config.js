@@ -1,5 +1,5 @@
 import { minify } from "html-minifier";
-import adapter from "@sveltejs/adapter-static";
+import adapter from "@sveltejs/adapter-node";
 import sveltePreprocess from "svelte-preprocess";
 import pegjs from "pegjs";
 

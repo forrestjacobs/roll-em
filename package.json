@@ -13,14 +13,20 @@
     "lint": "eslint src --ext .ts,.js,.json && svelte-check",
     "test": "jest"
   },
+  "dependencies": {
+    "sqlite3": "^5.0.2",
+    "uuid": "^8.3.2"
+  },
   "devDependencies": {
-    "@sveltejs/adapter-static": "next",
+    "@sveltejs/adapter-node": "next",
     "@sveltejs/kit": "next",
     "@testing-library/jest-dom": "^5.11.8",
     "@testing-library/svelte": "^3.0.3",
     "@testing-library/user-event": "^13.1.2",
     "@types/jest": "^26.0.19",
     "@types/pegjs": "^0.10.2",
+    "@types/sqlite3": "^3.1.7",
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.11.1",
     "@typescript-eslint/parser": "^4.11.1",
     "escape-string-regexp": "^4.0.0",
