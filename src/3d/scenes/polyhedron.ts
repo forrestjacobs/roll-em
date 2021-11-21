@@ -90,11 +90,11 @@ export function makePolyhedronScene(
         let maxX = -Infinity;
         let minY = Infinity;
         let maxY = -Infinity;
-        for (let index = 0; index < startingPointBuffer.length; index += 3) {
-          minX = Math.min(minX, startingPointBuffer[index]);
-          maxX = Math.max(maxX, startingPointBuffer[index]);
-          minY = Math.min(minY, startingPointBuffer[index + 1]);
-          maxY = Math.max(maxY, startingPointBuffer[index + 1]);
+        for (let index = 0; index < currentPointBuffer.length; index += 3) {
+          minX = Math.min(minX, currentPointBuffer[index]);
+          maxX = Math.max(maxX, currentPointBuffer[index]);
+          minY = Math.min(minY, currentPointBuffer[index + 1]);
+          maxY = Math.max(maxY, currentPointBuffer[index + 1]);
         }
         return [minX, minY, maxX, maxY];
       };
