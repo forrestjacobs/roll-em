@@ -97,15 +97,15 @@ test("It can animate a scene", () => {
   const raf = jest
     .spyOn(window, "requestAnimationFrame")
     .mockImplementationOnce((iter) => {
-      iter(100);
+      iter(70);
       return -1;
     })
     .mockImplementationOnce((iter) => {
-      iter(400);
+      iter(280);
       return -1;
     })
     .mockImplementationOnce((iter) => {
-      iter(700);
+      iter(490);
       return -1;
     });
 

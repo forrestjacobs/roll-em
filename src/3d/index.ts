@@ -4,7 +4,7 @@ import { getScene, PI } from "./scenes";
 import type { DieRenderer, Scene } from "./scenes/consts";
 
 const MAX_INITIAL_PAUSE = 125;
-const ANIMATION_LENGTH_MS = 500;
+const ANIMATION_LENGTH_MS = 350;
 
 export const RAND_ROTATE_RANGE = PI / 32;
 
