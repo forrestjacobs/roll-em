@@ -1,6 +1,7 @@
 import { writable } from "svelte/store";
 import type { Result } from "../../formula";
-import { grouped, ListResultsStoreValue } from "../grouped";
+import { grouped } from "../grouped";
+import type { ListResultsStoreValue } from "../grouped";
 import type {
   ClearableResultsStore,
   ResultsStore,

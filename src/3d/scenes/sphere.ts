@@ -1,11 +1,5 @@
-import {
-  BASE_FACE_RADIUS,
-  Bounds,
-  GREEN0,
-  GREEN_D1,
-  PI,
-  Scene,
-} from "./consts";
+import { BASE_FACE_RADIUS, GREEN0, GREEN_D1, PI } from "./consts";
+import type { Bounds, Scene } from "./consts";
 
 const RADIUS = 0.9;
 const DEFAULT_X = PI / 4;

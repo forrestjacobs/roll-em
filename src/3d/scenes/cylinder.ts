@@ -1,4 +1,5 @@
-import { BASE_FACE_RADIUS, PI, Scene, YELLOW0, YELLOW_D1 } from "./consts";
+import { BASE_FACE_RADIUS, PI, YELLOW0, YELLOW_D1 } from "./consts";
+import type { Scene } from "./consts";
 import { rotateX, rotateY, rotateZ } from "./vert";
 
 const RADIUS = 0.9;

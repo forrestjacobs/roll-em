@@ -1,4 +1,5 @@
-import { BASE_FACE_RADIUS, Scene } from "./consts";
+import { BASE_FACE_RADIUS } from "./consts";
+import type { Scene } from "./consts";
 import { rotateX, rotateY, rotateZ } from "./vert";
 
 export type Face = [color: string, vertIndexes: number[]];

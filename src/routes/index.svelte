@@ -4,7 +4,7 @@
   import { getPersonalResultsStore } from "../stores";
   import FormulaForm from "../ui/FormulaForm.svelte";
   import LoadingSection from "../ui/LoadingSection.svelte";
-  import ResultList from "../ui/ResultList.svelte";
+  import ResultList from "../ui/ResultList.svelte"; // bad
 </script>
 
 <script lang="ts">

@@ -1,4 +1,5 @@
-import { DieRenderer, PI } from "./scenes";
+import { PI } from "./scenes";
+import type { DieRenderer } from "./scenes";
 
 const VISIBLE_THRESHOLD = PI / 2;
 
