@@ -18,6 +18,7 @@ const n87 = 0.87038; // 0.8703775615332223
 const n98 = 0.98792; // 0.9879229160727841
 
 export const icosahedronScene = makePolyhedronScene(
+  CYAN0,
   // prettier-ignore
   [
     -n51, n42, n72,

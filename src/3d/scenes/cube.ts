@@ -4,6 +4,7 @@ import { makePolyhedronScene } from "./polyhedron";
 const n = 0.70711; // 0.7071067811865477
 
 export const cubeScene = makePolyhedronScene(
+  RED0,
   // prettier-ignore
   [
     -n, -n, -n,

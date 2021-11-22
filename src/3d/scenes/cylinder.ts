@@ -6,6 +6,7 @@ const RADIUS = 0.9;
 const FACE_RADIUS = BASE_FACE_RADIUS / 4;
 
 export const cylinderScene: Scene = {
+  color: YELLOW0,
   faceRadius: FACE_RADIUS,
   getDieRenderer(x, y, z) {
     const startingPointBuffer = [0, 0, FACE_RADIUS, 0, 0, -FACE_RADIUS];

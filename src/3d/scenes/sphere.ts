@@ -21,6 +21,7 @@ function pathHemisphere(
 }
 
 export const sphereScene: Scene = {
+  color: GREEN0,
   faceRadius: BASE_FACE_RADIUS,
   getDieRenderer(x, y, z) {
     return (context, rotX) => {

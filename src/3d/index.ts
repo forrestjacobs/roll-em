@@ -16,6 +16,10 @@ function makeRenderer(scene: Scene): DieRenderer {
   return scene.getDieRenderer(randAxis(), randAxis(), randAxis());
 }
 
+export function getColor(sides: number): string {
+  return getScene(sides).color;
+}
+
 export function render(
   sides: number,
   radius: number,

@@ -39,6 +39,7 @@ function drawFace(
 }
 
 export function makePolyhedronScene(
+  color: string,
   pointBuffer: number[],
   faces: Face[]
 ): Scene {
@@ -60,6 +61,7 @@ export function makePolyhedronScene(
   }
 
   return {
+    color,
     faceRadius: BASE_FACE_RADIUS,
 
     getDieRenderer(initRotX, initRotY, initRotZ) {

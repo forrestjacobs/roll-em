@@ -21,6 +21,7 @@ const n93 = 0.93417; // 0.9341723589627155
 const n98 = 0.98743; // 0.9874280392614923
 
 export const dodecahedronScene = makePolyhedronScene(
+  BLUE0,
   // prettier-ignore
   [
     -n57, n21, -n78,

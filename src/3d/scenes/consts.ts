@@ -2,6 +2,7 @@ export const BASE_FACE_RADIUS = Math.SQRT2 / 2;
 export const PI = Math.PI;
 
 export interface Scene {
+  color: string;
   faceRadius: number;
   getDieRenderer(x: number, y: number, z: number): DieRenderer;
 }

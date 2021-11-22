@@ -39,6 +39,7 @@ test("It can render a static scene", () => {
     () => dieRenderer
   );
   mocked(getScene).mockImplementation(() => ({
+    color: "#ff0000",
     faceRadius: 4,
     getDieRenderer: getSceneDieRenderer,
   }));
@@ -74,6 +75,7 @@ test("It can animate a scene", () => {
     () => dieRenderer
   );
   mocked(getScene).mockImplementation(() => ({
+    color: "#ff0000",
     faceRadius: 4,
     getDieRenderer: getSceneDieRenderer,
   }));

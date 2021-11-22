@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
   import { onMount } from "svelte";
-  import { animate, render as renderDie } from "../3d";
+  import { animate, getColor, render as renderDie } from "../3d";
 
   const VALUE_RADIUS = 22;
 </script>
@@ -10,7 +10,7 @@
   export let value: number;
   export let animated: boolean;
 
-  const canvasRadius = VALUE_RADIUS * (window.devicePixelRatio || 1);
+  const canvasRadius = VALUE_RADIUS * (globalThis.devicePixelRatio ?? 1);
 
   let canvas: HTMLCanvasElement | undefined = undefined;
   let valueEl: HTMLElement | undefined = undefined;
@@ -34,6 +34,7 @@
   }
 
   .illustration,
+  .shadow,
   .value {
     position: absolute;
   }
@@ -41,6 +42,15 @@
   .illustration {
     width: 44px;
     height: 44px;
+  }
+
+  .shadow {
+    display: block;
+    left: 6px;
+    top: 6px;
+    width: 32px;
+    height: 32px;
+    border-radius: 12px;
   }
 
   .value {
@@ -60,11 +70,16 @@
 </style>
 
 <span class="container" title="d{sides}">
-  <canvas
-    class="illustration"
-    width="{canvasRadius * 2}"
-    height="{canvasRadius * 2}"
-    aria-hidden="true"
-    bind:this="{canvas}"></canvas>
+  {#if typeof window !== 'undefined'}
+    <canvas
+      class="illustration"
+      width="{canvasRadius * 2}"
+      height="{canvasRadius * 2}"
+      aria-hidden="true"
+      bind:this="{canvas}"></canvas>
+  {:else}
+    <span class="shadow" style="background:{getColor(sides)}" aria-hidden="true"
+    ></span>
+  {/if}
   <span class="value" bind:this="{valueEl}">{value}</span>
 </span>

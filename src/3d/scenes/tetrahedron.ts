@@ -15,6 +15,7 @@ const n90 = 0.90825; // 0.9082482904638632
 const n99 = 0.99578; // 0.9957819157813605
 
 export const tetrahedronScene = makePolyhedronScene(
+  ORANGE0,
   // prettier-ignore
   [
     0, -n09, n99,

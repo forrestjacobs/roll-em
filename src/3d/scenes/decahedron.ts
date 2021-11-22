@@ -13,6 +13,7 @@ const n87 = 0.87061; // 0.8706051277098241
 const n91 = 0.91355; // 0.9135454576426005
 
 export const decahedronScene = makePolyhedronScene(
+  VIOLET0,
   // prettier-ignore
   [
     0, -n91, n40,

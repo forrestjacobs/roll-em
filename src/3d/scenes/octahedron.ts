@@ -19,6 +19,7 @@ const n86 = 0.86603; // 0.8660254037844386
 const n50 = 0.5; // 0.5
 
 export const octahedronScene = makePolyhedronScene(
+  MAGENTA0,
   // prettier-ignore
   [
     n70, n35, n61,
