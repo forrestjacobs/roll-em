@@ -5,10 +5,6 @@ import type { NumberTerm, RollTerm } from "../formula";
 import MockDieRoll from "./MockDieRoll.svelte";
 import Result from "./Result.svelte";
 
-jest.mock("../formula", () => ({
-  sum: () => 999,
-}));
-
 jest.mock("./DieRoll.svelte", () => ({
   default: MockDieRoll,
 }));
@@ -46,7 +42,7 @@ test("It renders a number", () => {
     animated: false,
     result: [term2],
   });
-  expect(container).toHaveTextContent(matchExactly("999 = 2"));
+  expect(container).toHaveTextContent(matchExactly("2"));
 });
 
 test("It renders a dice formula", () => {
@@ -54,7 +50,7 @@ test("It renders a dice formula", () => {
     animated: false,
     result: [term2d4rolled1and4],
   });
-  expect(container).toHaveTextContent(matchExactly("999 = [d4: 1] + [d4: 4]"));
+  expect(container).toHaveTextContent(matchExactly("[d4: 1] + [d4: 4]"));
 });
 
 test("It only renders the first 15 dice in a term", () => {
@@ -64,7 +60,7 @@ test("It only renders the first 15 dice in a term", () => {
   });
   expect(container).toHaveTextContent(
     matchExactly(
-      "999 = [d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + 5 more"
+      "[d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + [d4: 4] + [d4: 1] + [d4: 2] + [d4: 3] + 5 more"
     )
   );
 });
@@ -74,9 +70,7 @@ test("It renders multiple terms", () => {
     animated: false,
     result: [term2d4rolled1and4, term2],
   });
-  expect(container).toHaveTextContent(
-    matchExactly("999 = [d4: 1] + [d4: 4] + 2")
-  );
+  expect(container).toHaveTextContent(matchExactly("[d4: 1] + [d4: 4] + 2"));
 });
 
 test("It renders subtracted terms", () => {
@@ -84,7 +78,5 @@ test("It renders subtracted terms", () => {
     animated: false,
     result: [term2d4rolled1and4, termNegative2],
   });
-  expect(container).toHaveTextContent(
-    matchExactly("999 = [d4: 1] + [d4: 4] - 2")
-  );
+  expect(container).toHaveTextContent(matchExactly("[d4: 1] + [d4: 4] - 2"));
 });

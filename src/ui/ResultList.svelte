@@ -5,17 +5,12 @@
     ResultsStore,
   } from "../stores";
   import { RESULTS_STORE_HAS_MORE } from "../stores";
-  import Result from "./Result.svelte";
+  import StoredResult from "./StoredResult.svelte";
 
   const dateFormatter = new Intl.DateTimeFormat([], {
     year: "numeric",
     month: "numeric",
     day: "numeric",
-  });
-
-  const timeFormatter = new Intl.DateTimeFormat([], {
-    hour: "numeric",
-    minute: "2-digit",
   });
 
   /*@__PURE__*/
@@ -27,11 +22,6 @@
   /*@__PURE__*/
   function getDayString(date: Date | undefined) {
     return date === undefined ? "Earlier" : dateFormatter.format(date);
-  }
-
-  /*@__PURE__*/
-  function getTimeString(date: Date) {
-    return timeFormatter.format(date);
   }
 </script>
 
@@ -76,14 +66,6 @@
     padding: 0.5em;
   }
 
-  .time {
-    flex-shrink: 0;
-    flex-grow: 1;
-    text-align: right;
-    padding: 0 1em 0 0.5em;
-    color: var(--dark);
-  }
-
   .load-more {
     margin: 1em;
   }
@@ -101,12 +83,9 @@
   {#each $resultsStore.groups as group (getIndex(group))}
     <h3>{getDayString(group.day)}</h3>
     <ol>
-      {#each group.results as { key, date, roll, result } (key)}
+      {#each group.results as result (result.key)}
         <li>
-          <Result result="{result}" animated="{roll}" />
-          {#if date}
-            <div class="time">{getTimeString(date)}</div>
-          {/if}
+          <StoredResult record="{result}" />
         </li>
       {/each}
     </ol>
