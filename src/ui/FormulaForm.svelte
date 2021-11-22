@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
   import type { ResultsStore } from "../stores";
   import { onMount, tick } from "svelte";
+  import FormattedValue from "./FormattedValue.svelte";
   import { parse, roll } from "../formula";
 
   let classByCharacter: { [char: string]: string } = {};
@@ -87,26 +88,6 @@
     font: inherit;
   }
 
-  .formatted-value :global(.num) {
-    color: var(--green);
-  }
-
-  .formatted-value :global(.d) {
-    color: var(--brand);
-  }
-
-  .formatted-value :global(.error-text) {
-    box-shadow: inset 0 0 0 var(--white), inset 0 -0.125em 0 var(--red);
-  }
-
-  .formatted-value :global(.error-bookmark) {
-    position: relative;
-    left: -0.2em;
-    border: 0.2em solid transparent;
-    border-top-width: 0;
-    border-bottom-color: var(--red);
-  }
-
   .editor textarea {
     position: absolute;
     left: 0;
@@ -166,16 +147,7 @@
     <div class="editor-container">
       <div class="editor">
         <div class="formatted-value" aria-hidden="true">
-          {#each textValue as char, i}
-            <span
-              class="{`${classByCharacter[char]} ${
-                i === errorIndex ? 'error-text' : ''
-              }`}">{char}</span
-            >
-          {/each}
-          {#if errorIndex === [...textValue].length}
-            <span class="error-bookmark"></span>
-          {/if}
+          <FormattedValue value="{textValue}" errorIndex="{errorIndex}" />
           {" "}
         </div>
         <textarea
