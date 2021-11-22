@@ -1,6 +1,7 @@
 <script lang="ts" context="module">
-  let classByCharacter: { [char: string]: string } = {};
-  function registerClass(name: string, charset: string) {
+  type CharClass = "num" | "d";
+  let classByCharacter: { [char: string]: CharClass } = {};
+  function registerClass(name: CharClass, charset: string) {
     for (const c of charset) {
       classByCharacter[c] = name;
     }
@@ -15,19 +16,19 @@
 </script>
 
 <style>
-  .formatted-value :global(.num) {
+  .num {
     color: var(--green);
   }
 
-  .formatted-value :global(.d) {
+  .d {
     color: var(--brand);
   }
 
-  .formatted-value :global(.error-text) {
+  .error-text {
     box-shadow: inset 0 0 0 var(--white), inset 0 -0.125em 0 var(--red);
   }
 
-  .formatted-value .error-bookmark {
+  .error-bookmark {
     position: relative;
     left: -0.2em;
     border: 0.2em solid transparent;
@@ -36,15 +37,13 @@
   }
 </style>
 
-<span class="formatted-value">
-  {#each value as char, i}
-    <span
-      class="{`${classByCharacter[char] ?? ''} ${
-        i === errorIndex ? 'error-text' : ''
-      }`}">{char}</span
-    >
-  {/each}
-  {#if errorIndex === [...value].length}
-    <span class="error-bookmark"></span>
-  {/if}
-</span>
+{#each value as char, i}
+  <span
+    class:error-text="{i === errorIndex}"
+    class:num="{classByCharacter[char] === 'num'}"
+    class:d="{classByCharacter[char] === 'd'}">{char}</span
+  >
+{/each}
+{#if errorIndex === [...value].length}
+  <span class="error-bookmark"></span>
+{/if}
