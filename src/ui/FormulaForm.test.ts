@@ -133,25 +133,14 @@ test("It clears errors on the next roll", async () => {
   expect(result.queryByText("Error at location")).toBe(null);
 });
 
-test("It shows examples when there are no results", async () => {
+test("It shows help text when there are no errors", async () => {
   const resultsStore = mockResults([]);
 
   const result = render(FormulaForm, { resultsStore });
 
-  expect(result.container).toHaveTextContent("Examples:");
-});
-
-test("It hides examples when there are results", async () => {
-  const resultsStore = mockResults([
-    {
-      day: undefined,
-      results: [{ key: 0, date: undefined, roll: false, result: [] }],
-    },
-  ]);
-
-  const result = render(FormulaForm, { resultsStore });
-
-  expect(result.container).not.toHaveTextContent("Examples:");
+  expect(result.container).toHaveTextContent(
+    "Type in your roll using standard D&D notation."
+  );
 });
 
 test("It hides examples when there are errors", async () => {
@@ -162,18 +151,7 @@ test("It hides examples when there are errors", async () => {
   await userEvent.type(field, "d");
   await fireEvent.click(result.getByText("Roll"));
 
-  expect(result.container).not.toHaveTextContent("Examples:");
-});
-
-test("It rolls an example when you click it", async () => {
-  const resultsStore = mockResults([]);
-
-  const result = render(FormulaForm, { resultsStore });
-  await fireEvent.click(result.getByText("d20 + 2"));
-
-  expect(resultsStore.append).toBeCalledWith([
-    { type: "roll", count: 1, sides: 20, value: [20] },
-    { type: "number", value: 2 },
-  ]);
-  expectFieldToBeSelected(result.getByRole("textbox") as HTMLTextAreaElement);
+  expect(result.container).not.toHaveTextContent(
+    "Type in your roll using standard D&D notation."
+  );
 });

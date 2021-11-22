@@ -120,19 +120,18 @@
     flex-shrink: 0;
   }
 
+  .instructions,
   .error-message {
     padding: 0.3em 0;
-    font-size: 0.833em;
+  }
+
+  .error-message {
     color: var(--red);
   }
 
   .error-message::before {
     content: "⚠️";
     padding-right: 0.25em;
-  }
-
-  .examples {
-    padding-top: 1em;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -164,17 +163,14 @@
     <button type="submit">Roll</button>
   </div>
   {#if errorMessage}
-    <div class="error-message">{errorMessage}</div>
-  {:else if $resultsStore.groups.length === 0}
-    <div class="examples">
-      {"Examples: "}
-      <button class="show-as-link" on:click="{() => (textValue = 'd20 + 2')}">
-        d20 + 2
-      </button>
-      {" or "}
-      <button class="show-as-link" on:click="{() => (textValue = 'd8 + d6')}">
-        d8 + d6
-      </button>
+    <div class="error-message">
+      {errorMessage}{" "}<a href="/help">(Help!)</a>
+    </div>
+  {:else}
+    <div class="instructions">
+      Type in your roll using standard D&D notation.{" "}<a href="/help"
+        >(What does this mean?)</a
+      >
     </div>
   {/if}
 </form>

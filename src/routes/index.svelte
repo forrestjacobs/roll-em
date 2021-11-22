@@ -4,7 +4,7 @@
   import { getPersonalResultsStore } from "../stores";
   import FormulaForm from "../ui/FormulaForm.svelte";
   import LoadingSection from "../ui/LoadingSection.svelte";
-  import ResultList from "../ui/ResultList.svelte"; // bad
+  import ResultList from "../ui/ResultList.svelte";
 </script>
 
 <script lang="ts">
@@ -26,14 +26,6 @@
 <svelte:head>
   <title>Roll 'Em</title>
 </svelte:head>
-
-<div class="header">
-  <p>
-    {"Enter the dice you want to roll using "}
-    <a href="https://en.wikipedia.org/wiki/Dice_notation">dice notation</a>
-    {" and press "}<em>Roll</em>
-  </p>
-</div>
 
 {#if resultsStore !== undefined}
   <FormulaForm resultsStore="{resultsStore}" />
