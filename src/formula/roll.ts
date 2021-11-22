@@ -1,24 +1,22 @@
-import type {
-  Formula,
-  FormulaTerm,
-  Result,
-  ResultTerm,
-  RollPlan,
-} from "./types";
+import type { Formula, Result, RollPlan } from "./types";
 import { randomInt } from "../utils/rng";
 
-function rollDice({ count, sides }: RollPlan): number[] {
+type Roller = (sides: number) => number;
+
+function randomSide(sides: number): number {
+  return randomInt(sides) + 1;
+}
+
+function rollDice({ count, sides }: RollPlan, roller: Roller): number[] {
   const value = [];
   for (let rollIndex = 0; rollIndex < count; rollIndex++) {
-    value.push(randomInt(sides) + 1);
+    value.push(roller(sides));
   }
   return value;
 }
 
-function rollTerm(term: FormulaTerm): ResultTerm {
-  return term.type === "number" ? term : { value: rollDice(term), ...term };
-}
-
-export function roll(formula: Formula): Result {
-  return formula.map(rollTerm);
+export function roll(formula: Formula, roller: Roller = randomSide): Result {
+  return formula.map((term) =>
+    term.type === "number" ? term : { value: rollDice(term, roller), ...term }
+  );
 }
