@@ -1,4 +1,5 @@
-<script>
+<script lang="ts" context="module">
+  import Breadcrumbs from "../ui/Breadcrumbs.svelte";
   import Example from "../ui/Example.svelte";
   import FormattedValue from "../ui/FormattedValue.svelte";
 </script>
@@ -26,6 +27,13 @@
 <svelte:head>
   <title>Help - Roll 'Em</title>
 </svelte:head>
+
+<Breadcrumbs
+  path="{[
+    { href: '/', name: 'Home' },
+    { href: '/help/', name: 'Help' },
+  ]}"
+/>
 
 <div class="header">
   <h2>What can I type to roll dice?</h2>
