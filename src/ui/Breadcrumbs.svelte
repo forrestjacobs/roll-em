@@ -10,9 +10,16 @@
 </script>
 
 <style>
+  nav {
+    background: linear-gradient(var(--lightest), var(--white));
+    background-size: 100% 300%;
+    border-bottom: 2px solid var(--light);
+    margin-bottom: 2em;
+  }
+
   ol {
-    margin: 1em;
-    padding: 0;
+    margin: 0;
+    padding: 1em;
     list-style: none;
   }
 
