@@ -27,9 +27,9 @@
       --darkest: #eee;
       --black: #fff;
 
-      --brand: #d6d;
-      --red: #c65;
-      --green: #0a9;
+      --brand: #f9f;
+      --red: #f87;
+      --green: #2db;
     }
   }
 
@@ -41,10 +41,11 @@
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
 
-  a:not([aria-current="location"]),
+  a,
   button.show-as-link {
     color: var(--brand);
-    text-decoration: underline var(--medium) 2px;
+    text-decoration: underline var(--medium) 1px;
+    font-weight: bold;
   }
 
   a[aria-current="location"],
@@ -102,7 +103,7 @@
 <h1>
   <a href="/" aria-current="{$page.path === '/' ? 'location' : undefined}">
     <img src="/logo.svg" alt="" width="40" height="40" />
-  {" "}
+    {" "}
     Roll 'Em
   </a>
 </h1>
