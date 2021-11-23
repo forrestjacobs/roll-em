@@ -47,7 +47,8 @@
     text-decoration: underline var(--medium) 2px;
   }
 
-  a[aria-current="location"] {
+  a[aria-current="location"],
+  h1 a {
     color: inherit;
     text-decoration: none;
   }
@@ -101,9 +102,7 @@
 <h1>
   <a href="/" aria-current="{$page.path === '/' ? 'location' : undefined}">
     <img src="/logo.svg" alt="" width="40" height="40" />
-  </a>
   {" "}
-  <a href="/" aria-current="{$page.path === '/' ? 'location' : undefined}">
     Roll 'Em
   </a>
 </h1>
