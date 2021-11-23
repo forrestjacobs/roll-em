@@ -41,7 +41,8 @@
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
 
-  a:not([aria-current="location"]), button.show-as-link {
+  a:not([aria-current="location"]),
+  button.show-as-link {
     color: var(--brand);
     text-decoration: underline var(--medium) 2px;
   }

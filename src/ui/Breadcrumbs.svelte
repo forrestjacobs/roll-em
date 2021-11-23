@@ -20,7 +20,7 @@
     display: inline;
   }
 
-  li+li:before {
+  li + li:before {
     content: "\2192";
     margin: 0 0.5em;
   }
