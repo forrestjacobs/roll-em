@@ -31,7 +31,7 @@
 <Breadcrumbs
   path="{[
     { href: '/', name: 'Home' },
-    { href: '/help/', name: 'Help' },
+    { href: '/help', name: 'Help' },
   ]}"
 />
 
