@@ -3,15 +3,7 @@
   import { onMount, tick } from "svelte";
   import FormattedValue from "./FormattedValue.svelte";
   import { parse, roll } from "../formula";
-
-  let classByCharacter: { [char: string]: string } = {};
-  function registerClass(name: string, charset: string) {
-    for (const c of charset) {
-      classByCharacter[c] = name;
-    }
-  }
-  registerClass("num", "0123456789%");
-  registerClass("d", "dD");
+  import type { PegjsError } from "pegjs";
 </script>
 
 <script lang="ts">
