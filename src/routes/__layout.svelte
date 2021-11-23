@@ -1,3 +1,7 @@
+<script lang="ts" context="module">
+  import { page } from "$app/stores";
+</script>
+
 <style global>
   :root {
     --white: #fff;
@@ -37,20 +41,22 @@
       Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   }
 
-  a {
+  a:not([aria-current="location"]), button.show-as-link {
     color: var(--brand);
+    text-decoration: underline var(--medium) 2px;
+  }
+
+  a[aria-current="location"] {
+    color: inherit;
     text-decoration: none;
-    border-bottom: 2px solid var(--medium);
   }
 
   button.show-as-link {
     background: none !important;
     border: none;
-    border-bottom: 2px solid var(--medium);
     padding: 0 !important;
     font-size: 1em;
     font-family: unset;
-    color: var(--brand);
     cursor: pointer;
   }
 
@@ -87,7 +93,11 @@
   }
 </style>
 
-<h1>Roll 'Em</h1>
+<h1>
+  <a href="/" aria-current="{$page.path === '/' ? 'location' : undefined}"
+    >Roll 'Em</a
+  >
+</h1>
 
 <slot />
 
