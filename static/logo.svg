@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="44" height="44" viewBox="-22 -22 44 44">
+<svg width="44" height="44" viewBox="-22 -22 44 44" xmlns="http://www.w3.org/2000/svg">
    <path stroke-linecap="round" stroke-linejoin="round" d="M17.928,10.226 L-1.203,9.841 L-0.543,21.737 Z" fill="rgb(10 40 76)" />
    <path stroke-linecap="round" stroke-linejoin="round" d="M-19.008,9.29 L-0.543,21.737 L-1.203,9.841 Z" fill="rgb(10 40 76)" />
    <path stroke-linecap="round" stroke-linejoin="round" d="M-0.543,21.737 L11.948,9.913 L17.928,10.226 Z" fill="rgb(26 100 129)" />
