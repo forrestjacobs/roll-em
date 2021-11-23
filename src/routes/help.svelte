@@ -8,15 +8,12 @@
   table {
     border-collapse: collapse;
     margin: 1em 0;
+    min-width: 100%;
   }
 
   th {
     text-align: left;
     padding: 0.25em 1em;
-  }
-
-  th.result {
-    padding-left: 0;
   }
 
   .header {
@@ -42,8 +39,8 @@
 <table>
   <thead>
     <tr>
-      <th scope="col" class="type">Type</th>
-      <th scope="col" class="result">Result</th>
+      <th scope="col">Type</th>
+      <th scope="col">Result</th>
     </tr>
   </thead>
   <Example value="d6 + 2">Rolls a six-sided die and adds two</Example>

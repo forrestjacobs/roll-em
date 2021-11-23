@@ -14,16 +14,21 @@
 
 <style>
   .type {
-    padding: 0.5em 0.75em;
+    padding: 0.5em;
   }
 
   .value {
     background: var(--white);
-    padding: 0.25em;
+    display: inline-block;
+    line-height: 2em;
+    font-weight: bold;
+    background: var(--white);
+    padding: 0 0.5em;
+    border-radius: 0.125em;
   }
 
   .result {
-    padding: 0.5em 1em 0.5em 0;
+    padding: 1em;
   }
 
   .caption {
@@ -34,9 +39,9 @@
 
 <tr>
   <td class="type">
-    <span class="value">
+    <div class="value">
       <FormattedValue value="{value}" />
-    </span>
+    </div>
   </td>
   <td class="result">
     <Result result="{roll(parse(value), maxRoller)}" animated="{false}" />
