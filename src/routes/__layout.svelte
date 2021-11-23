@@ -89,15 +89,23 @@
     font-size: 1.5em;
   }
 
+  h1 img {
+    vertical-align: -36%;
+  }
+
   .footer {
     padding: 6em 1em 1em 1em;
   }
 </style>
 
 <h1>
-  <a href="/" aria-current="{$page.path === '/' ? 'location' : undefined}"
-    >Roll 'Em</a
-  >
+  <a href="/" aria-current="{$page.path === '/' ? 'location' : undefined}">
+    <img src="/logo.svg" alt="" width="40" height="40" />
+  </a>
+  {" "}
+  <a href="/" aria-current="{$page.path === '/' ? 'location' : undefined}">
+    Roll 'Em
+  </a>
 </h1>
 
 <slot />
