@@ -106,13 +106,14 @@
     background-color: #636;
     font-size: 1em;
     color: #fff;
+    font-weight: bold;
     min-width: 8em;
     flex-shrink: 0;
   }
 
   .instructions,
   .error-message {
-    padding: 0.3em 0;
+    padding: 1em 0;
   }
 
   .error-message {

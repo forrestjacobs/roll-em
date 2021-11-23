@@ -78,7 +78,7 @@
   }
 
   h1 {
-    margin: 0.6667em 0.6667em 0 0.6667em;
+    margin: 0.6667em;
   }
 
   h2 {
@@ -102,7 +102,7 @@
 
 <h1>
   <a href="/" aria-current="{$page.path === '/' ? 'location' : undefined}">
-    <img src="/logo.svg" alt="" width="40" height="40" />
+    <img src="/logo.svg" alt="" width="44" height="44" />
     {" "}
     Roll 'Em
   </a>

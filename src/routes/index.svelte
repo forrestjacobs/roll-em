@@ -19,7 +19,7 @@
 
 <style>
   .loading-container {
-    height: 6.425em;
+    height: 7.125em;
   }
 </style>
 

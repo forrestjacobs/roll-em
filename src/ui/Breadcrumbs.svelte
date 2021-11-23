@@ -19,7 +19,7 @@
 
   ol {
     margin: 0;
-    padding: 1em;
+    padding: 0 1em 1em 1em;
     list-style: none;
   }
 
