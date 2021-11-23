@@ -45,12 +45,10 @@
       input.focus();
       input.select();
     } catch (e) {
-      if (e.message) {
+      if (e instanceof Error) {
         errorMessage = e.message;
-        errorIndex =
-          e.location !== undefined && e.location.start !== undefined
-            ? e.location.start.offset
-            : undefined;
+        const offset = (e as PegjsError)?.location?.start?.offset;
+        errorIndex = typeof offset === "number" ? offset : undefined;
       } else {
         throw e;
       }
