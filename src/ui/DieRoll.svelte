@@ -70,7 +70,7 @@
 </style>
 
 <span class="container" title="d{sides}">
-  {#if typeof window !== 'undefined'}
+  {#if typeof window !== "undefined"}
     <canvas
       class="illustration"
       width="{canvasRadius * 2}"
