@@ -10,6 +10,7 @@
 
 <script lang="ts">
   export let value: string;
+  export let result = roll(parse(value), maxRoller);
 </script>
 
 <style>
@@ -44,7 +45,7 @@
     </div>
   </td>
   <td class="result">
-    <Result result="{roll(parse(value), maxRoller)}" animated="{false}" />
+    <Result result="{result}" animated="{false}" />
   </td>
 </tr>
 <tr>

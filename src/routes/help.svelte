@@ -46,6 +46,21 @@
   <Example value="d6 + 2">Rolls a six-sided die and adds two</Example>
   <Example value="2d8">Rolls two eight-sided dice</Example>
   <Example value="d6 + d8">Rolls a six and eight-sided die</Example>
+  <Example
+    value="5d6d2"
+    result="{[
+      {
+        type: 'roll',
+        count: 5,
+        sides: 6,
+        dropLowest: 2,
+        value: [5, 3, 6, 2, 3],
+        droppedIndexes: [1, 3],
+      },
+    ]}"
+  >
+    Rolls five six-sided dice and drops the lowest two
+  </Example>
   <Example value="d4 + d6 + d8 + d10 + d12 + d20">
     Rolls standard D&D dice
   </Example>
