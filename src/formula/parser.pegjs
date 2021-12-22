@@ -30,8 +30,20 @@ NegativeValue
     { return { type: "number", value: -value }; }
 
 DiceValue
-  = count: Integer? _ D _ sides: Sides _
-    { return { type: "roll", count: count === null ? 1 : count, sides }; }
+  = count: Integer? _ D _ sides: Sides _ dropLowest: DropLowest?
+    {
+      const value = { type: "roll", count: count === null ? 1 : count, sides };
+      if (dropLowest !== null) {
+        value.dropLowest = dropLowest;
+      }
+      return value;
+    }
+
+DropLowest
+  = D _ value: Integer _
+    {
+      return value;
+    }
 
 Sides
   = Integer

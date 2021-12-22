@@ -9,6 +9,7 @@
   export let sides: number;
   export let value: number;
   export let animated: boolean;
+  export let drop: boolean;
 
   const canvasRadius = VALUE_RADIUS * (globalThis.devicePixelRatio ?? 1);
 
@@ -67,6 +68,23 @@
     text-shadow: 0 -1px 1px rgba(0, 0, 33, 0.25), 1px 0 1px rgba(0, 0, 33, 0.25),
       0 1px 1px rgba(0, 0, 33, 0.25), -1px 0 1px rgba(0, 0, 33, 0.25);
   }
+
+  s.value {
+    text-decoration: none;
+  }
+
+  /* Thanks to https://stackoverflow.com/a/18920667 */
+  s.value::after {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    content: "\274c\fe0e";
+    color: #000;
+    opacity: 0.75;
+    text-shadow: none;
+  }
 </style>
 
 <span class="container" title="d{sides}">
@@ -81,5 +99,13 @@
     <span class="shadow" style="background:{getColor(sides)}" aria-hidden="true"
     ></span>
   {/if}
-  <span class="value" bind:this="{valueEl}">{value}</span>
+  {#if drop}
+    <s class="value" bind:this="{valueEl}">
+      {value}
+    </s>
+  {:else}
+    <span class="value" bind:this="{valueEl}">
+      {value}
+    </span>
+  {/if}
 </span>

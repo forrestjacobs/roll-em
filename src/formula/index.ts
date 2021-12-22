@@ -3,6 +3,7 @@ import type { Formula } from "./types";
 import { validate } from "./validate";
 
 export { roll } from "./roll";
+export { rollValues } from "./rollValues";
 export { sum } from "./sum";
 export * from "./types";
 

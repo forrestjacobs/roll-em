@@ -33,6 +33,7 @@
     "pegjs": "^0.10.0",
     "prettier": "^2.2.1",
     "prettier-plugin-svelte": "^2.2.0",
+    "quickselect": "^2.0.0",
     "svelte": "^3.31.1",
     "svelte-check": "^2.1.0",
     "svelte-jester": "^1.4.0",

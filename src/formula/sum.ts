@@ -1,18 +1,24 @@
-import type { Result, ResultTerm } from "./types";
+import { rollValues } from "./rollValues";
+import type { Result, ResultTerm, RollValue } from "./types";
 
 /*@__PURE__*/
-function sumMap<T>(array: T[], mapper: (value: T) => number): number {
-  return array.reduce((acc, value) => acc + mapper(value), 0);
+function sumMap<T>(iter: Iterable<T>, mapper: (value: T) => number): number {
+  let sum = 0;
+  for (const value of iter) {
+    sum += mapper(value);
+  }
+  return sum;
 }
 
 /*@__PURE__*/
-function id<T>(arg: T): T {
-  return arg;
+function sumValue(rollValue: RollValue): number {
+  return rollValue.drop ? 0 : rollValue.value;
 }
 
-/*@__PURE__*/
 function sumTerm(term: ResultTerm): number {
-  return term.type === "number" ? term.value : sumMap(term.value, id);
+  return term.type === "number"
+    ? term.value
+    : sumMap(rollValues(term), sumValue);
 }
 
 /*@__PURE__*/

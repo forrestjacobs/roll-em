@@ -32,6 +32,12 @@ test("It interprets percent sign as 100-sided", () => {
   ]);
 });
 
+test("It can parse a formula with dropped rolls", () => {
+  expect(parser.parse("5d6d2")).toStrictEqual([
+    { type: "roll", count: 5, sides: 6, dropLowest: 2 },
+  ]);
+});
+
 test("It can parse multiple terms", () => {
   expect(parser.parse("2d4 + 5")).toStrictEqual([
     { type: "roll", count: 2, sides: 4 },
@@ -56,6 +62,10 @@ test("It can parse weird whitespace", () => {
 test("It throws when sides not specified", () => {
   expect(() => parser.parse("2d")).toThrow();
   expect(() => parser.parse("d")).toThrow();
+});
+
+test("It throws when dropped roll number is missing", () => {
+  expect(() => parser.parse("5d6d")).toThrow();
 });
 
 test("It throws on dice subtraction", () => {

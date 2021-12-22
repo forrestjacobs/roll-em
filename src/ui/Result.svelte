@@ -1,5 +1,6 @@
 <script lang="ts" context="module">
-  import type { Result, ResultTerm } from "../formula";
+  import type { Result, ResultTerm, RollTerm, RollValue } from "../formula";
+  import { rollValues } from "../formula";
   import DieRoll from "./DieRoll.svelte";
 
   const MAX_DICE_TO_SHOW_PER_TERM = 15;
@@ -11,6 +12,21 @@
       : termIndex === 0
       ? undefined
       : "+";
+  }
+
+  function rollIter(term: RollTerm): RollValue[] {
+    let index = 0;
+    let result: RollValue[] = [];
+
+    for (const value of rollValues(term)) {
+      result.push(value);
+      index++;
+      if (index === MAX_DICE_TO_SHOW_PER_TERM) {
+        break;
+      }
+    }
+
+    return result;
   }
 </script>
 
@@ -57,9 +73,14 @@
     {#if term.type === "number"}
       <span class="number">{Math.abs(term.value)}</span>
     {:else}
-      {#each term.value.slice(0, MAX_DICE_TO_SHOW_PER_TERM) as value, valueIndex}
-        {#if valueIndex !== 0}<span class="dice-operator">{" + "}</span>{/if}
-        <DieRoll sides="{term.sides}" value="{value}" animated="{animated}" />
+      {#each rollIter(term) as { value, drop }, rollIndex}
+        {#if rollIndex !== 0}<span class="dice-operator">{" + "}</span>{/if}
+        <DieRoll
+          sides="{term.sides}"
+          value="{value}"
+          animated="{animated}"
+          drop="{drop}"
+        />
       {/each}
       {#if term.value.length > MAX_DICE_TO_SHOW_PER_TERM}
         <span class="overflow">
