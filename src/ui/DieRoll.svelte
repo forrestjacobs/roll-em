@@ -76,14 +76,17 @@
   /* Thanks to https://stackoverflow.com/a/18920667 */
   s.value::after {
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 32px;
-    height: 32px;
-    content: "\274c\fe0e";
-    color: #000;
+    left: 2px;
+    top: 15px;
+    width: 28px;
+    height: 2px;
+    content: "";
+    background: #000;
     opacity: 0.75;
-    text-shadow: none;
+  }
+
+  s.value::after {
+    rotate: 45deg;
   }
 </style>
 
