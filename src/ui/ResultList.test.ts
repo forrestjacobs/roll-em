@@ -33,6 +33,10 @@ function mockResults(
   };
 }
 
+beforeAll(() => {
+  Element.prototype.scrollIntoView = jest.fn();
+});
+
 test("it renders an empty list", () => {
   const resultsStore = mockResults([]);
   const { container } = render(ResultList, { resultsStore });

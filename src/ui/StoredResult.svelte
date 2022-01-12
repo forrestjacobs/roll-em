@@ -16,6 +16,12 @@
 
 <script lang="ts">
   export let record: StoredResult;
+
+  function scrollIntoView(element: Element) {
+    if (record.roll) {
+      element.scrollIntoView(false);
+    }
+  }
 </script>
 
 <style>
@@ -52,7 +58,7 @@
   }
 </style>
 
-<div class="result">
+<div class="result" use:scrollIntoView>
   <span class="sum">{sum(record.result)}</span>
   <span class="equals">{" = "}</span>
   <Result result="{record.result}" animated="{record.roll}" />
