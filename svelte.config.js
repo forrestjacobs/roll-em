@@ -49,6 +49,12 @@ export default {
           },
         },
       ],
+      server: {
+        hmr: {
+          // Set this to your dev environment's proxy port
+          clientPort: process.env.VITE_CLIENT_PORT
+        },
+      },
     },
   },
 };
