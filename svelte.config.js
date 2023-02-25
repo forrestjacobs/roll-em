@@ -1,7 +1,6 @@
 import { minify } from "html-minifier";
 import adapter from "@sveltejs/adapter-static";
 import sveltePreprocess from "svelte-preprocess";
-import pegjs from "pegjs";
 
 /** @type {import('@sveltejs/kit').Config} */
 export default {
@@ -26,35 +25,5 @@ export default {
   ],
   kit: {
     adapter: adapter(),
-
-    // hydrate the <div id="svelte"> element in src/app.html
-    target: "#app",
-
-    vite: {
-      define: {
-        "process.env.BUILD_YEAR": `${new Date().getFullYear()}`,
-      },
-      plugins: [
-        {
-          transform(source, id) {
-            if (!id.endsWith(".pegjs")) {
-              return null;
-            }
-            return pegjs
-              .generate(source, {
-                format: "commonjs",
-                output: "source",
-              })
-              .replace("module.exports", "export const { SyntaxError, parse }");
-          },
-        },
-      ],
-      server: {
-        hmr: {
-          // Set this to your dev environment's proxy port
-          clientPort: process.env.VITE_CLIENT_PORT
-        },
-      },
-    },
   },
 };

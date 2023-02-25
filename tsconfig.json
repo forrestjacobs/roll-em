@@ -16,9 +16,9 @@
     "forceConsistentCasingInFileNames": true,
 
     /**
-			svelte-preprocess cannot figure out whether you have a value or a type, so tell TypeScript
-			to enforce using \`import type\` instead of \`import\` for Types.
-			*/
+      svelte-preprocess cannot figure out whether you have a value or a type, so tell TypeScript
+      to enforce using \`import type\` instead of \`import\` for Types.
+      */
     "importsNotUsedAsValues": "error",
     "isolatedModules": true,
     "resolveJsonModule": true,
@@ -26,10 +26,14 @@
     "allowJs": true,
     "checkJs": true,
     "paths": {
-      "$app/*": [".svelte-kit/dev/runtime/app/*", ".svelte-kit/build/runtime/app/*"],
+      "$app/*": [
+        ".svelte-kit/dev/runtime/app/*",
+        ".svelte-kit/build/runtime/app/*"
+      ],
       "$service-worker": [".svelte-kit/build/runtime/service-worker"],
       "$lib/*": ["src/lib/*"]
     }
   },
-  "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"]
+  "include": ["src/**/*.d.ts", "src/**/*.js", "src/**/*.ts", "src/**/*.svelte"],
+  "extends": "./.svelte-kit/tsconfig.json"
 }

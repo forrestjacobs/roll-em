@@ -2,11 +2,8 @@ import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/svelte";
 import userEvent from "@testing-library/user-event";
 import type { Formula } from "../formula";
-import {
-  GroupedResults,
-  ResultsStore,
-  RESULTS_STORE_HAS_NO_MORE,
-} from "../stores";
+import type { GroupedResults, ResultsStore } from "../stores";
+import { RESULTS_STORE_HAS_NO_MORE } from "../stores";
 import FormulaForm from "./FormulaForm.svelte";
 
 const resultd6 = [{ type: "roll", count: 1, sides: 6, value: [6] }];

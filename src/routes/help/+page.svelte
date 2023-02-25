@@ -1,7 +1,7 @@
 <script lang="ts" context="module">
-  import Breadcrumbs from "../ui/Breadcrumbs.svelte";
-  import Example from "../ui/Example.svelte";
-  import FormattedValue from "../ui/FormattedValue.svelte";
+  import Breadcrumbs from "../../ui/Breadcrumbs.svelte";
+  import Example from "../../ui/Example.svelte";
+  import FormattedValue from "../../ui/FormattedValue.svelte";
 </script>
 
 <style>

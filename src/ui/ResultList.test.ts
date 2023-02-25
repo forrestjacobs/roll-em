@@ -1,13 +1,12 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render } from "@testing-library/svelte";
-import {
+import type {
   ClearableResultsStore,
   GroupedResults,
   ResultsStore,
   ResultsStoreState,
-  RESULTS_STORE_HAS_MORE,
-  RESULTS_STORE_HAS_NO_MORE,
 } from "../stores";
+import { RESULTS_STORE_HAS_MORE, RESULTS_STORE_HAS_NO_MORE } from "../stores";
 import MockResult from "./MockResult.svelte";
 import ResultList from "./ResultList.svelte";
 

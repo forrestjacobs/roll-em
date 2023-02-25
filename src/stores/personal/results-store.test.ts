@@ -1,10 +1,12 @@
 import "fake-indexeddb/auto";
 import FDBFactory from "fake-indexeddb/lib/FDBFactory";
 import type { Result } from "../../formula";
-import {
+import type {
   ClearableResultsStore,
   ResultsStore,
   ResultsStoreValue,
+} from "../types";
+import {
   RESULTS_STORE_HAS_MORE,
   RESULTS_STORE_HAS_NO_MORE,
   RESULTS_STORE_LOADING,

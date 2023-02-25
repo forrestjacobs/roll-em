@@ -101,7 +101,10 @@
 </style>
 
 <h1>
-  <a href="/" aria-current="{$page.path === '/' ? 'location' : undefined}">
+  <a
+    href="/"
+    aria-current="{$page.url.pathname === '/' ? 'location' : undefined}"
+  >
     <img src="/logo.svg" alt="" width="44" height="44" />
     {" "}
     Roll 'Em
