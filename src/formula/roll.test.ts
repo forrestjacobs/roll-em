@@ -1,4 +1,3 @@
-import { mocked } from "ts-jest/utils";
 import { randomInt } from "../utils/rng";
 import { roll } from "./roll";
 import type { NumberTerm, RollPlan } from "./types";
@@ -41,7 +40,7 @@ test("It passes number literals through", () => {
 });
 
 test("It can roll dice", () => {
-  mocked(randomInt).mockImplementation((n) => n - 1);
+  jest.mocked(randomInt).mockImplementation((n) => n - 1);
   expect(roll([term2d4])).toStrictEqual([
     {
       ...term2d4,
@@ -51,7 +50,8 @@ test("It can roll dice", () => {
 });
 
 test("It can drop dice", () => {
-  mocked(randomInt)
+  jest
+    .mocked(randomInt)
     .mockImplementationOnce(() => 4)
     .mockImplementationOnce(() => 2)
     .mockImplementationOnce(() => 5)
@@ -78,7 +78,7 @@ test("It can handle more dropped than rolled dice", () => {
 });
 
 test("It roll dice from a combined formula", () => {
-  mocked(randomInt).mockImplementation((n) => n - 1);
+  jest.mocked(randomInt).mockImplementation((n) => n - 1);
   expect(roll([term2d4, term2, term3d6])).toStrictEqual([
     {
       ...term2d4,

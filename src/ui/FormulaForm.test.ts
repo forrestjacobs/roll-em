@@ -123,7 +123,7 @@ test("It clears errors on the next roll", async () => {
   await userEvent.type(field, "loc");
   await fireEvent.click(button);
 
-  userEvent.clear(field);
+  await userEvent.clear(field);
   await userEvent.type(field, "d6");
   await fireEvent.click(button);
 

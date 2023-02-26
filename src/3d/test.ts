@@ -1,4 +1,3 @@
-import { mocked } from "ts-jest/utils";
 import { animate, render } from ".";
 import { random, randomInt } from "../utils/rng";
 import { renderCanvas, renderValue } from "./render";
@@ -38,12 +37,13 @@ test("It can render a static scene", () => {
   const getSceneDieRenderer = jest.fn<DieRenderer, [number, number, number]>(
     () => dieRenderer
   );
-  mocked(getScene).mockImplementation(() => ({
+  jest.mocked(getScene).mockImplementation(() => ({
     color: "#ff0000",
     faceRadius: 4,
     getDieRenderer: getSceneDieRenderer,
   }));
-  mocked(random)
+  jest
+    .mocked(random)
     .mockImplementationOnce(() => 0.3)
     .mockImplementationOnce(() => 0.6)
     .mockImplementationOnce(() => 0.9);
@@ -74,17 +74,20 @@ test("It can animate a scene", () => {
   const getSceneDieRenderer = jest.fn<DieRenderer, [number, number, number]>(
     () => dieRenderer
   );
-  mocked(getScene).mockImplementation(() => ({
+  jest.mocked(getScene).mockImplementation(() => ({
     color: "#ff0000",
     faceRadius: 4,
     getDieRenderer: getSceneDieRenderer,
   }));
-  mocked(renderCanvas).mockImplementation((_, _2, _3, r) => [3, 0, 7, 2 - r]);
-  mocked(random)
+  jest
+    .mocked(renderCanvas)
+    .mockImplementation((_, _2, _3, r) => [3, 0, 7, 2 - r]);
+  jest
+    .mocked(random)
     .mockImplementationOnce(() => 0.3)
     .mockImplementationOnce(() => 0.6)
     .mockImplementationOnce(() => 0.9);
-  mocked(randomInt).mockImplementationOnce(() => 0);
+  jest.mocked(randomInt).mockImplementationOnce(() => 0);
   const valueEl = document.createElement("div");
 
   animate(6, 10, canvas, 8, valueEl);
@@ -114,14 +117,14 @@ test("It can animate a scene", () => {
   jest.runAllTimers();
   expect(requestAnimationFrame).toBeCalledTimes(3);
 
-  expect(mocked(renderCanvas).mock.calls[0][3]).toBeCloseTo(2);
-  expect(mocked(renderCanvas).mock.calls[1][3]).toBeCloseTo(0.128);
-  expect(mocked(renderCanvas).mock.calls[2][3]).toBeCloseTo(0);
-  expect(mocked(context.clearRect).mock.calls[0]).toEqual([3, 0, 7, 0]);
-  expect(mocked(context.clearRect).mock.calls[1][3]).toBeCloseTo(1.872);
-  expect(mocked(renderValue).mock.calls[1][3]).toBeCloseTo(2);
-  expect(mocked(renderValue).mock.calls[2][3]).toBeCloseTo(0.128);
-  expect(mocked(renderValue).mock.calls[3][3]).toBeCloseTo(0);
+  expect(jest.mocked(renderCanvas).mock.calls[0][3]).toBeCloseTo(2);
+  expect(jest.mocked(renderCanvas).mock.calls[1][3]).toBeCloseTo(0.128);
+  expect(jest.mocked(renderCanvas).mock.calls[2][3]).toBeCloseTo(0);
+  expect(jest.mocked(context.clearRect).mock.calls[0]).toEqual([3, 0, 7, 0]);
+  expect(jest.mocked(context.clearRect).mock.calls[1][3]).toBeCloseTo(1.872);
+  expect(jest.mocked(renderValue).mock.calls[1][3]).toBeCloseTo(2);
+  expect(jest.mocked(renderValue).mock.calls[2][3]).toBeCloseTo(0.128);
+  expect(jest.mocked(renderValue).mock.calls[3][3]).toBeCloseTo(0);
 
   raf.mockRestore();
 });

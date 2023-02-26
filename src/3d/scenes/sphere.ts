@@ -23,7 +23,7 @@ function pathHemisphere(
 export const sphereScene: Scene = {
   color: GREEN0,
   faceRadius: BASE_FACE_RADIUS,
-  getDieRenderer(x, y, z) {
+  getDieRenderer(x, _, z) {
     return (context, rotX) => {
       const radiusY = Math.cos(DEFAULT_X + x + rotX);
       context.fillStyle = GREEN_D1;

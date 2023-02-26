@@ -3,5 +3,7 @@ const { generate } = require("pegjs");
 const pegjsOptions = { format: "commonjs", output: "source" };
 
 module.exports = {
-  process: (source) => generate(source, pegjsOptions),
+  process: (source) => ({
+    code: generate(source, pegjsOptions),
+  }),
 };

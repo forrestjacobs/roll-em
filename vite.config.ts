@@ -1,15 +1,16 @@
 import { sveltekit } from "@sveltejs/kit/vite";
 import pegjs from "pegjs";
+import type { UserConfig } from "vite";
 
-/** @type {import("vite").UserConfig} */
-const config = {
+const config: UserConfig = {
   define: {
     "process.env.BUILD_YEAR": `${new Date().getFullYear()}`,
   },
   plugins: [
     sveltekit(),
     {
-      transform(source, id) {
+      name: "PEG",
+      transform(source: string, id: string): string | null {
         if (!id.endsWith(".pegjs")) {
           return null;
         }
@@ -22,12 +23,6 @@ const config = {
       },
     },
   ],
-  server: {
-    hmr: {
-      // Set this to your dev environment's proxy port
-      clientPort: process.env.VITE_CLIENT_PORT,
-    },
-  },
 };
 
 export default config;
