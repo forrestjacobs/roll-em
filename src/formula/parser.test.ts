@@ -14,6 +14,18 @@ test("It can parse a basic dice formula", () => {
   ]);
 });
 
+test("It can parse a basic dice formula with /r", () => {
+  expect(parser.parse("/r 2d4")).toStrictEqual([
+    { type: "roll", count: 2, sides: 4 },
+  ]);
+});
+
+test("It can parse a basic dice formula with /roll", () => {
+  expect(parser.parse("/roll 2d4")).toStrictEqual([
+    { type: "roll", count: 2, sides: 4 },
+  ]);
+});
+
 test("It ignores case", () => {
   expect(parser.parse("2D4")).toStrictEqual([
     { type: "roll", count: 2, sides: 4 },

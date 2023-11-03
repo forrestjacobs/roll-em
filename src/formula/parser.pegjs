@@ -1,9 +1,11 @@
 Formula
-  = _ head: HeadTerm tail: TailTerm*
+  = _ Prefix head: HeadTerm tail: TailTerm*
     {
       tail.unshift(head);
       return tail;
     }
+
+Prefix = (("/")? ("roll" / "r") _)?
 
 HeadTerm
   = ("+" _)? value: DiceValue
