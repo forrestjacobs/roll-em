@@ -1,3 +1,4 @@
+.direnv
 .svelte-kit
 build
 coverage
